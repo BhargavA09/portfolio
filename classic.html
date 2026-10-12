@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhargav Patel — Full-Stack Software Engineer</title>
+<meta name="description" content="Bhargav Patel is a Full-Stack Software Engineer based in Windsor, Ontario. React, Node.js, TypeScript, .NET/C#, Python, SQL. Open to remote roles across Canada.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bhargav Patel — Full-Stack Software Engineer">
+<meta property="og:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Based in Windsor, Ontario — available immediately, open to remote across Canada.">
+<meta property="og:url" content="https://portfolio-two-sand-mka2npx5wd.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bhargav Patel — Full-Stack Software Engineer">
+<meta name="twitter:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Available immediately, open to remote across Canada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="brand"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-sec="about">about</a>
+      <a href="#skills" data-sec="skills">skills</a>
+      <a href="#projects" data-sec="projects">projects</a>
+      <a href="#experience" data-sec="experience">experience</a>
+      <a href="#education" data-sec="education">education</a>
+      <a href="#contact" data-sec="contact" class="nav-cta">contact</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header id="hero">
+  <canvas id="candles"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="status-pill reveal"><span class="pulse"></span> Available immediately · Open to remote across Canada</div>
+    <p class="hero-kicker mono reveal">$ whoami</p>
+    <h1 class="reveal">Bhargav <span class="grad">Patel</span></h1>
+    <p class="hero-role mono reveal"><span id="typed"></span><span class="caret">▌</span></p>
+    <p class="hero-sub reveal">Full-stack engineer building real-time, data-driven products — from AI trading platforms to production systems that never sleep. Windsor, Ontario.</p>
+    <div class="hero-btns reveal">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-meta mono reveal">
+      <span>github.com/BhargavA09</span><span class="dot">·</span>
+      <span>linkedin.com/in/bhrgavpatel</span>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack">
+      <span>React 19</span><span>TypeScript</span><span>Node.js</span><span>C# / ASP.NET Core</span><span>Python</span><span>SQL Server</span><span>MongoDB</span><span>Redis</span><span>Docker</span><span>Azure</span><span>AWS</span><span>WebSockets</span><span>Microservices</span><span>Google Gemini</span><span>RAG</span><span>Tailwind CSS</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat about.md</p>
+    <h2 class="sec-title reveal">Engineer first. <span class="grad">Operator always.</span></h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a full-stack software engineer with <strong>3+ years</strong> of experience shipping across React, Node.js, TypeScript, and .NET/C#. I hold an <strong>M.Eng in Electrical and Computer Engineering</strong> from the University of Windsor and I'm based in <strong>Windsor, Ontario</strong> — open to remote roles across Canada.</p>
+        <p>By day I keep production technology running at McDonald's Windsor as an <strong>IT Systems Manager</strong> — 99.9% uptime across 1,000+ daily transactions. By night I build <strong>QuantLab</strong>, an AI-driven trading intelligence platform with real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics.</p>
+        <p>I care about systems that are measurable: latency cut, uptime sustained, revenue shipped. If it can't be measured, it can't be improved.</p>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><span class="stat-num" data-count="3" data-suffix="+">0</span><span class="stat-label">Years engineering</span></div>
+        <div class="stat"><span class="stat-num" data-count="12" data-suffix="+">0</span><span class="stat-label">Apps shipped to production</span></div>
+        <div class="stat"><span class="stat-num" data-count="99.9" data-decimals="1" data-suffix="%">0</span><span class="stat-label">Production uptime sustained</span></div>
+        <div class="stat"><span class="stat-num" data-count="68" data-suffix="%">0</span><span class="stat-label">API latency cut (best)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ ls ./stack</p>
+    <h2 class="sec-title reveal">The <span class="grad">stack.</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">⌁</span> Languages</h3>
+        <div class="tags"><span>C#</span><span>TypeScript</span><span>JavaScript (ES6+)</span><span>Python</span><span>SQL (T-SQL)</span><span>HTML5</span><span>CSS3</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">⚙</span> Backend</h3>
+        <div class="tags"><span>ASP.NET Core</span><span>Node.js</span><span>Express</span><span>NestJS</span><span>RESTful APIs</span><span>Microservices</span><span>WebSockets</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">◈</span> Frontend</h3>
+        <div class="tags"><span>React 19</span><span>Redux</span><span>Tailwind CSS</span><span>Responsive Design</span><span>Vite</span><span>Capacitor</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">▤</span> Data</h3>
+        <div class="tags"><span>SQL Server</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Query Tuning</span><span>Stored Procedures</span><span>Data Pipelines</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">☁</span> Cloud &amp; DevOps</h3>
+        <div class="tags"><span>Microsoft Azure</span><span>AWS</span><span>Docker</span><span>CI/CD (GitHub Actions)</span><span>Azure DevOps</span><span>Git</span><span>Vercel</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">✦</span> AI / LLM</h3>
+        <div class="tags"><span>Google Gemini 1.5 Pro</span><span>RAG</span><span>Prompt Engineering</span><span>Predictive Analytics</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<section id="projects">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ ./deploy --showcase</p>
+    <h2 class="sec-title reveal">Featured <span class="grad">projects.</span></h2>
+    <p class="sec-sub reveal">Live in production, not screenshots. Click through and use them.</p>
+
+    <article class="proj reveal" data-case="quantlab" tabindex="0" role="button" aria-label="Open QuantLab case study">
+      <div class="proj-visual quantlab">
+        <div class="mini-chart" id="miniChart"></div>
+        <div class="proj-badge mono">● LIVE</div>
+        <div class="proj-hint mono">▸ click for case study</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
+        <h3>QuantLab <span class="proj-sub">/ QuantTrade</span></h3>
+        <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
+        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
+        <div class="proj-links">
+          <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm">↗ Live App</a>
+          <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ GitHub Repo</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="proj reveal" data-case="netscanpro" tabindex="0" role="button" aria-label="Open Netscanpro case study">
+      <div class="proj-visual netscan">
+        <div class="radar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+        <div class="proj-badge mono">● LIVE</div>
+        <div class="proj-hint mono">▸ click for case study</div>
+      </div>
+      <div class="proj-body">
+        <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
+        <h3>Netscanpro</h3>
+        <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern dark UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
+        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
+        <div class="proj-links">
+          <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm">↗ Live App</a>
+          <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ GitHub Repo</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ══════════ GITHUB ══════════ -->
+<section id="github">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ gh stats --user BhargavA09</p>
+    <h2 class="sec-title reveal">Open source <span class="grad">footprint.</span></h2>
+    <p class="sec-sub reveal">Live from my public GitHub profile.</p>
+    <div class="gh-grid" id="ghGrid">
+      <div class="gh-card reveal">
+        <span class="gh-num mono" id="ghRepos">…</span>
+        <span class="stat-label">Public repositories</span>
+      </div>
+      <div class="gh-card reveal">
+        <span class="gh-num mono" id="ghFollowers">…</span>
+        <span class="stat-label">Followers</span>
+      </div>
+      <div class="gh-card gh-langs reveal">
+        <span class="gh-label mono">TOP LANGUAGES</span>
+        <div class="lang-bars" id="ghLangs"><p class="gh-fallback">Loading…</p></div>
+      </div>
+      <a class="gh-card gh-link reveal" href="https://github.com/BhargavA09" target="_blank" rel="noopener">
+        <span class="gh-num mono">⌨</span>
+        <span class="stat-label">github.com/BhargavA09 ↗</span>
+      </a>
+    </div>
+    <p class="gh-fallback mono" id="ghFallback" hidden>GitHub stats are unavailable right now — view the profile directly at <a href="https://github.com/BhargavA09" target="_blank" rel="noopener">github.com/BhargavA09</a>.</p>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ git log --career --oneline</p>
+    <h2 class="sec-title reveal">Experience <span class="grad">timeline.</span></h2>
+    <div class="timeline">
+
+      <div class="t-item reveal">
+        <div class="t-node"></div>
+        <div class="t-card">
+          <p class="t-date mono">2023 — PRESENT</p>
+          <h3>Independent Full-Stack Software Engineer</h3>
+          <p class="t-org">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</p>
+          <ul>
+            <li>Architected an AI platform end to end (database, API, UI), integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
+            <li>Built a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
+            <li>Engineered a Monte Carlo simulation engine in TypeScript forecasting outcomes with dynamic confidence intervals.</li>
+            <li>Built a multi-source real-time data pipeline using WebSockets with custom caching and memory-safe SQLite persistence.</li>
+          </ul>
+          <div class="tags"><span>TypeScript</span><span>React 19</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span></div>
+        </div>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-node"></div>
+        <div class="t-card">
+          <p class="t-date mono">MAY 2023 — PRESENT</p>
+          <h3>IT Systems Manager &amp; Operations Lead</h3>
+          <p class="t-org">McDonald's · Windsor, ON</p>
+          <ul>
+            <li>Own production technology operations across POS platforms, databases, and kitchen display systems — 99.9% uptime across 1,000+ daily transactions.</li>
+            <li>Architect SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%.</li>
+            <li>Design and tune SQL Server queries and database integrations supporting reporting, inventory, and operational data flows.</li>
+            <li>Triage production faults with root-cause analysis in a high-volume 24/7 environment, including after-hours response.</li>
+          </ul>
+          <div class="tags"><span>SQL Server</span><span>System Integrations</span><span>Production Triage</span><span>Automation</span></div>
+        </div>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-node"></div>
+        <div class="t-card">
+          <p class="t-date mono">NOV 2020 — NOV 2021</p>
+          <h3>Full-Stack Software Engineer</h3>
+          <p class="t-org">Edukite Learning · Vadodara, India</p>
+          <ul>
+            <li>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%.</li>
+            <li>Tuned SQL queries and added Redis caching, cutting API response times 68% (800ms → 250ms) on high-traffic endpoints.</li>
+            <li>Led migration to microservices, improving scalability 50% and halving page load times (2.4s → 1.2s).</li>
+          </ul>
+          <div class="tags"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Microservices</span></div>
+        </div>
+      </div>
+
+      <div class="t-item reveal">
+        <div class="t-node"></div>
+        <div class="t-card">
+          <p class="t-date mono">MAY 2019 — JUN 2020</p>
+          <h3>Full-Stack Software Engineer</h3>
+          <p class="t-org">Techie Computer · Anand, India</p>
+          <ul>
+            <li>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions.</li>
+            <li>Integrated 10+ third-party payment APIs (Stripe, PayPal) and shipping SDKs with robust error handling at 99.8% uptime.</li>
+            <li>Optimized MySQL schemas and indexing for 5,000+ SKU catalogs, improving product search 75% (2.5s → 0.6s).</li>
+          </ul>
+          <div class="tags"><span>React</span><span>MySQL</span><span>Stripe</span><span>E-commerce</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EDUCATION ══════════ -->
+<section id="education">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat education.txt</p>
+    <h2 class="sec-title reveal">Education<span class="grad">.</span></h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <p class="t-date mono">JAN 2022 — APR 2023</p>
+        <h3>Master of Engineering</h3>
+        <p class="t-org">Electrical and Computer Engineering · University of Windsor</p>
+        <p class="edu-loc mono">Windsor, Ontario, Canada</p>
+      </div>
+      <div class="edu-card reveal">
+        <p class="t-date mono">AUG 2016 — AUG 2020</p>
+        <h3>Bachelor of Engineering</h3>
+        <p class="t-org">Computer Engineering · Gujarat Technological University</p>
+        <p class="edu-loc mono">Ahmedabad, India</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ ./hire-me --now</p>
+    <h2 class="sec-title reveal">Let's build <span class="grad">something.</span></h2>
+    <p class="sec-sub reveal">Available immediately · Remote across Canada or on-site in Ontario.</p>
+    <div class="contact-grid">
+      <a class="contact-card reveal" href="mailto:bhrgavpatel04@gmail.com">
+        <span class="card-ico">✉</span>
+        <span class="c-label mono">EMAIL</span>
+        <span class="c-value">bhrgavpatel04@gmail.com</span>
+      </a>
+      <a class="contact-card reveal" href="tel:+16478579456">
+        <span class="card-ico">☎</span>
+        <span class="c-label mono">PHONE</span>
+        <span class="c-value">+1 (647) 857-9456</span>
+      </a>
+      <a class="contact-card reveal" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">
+        <span class="card-ico">in</span>
+        <span class="c-label mono">LINKEDIN</span>
+        <span class="c-value">linkedin.com/in/bhrgavpatel</span>
+      </a>
+      <a class="contact-card reveal" href="https://github.com/BhargavA09" target="_blank" rel="noopener">
+        <span class="card-ico">⌨</span>
+        <span class="c-label mono">GITHUB</span>
+        <span class="c-value">github.com/BhargavA09</span>
+      </a>
+    </div>
+    <div class="hero-btns center reveal">
+      <a href="mailto:bhrgavpatel04@gmail.com?subject=Let's%20talk" class="btn btn-primary">Send Email</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
+    </div>
+
+    <form class="contact-form reveal" id="contactForm" novalidate>
+      <p class="form-title mono">$ send-message --to bhargav</p>
+      <div class="form-row">
+        <label>
+          <span class="mono">Your name</span>
+          <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" required>
+        </label>
+        <label>
+          <span class="mono">Your email</span>
+          <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" required>
+        </label>
+      </div>
+      <label>
+        <span class="mono">Message</span>
+        <textarea id="cfMsg" name="message" rows="5" placeholder="Hi Bhargav — let's talk about…" required></textarea>
+      </label>
+      <p class="form-error mono" id="cfError" hidden></p>
+      <button type="submit" class="btn btn-primary">Send via your email app</button>
+      <p class="form-note mono">This opens your own email app with the message prefilled — nothing is sent without your review.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <p class="mono"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span> — built by hand, no templates.</p>
+    <p class="mono foot-dim">Windsor, ON · © 2026 Bhargav Patel</p>
+  </div>
+</footer>
+
+<!-- ══════════ CASE-STUDY MODALS ══════════ -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+    <div class="modal-case" id="case-quantlab" hidden>
+      <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
+      <h3 id="modalTitle">QuantLab <span class="proj-sub">/ QuantTrade</span></h3>
+      <div class="modal-tabs mono" role="tablist">
+        <button class="mtab active" data-tab="problem">Problem</button>
+        <button class="mtab" data-tab="approach">Approach</button>
+        <button class="mtab" data-tab="results">Results</button>
+        <button class="mtab" data-tab="stack">Tech stack</button>
+      </div>
+      <div class="mtab-body" data-pane="problem">
+        <p>Real-time market data is noisy, fragmented, and fast — retail tooling either shows delayed charts or hides its logic in a black box. I wanted a platform that streams live data, explains its own signals, and quantifies risk instead of just drawing lines.</p>
+      </div>
+      <div class="mtab-body" data-pane="approach" hidden>
+        <ul>
+          <li>Architected the platform end to end — database, API, and UI.</li>
+          <li>Built a multi-source real-time data pipeline over WebSockets with custom caching and memory-safe SQLite persistence.</li>
+          <li>Designed a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
+          <li>Engineered a Monte Carlo simulation engine in TypeScript, forecasting outcomes across thousands of stochastic paths with dynamic confidence intervals.</li>
+          <li>Integrated Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
+          <li>Ships cross-platform as a web app plus an Android app (Capacitor).</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="results" hidden>
+        <ul>
+          <li>Live in production at <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">quant-trade-neon.vercel.app</a> with GitHub auto-deploy.</li>
+          <li>Real-time pipeline streaming multi-source market data over WebSockets.</li>
+          <li>Monte Carlo engine forecasting thousands of stochastic paths per simulation run.</li>
+          <li>AI analytics and risk modeling wired directly into the live dashboard.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="stack" hidden>
+        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span><span>Vercel</span></div>
+        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
+      </div>
+    </div>
+
+    <div class="modal-case" id="case-netscanpro" hidden>
+      <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
+      <h3>Netscanpro</h3>
+      <div class="modal-tabs mono" role="tablist">
+        <button class="mtab active" data-tab="problem">Problem</button>
+        <button class="mtab" data-tab="approach">Approach</button>
+        <button class="mtab" data-tab="results">Results</button>
+        <button class="mtab" data-tab="stack">Tech stack</button>
+      </div>
+      <div class="mtab-body" data-pane="problem">
+        <p>Network security analysts drown in raw scan output. I built a dashboard that turns network security data into explorable, interactive visualizations — a dark UI built for people who live in dashboards.</p>
+      </div>
+      <div class="mtab-body" data-pane="approach" hidden>
+        <ul>
+          <li>Built with Vite + React + Tailwind CSS for fast iteration and a modern dark interface.</li>
+          <li>Interactive visualizations and scan workflows for exploring threat-intelligence data.</li>
+          <li>Deployed live on Vercel with GitHub auto-deploy — every push ships.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="results" hidden>
+        <ul>
+          <li>Live in production at <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">netscanpro.vercel.app</a>.</li>
+          <li>Interactive threat-intel visualizations and scan workflows usable directly in the browser.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="stack" hidden>
+        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span><span>Vercel</span></div>
+        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ TERMINAL EASTER EGG ══════════ -->
+<button id="termBtn" class="term-btn mono" aria-label="Open terminal">>_</button>
+<div class="term-overlay" id="termOverlay" hidden>
+  <div class="term-win" role="dialog" aria-modal="true" aria-label="Terminal">
+    <div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="mono">bhargav@dev: ~</span><button id="termClose" aria-label="Close terminal">✕</button></div>
+    <div class="term-body mono" id="termBody"></div>
+    <div class="term-input-line mono"><span class="term-ps1">visitor@bhargav.dev:~$</span><input id="termInput" class="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal input"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

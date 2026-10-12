@@ -3,441 +3,643 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhargav Patel — Full-Stack Software Engineer</title>
-<meta name="description" content="Bhargav Patel is a Full-Stack Software Engineer based in Windsor, Ontario. React, Node.js, TypeScript, .NET/C#, Python, SQL. Open to remote roles across Canada.">
+<title>Bhargav Patel — The Trek · 3D Himalayan Portfolio</title>
+<meta name="description" content="Walk through the Himalayas with Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#). Five base camps: about, skills, projects, experience, contact.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Bhargav Patel — Full-Stack Software Engineer">
-<meta property="og:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Based in Windsor, Ontario — available immediately, open to remote across Canada.">
+<meta property="og:title" content="Bhargav Patel — The Trek · 3D Portfolio">
+<meta property="og:description" content="A walk through the Himalayas: full-stack engineer (React, Node.js, TypeScript, .NET/C#), five base camps of about, skills, projects, experience and contact. Available immediately.">
 <meta property="og:url" content="https://portfolio-two-sand-mka2npx5wd.vercel.app/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bhargav Patel — Full-Stack Software Engineer">
-<meta name="twitter:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Available immediately, open to remote across Canada.">
+<meta name="twitter:title" content="Bhargav Patel — The Trek · 3D Portfolio">
+<meta name="twitter:description" content="Walk the Himalayas through my work: QuantLab, Netscanpro, 3+ years of full-stack engineering. Available immediately.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<style>
+:root{
+  --bg:#05070d; --panel:rgba(8,13,22,.88); --line:rgba(0,229,160,.22);
+  --emerald:#00e5a0; --cyan:#22d3ee; --text:#e8eef6; --dim:#93a1b5;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+#scrollSpace{position:relative;z-index:1;height:900vh;pointer-events:none}
+
+/* ── HUD ─────────────────────────────── */
+#hud{position:fixed;inset:0;z-index:10;pointer-events:none}
+#topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 22px}
+.wordmark{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.wordmark b{color:var(--emerald);font-weight:700}
+.hud-links{pointer-events:auto;display:flex;gap:10px}
+.hud-links a{font-family:var(--mono);font-size:12px;color:var(--text);text-decoration:none;border:1px solid var(--line);background:rgba(5,8,14,.55);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px;transition:.2s}
+.hud-links a:hover{border-color:var(--emerald);color:var(--emerald)}
+.hud-links a.resume{border-color:rgba(34,211,238,.5);color:var(--cyan)}
+
+#progressWrap{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;width:min(520px,72vw);pointer-events:auto}
+#progressTrack{position:relative;height:3px;background:rgba(255,255,255,.16);border-radius:2px}
+#progressFill{position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:2px;background:linear-gradient(90deg,var(--emerald),var(--cyan));box-shadow:0 0 10px rgba(0,229,160,.7)}
+.camp-dot{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:#0a0f18;border:2px solid var(--dim);transform:translate(-50%,-50%);cursor:pointer;transition:.2s}
+.camp-dot:hover{border-color:var(--emerald);transform:translate(-50%,-50%) scale(1.25)}
+.camp-dot.active{border-color:var(--emerald);background:var(--emerald);box-shadow:0 0 12px rgba(0,229,160,.9)}
+.camp-dot .tip{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.08em;white-space:nowrap;color:var(--text);background:rgba(5,8,14,.8);border:1px solid var(--line);padding:4px 8px;border-radius:6px;opacity:0;transition:.2s}
+.camp-dot:hover .tip{opacity:1}
+
+#scrollHint{position:absolute;left:50%;transform:translateX(-50%);bottom:52px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,.8);animation:bob 1.8s ease-in-out infinite;transition:opacity .6s}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+#scrollHint.gone{opacity:0}
+
+/* ── Camp card ───────────────────────── */
+#campCard{position:fixed;z-index:11;left:22px;bottom:74px;width:min(440px,calc(100vw - 44px));max-height:min(64vh,560px);overflow-y:auto;background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:0 18px 60px rgba(0,0,0,.55);transform:translateY(16px);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
+#campCard.show{transform:none;opacity:1;pointer-events:auto}
+#campCard .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--emerald);margin-bottom:8px}
+#campCard h3{font-size:22px;font-weight:800;letter-spacing:-.01em;margin-bottom:10px}
+#campCard h3 .grad{background:linear-gradient(90deg,var(--emerald),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+#campCard p{font-size:14px;line-height:1.65;color:#c9d4e2;margin-bottom:10px}
+#campCard p strong{color:var(--text)}
+#campCard .close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:6px}
+#campCard .close:hover{color:var(--text)}
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 4px}
+.card-stats div{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.16);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:12px}
+.card-stats b{display:block;font-size:17px;color:var(--emerald)}
+.skill-group{margin-bottom:12px}
+.skill-group h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:4px 9px;border-radius:999px;color:#d5deea}
+.proj{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.02)}
+.proj .kind{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--cyan);margin-bottom:6px}
+.proj h4{font-size:17px;margin-bottom:6px}
+.proj p{font-size:13px}
+.proj .links{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:12px;text-decoration:none;padding:8px 14px;border-radius:8px;border:1px solid var(--line);color:var(--emerald);transition:.2s;display:inline-block}
+.btn:hover{background:rgba(0,229,160,.12)}
+.btn.live{border-color:rgba(0,229,160,.55);background:rgba(0,229,160,.1)}
+.role{margin-bottom:14px}
+.role .date{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--cyan)}
+.role h4{font-size:16px;margin:3px 0 2px}
+.role .org{font-size:12px;color:var(--dim);margin-bottom:6px}
+.role ul{margin:0 0 6px 16px;font-size:13px;line-height:1.6;color:#c9d4e2}
+.contact-row{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.contact-row a{font-family:var(--mono);font-size:13px;color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;transition:.2s;word-break:break-all}
+.contact-row a:hover{border-color:var(--emerald);color:var(--emerald)}
+.contact-row a b{color:var(--cyan);font-weight:500;margin-right:8px}
+
+/* ── Start overlay / fallback ─────────── */
+#startOverlay{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 65%,rgba(8,15,28,.25) 0%,rgba(4,6,11,.88) 75%);transition:opacity .8s;padding:24px}
+#startOverlay.gone{opacity:0;pointer-events:none}
+#startOverlay .pre{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--cyan);margin-bottom:14px}
+#startOverlay h1{font-size:clamp(44px,9vw,96px);font-weight:800;letter-spacing:.06em;line-height:1}
+#startOverlay h1 .grad{background:linear-gradient(90deg,#fff,var(--emerald),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+#startOverlay p{font-family:var(--mono);font-size:13px;color:var(--dim);margin:16px 0 28px;max-width:520px;line-height:1.7}
+#beginBtn{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:#04120c;background:linear-gradient(90deg,var(--emerald),var(--cyan));border:none;border-radius:999px;padding:15px 42px;cursor:pointer;font-weight:700;box-shadow:0 8px 32px rgba(0,229,160,.35);transition:.2s}
+#beginBtn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,160,.5)}
+#startOverlay .alt{margin-top:18px;font-family:var(--mono);font-size:12px}
+#startOverlay .alt a{color:var(--dim);text-decoration:none}
+#startOverlay .alt a:hover{color:var(--emerald)}
+
+#fallback{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;text-align:center;background:var(--bg);padding:32px}
+#fallback.show{display:flex}
+#fallback .box{max-width:520px}
+#fallback h2{font-size:28px;margin-bottom:12px}
+#fallback p{color:var(--dim);line-height:1.7;margin-bottom:20px;font-size:15px}
+
+@media (max-width:640px){
+  #campCard{left:12px;right:12px;bottom:66px;width:auto;max-height:56vh;padding:18px}
+  .wordmark{font-size:11px}
+  #topbar{padding:12px 14px}
+  .hud-links a{padding:7px 10px;font-size:11px}
+}
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
 </head>
 <body>
-<div id="progress" aria-hidden="true"></div>
+<canvas id="scene"></canvas>
+<div id="scrollSpace"></div>
 
-<!-- ══════════ NAV ══════════ -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="#hero" class="brand"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="#about" data-sec="about">about</a>
-      <a href="#skills" data-sec="skills">skills</a>
-      <a href="#projects" data-sec="projects">projects</a>
-      <a href="#experience" data-sec="experience">experience</a>
-      <a href="#education" data-sec="education">education</a>
-      <a href="#contact" data-sec="contact" class="nav-cta">contact</a>
-    </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-
-<!-- ══════════ HERO ══════════ -->
-<header id="hero">
-  <canvas id="candles"></canvas>
-  <div class="hero-vignette"></div>
-  <div class="hero-content">
-    <div class="status-pill reveal"><span class="pulse"></span> Available immediately · Open to remote across Canada</div>
-    <p class="hero-kicker mono reveal">$ whoami</p>
-    <h1 class="reveal">Bhargav <span class="grad">Patel</span></h1>
-    <p class="hero-role mono reveal"><span id="typed"></span><span class="caret">▌</span></p>
-    <p class="hero-sub reveal">Full-stack engineer building real-time, data-driven products — from AI trading platforms to production systems that never sleep. Windsor, Ontario.</p>
-    <div class="hero-btns reveal">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-    </div>
-    <div class="hero-meta mono reveal">
-      <span>github.com/BhargavA09</span><span class="dot">·</span>
-      <span>linkedin.com/in/bhrgavpatel</span>
+<div id="hud">
+  <div id="topbar">
+    <div class="wordmark"><b>▲</b> THE TREK — Bhargav Patel</div>
+    <div class="hud-links">
+      <a href="classic.html">Classic view</a>
+      <a href="resume.pdf" class="resume" download>↓ Resume</a>
     </div>
   </div>
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="tickerTrack">
-      <span>React 19</span><span>TypeScript</span><span>Node.js</span><span>C# / ASP.NET Core</span><span>Python</span><span>SQL Server</span><span>MongoDB</span><span>Redis</span><span>Docker</span><span>Azure</span><span>AWS</span><span>WebSockets</span><span>Microservices</span><span>Google Gemini</span><span>RAG</span><span>Tailwind CSS</span>
-    </div>
-  </div>
-</header>
-
-<main>
-
-<!-- ══════════ ABOUT ══════════ -->
-<section id="about">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ cat about.md</p>
-    <h2 class="sec-title reveal">Engineer first. <span class="grad">Operator always.</span></h2>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>I'm a full-stack software engineer with <strong>3+ years</strong> of experience shipping across React, Node.js, TypeScript, and .NET/C#. I hold an <strong>M.Eng in Electrical and Computer Engineering</strong> from the University of Windsor and I'm based in <strong>Windsor, Ontario</strong> — open to remote roles across Canada.</p>
-        <p>By day I keep production technology running at McDonald's Windsor as an <strong>IT Systems Manager</strong> — 99.9% uptime across 1,000+ daily transactions. By night I build <strong>QuantLab</strong>, an AI-driven trading intelligence platform with real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics.</p>
-        <p>I care about systems that are measurable: latency cut, uptime sustained, revenue shipped. If it can't be measured, it can't be improved.</p>
-      </div>
-      <div class="stats reveal">
-        <div class="stat"><span class="stat-num" data-count="3" data-suffix="+">0</span><span class="stat-label">Years engineering</span></div>
-        <div class="stat"><span class="stat-num" data-count="12" data-suffix="+">0</span><span class="stat-label">Apps shipped to production</span></div>
-        <div class="stat"><span class="stat-num" data-count="99.9" data-decimals="1" data-suffix="%">0</span><span class="stat-label">Production uptime sustained</span></div>
-        <div class="stat"><span class="stat-num" data-count="68" data-suffix="%">0</span><span class="stat-label">API latency cut (best)</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ SKILLS ══════════ -->
-<section id="skills">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ ls ./stack</p>
-    <h2 class="sec-title reveal">The <span class="grad">stack.</span></h2>
-    <div class="skills-grid">
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">⌁</span> Languages</h3>
-        <div class="tags"><span>C#</span><span>TypeScript</span><span>JavaScript (ES6+)</span><span>Python</span><span>SQL (T-SQL)</span><span>HTML5</span><span>CSS3</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">⚙</span> Backend</h3>
-        <div class="tags"><span>ASP.NET Core</span><span>Node.js</span><span>Express</span><span>NestJS</span><span>RESTful APIs</span><span>Microservices</span><span>WebSockets</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">◈</span> Frontend</h3>
-        <div class="tags"><span>React 19</span><span>Redux</span><span>Tailwind CSS</span><span>Responsive Design</span><span>Vite</span><span>Capacitor</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">▤</span> Data</h3>
-        <div class="tags"><span>SQL Server</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Query Tuning</span><span>Stored Procedures</span><span>Data Pipelines</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">☁</span> Cloud &amp; DevOps</h3>
-        <div class="tags"><span>Microsoft Azure</span><span>AWS</span><span>Docker</span><span>CI/CD (GitHub Actions)</span><span>Azure DevOps</span><span>Git</span><span>Vercel</span></div>
-      </div>
-      <div class="skill-card reveal">
-        <h3><span class="card-ico">✦</span> AI / LLM</h3>
-        <div class="tags"><span>Google Gemini 1.5 Pro</span><span>RAG</span><span>Prompt Engineering</span><span>Predictive Analytics</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ PROJECTS ══════════ -->
-<section id="projects">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ ./deploy --showcase</p>
-    <h2 class="sec-title reveal">Featured <span class="grad">projects.</span></h2>
-    <p class="sec-sub reveal">Live in production, not screenshots. Click through and use them.</p>
-
-    <article class="proj reveal" data-case="quantlab" tabindex="0" role="button" aria-label="Open QuantLab case study">
-      <div class="proj-visual quantlab">
-        <div class="mini-chart" id="miniChart"></div>
-        <div class="proj-badge mono">● LIVE</div>
-        <div class="proj-hint mono">▸ click for case study</div>
-      </div>
-      <div class="proj-body">
-        <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
-        <h3>QuantLab <span class="proj-sub">/ QuantTrade</span></h3>
-        <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
-        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
-        <div class="proj-links">
-          <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm">↗ Live App</a>
-          <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ GitHub Repo</a>
-        </div>
-      </div>
-    </article>
-
-    <article class="proj reveal" data-case="netscanpro" tabindex="0" role="button" aria-label="Open Netscanpro case study">
-      <div class="proj-visual netscan">
-        <div class="radar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
-        <div class="proj-badge mono">● LIVE</div>
-        <div class="proj-hint mono">▸ click for case study</div>
-      </div>
-      <div class="proj-body">
-        <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
-        <h3>Netscanpro</h3>
-        <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern dark UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
-        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
-        <div class="proj-links">
-          <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener" class="btn btn-primary btn-sm">↗ Live App</a>
-          <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ GitHub Repo</a>
-        </div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- ══════════ GITHUB ══════════ -->
-<section id="github">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ gh stats --user BhargavA09</p>
-    <h2 class="sec-title reveal">Open source <span class="grad">footprint.</span></h2>
-    <p class="sec-sub reveal">Live from my public GitHub profile.</p>
-    <div class="gh-grid" id="ghGrid">
-      <div class="gh-card reveal">
-        <span class="gh-num mono" id="ghRepos">…</span>
-        <span class="stat-label">Public repositories</span>
-      </div>
-      <div class="gh-card reveal">
-        <span class="gh-num mono" id="ghFollowers">…</span>
-        <span class="stat-label">Followers</span>
-      </div>
-      <div class="gh-card gh-langs reveal">
-        <span class="gh-label mono">TOP LANGUAGES</span>
-        <div class="lang-bars" id="ghLangs"><p class="gh-fallback">Loading…</p></div>
-      </div>
-      <a class="gh-card gh-link reveal" href="https://github.com/BhargavA09" target="_blank" rel="noopener">
-        <span class="gh-num mono">⌨</span>
-        <span class="stat-label">github.com/BhargavA09 ↗</span>
-      </a>
-    </div>
-    <p class="gh-fallback mono" id="ghFallback" hidden>GitHub stats are unavailable right now — view the profile directly at <a href="https://github.com/BhargavA09" target="_blank" rel="noopener">github.com/BhargavA09</a>.</p>
-  </div>
-</section>
-
-<!-- ══════════ EXPERIENCE ══════════ -->
-<section id="experience">  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ git log --career --oneline</p>
-    <h2 class="sec-title reveal">Experience <span class="grad">timeline.</span></h2>
-    <div class="timeline">
-
-      <div class="t-item reveal">
-        <div class="t-node"></div>
-        <div class="t-card">
-          <p class="t-date mono">2023 — PRESENT</p>
-          <h3>Independent Full-Stack Software Engineer</h3>
-          <p class="t-org">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</p>
-          <ul>
-            <li>Architected an AI platform end to end (database, API, UI), integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
-            <li>Built a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
-            <li>Engineered a Monte Carlo simulation engine in TypeScript forecasting outcomes with dynamic confidence intervals.</li>
-            <li>Built a multi-source real-time data pipeline using WebSockets with custom caching and memory-safe SQLite persistence.</li>
-          </ul>
-          <div class="tags"><span>TypeScript</span><span>React 19</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span></div>
-        </div>
-      </div>
-
-      <div class="t-item reveal">
-        <div class="t-node"></div>
-        <div class="t-card">
-          <p class="t-date mono">MAY 2023 — PRESENT</p>
-          <h3>IT Systems Manager &amp; Operations Lead</h3>
-          <p class="t-org">McDonald's · Windsor, ON</p>
-          <ul>
-            <li>Own production technology operations across POS platforms, databases, and kitchen display systems — 99.9% uptime across 1,000+ daily transactions.</li>
-            <li>Architect SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%.</li>
-            <li>Design and tune SQL Server queries and database integrations supporting reporting, inventory, and operational data flows.</li>
-            <li>Triage production faults with root-cause analysis in a high-volume 24/7 environment, including after-hours response.</li>
-          </ul>
-          <div class="tags"><span>SQL Server</span><span>System Integrations</span><span>Production Triage</span><span>Automation</span></div>
-        </div>
-      </div>
-
-      <div class="t-item reveal">
-        <div class="t-node"></div>
-        <div class="t-card">
-          <p class="t-date mono">NOV 2020 — NOV 2021</p>
-          <h3>Full-Stack Software Engineer</h3>
-          <p class="t-org">Edukite Learning · Vadodara, India</p>
-          <ul>
-            <li>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%.</li>
-            <li>Tuned SQL queries and added Redis caching, cutting API response times 68% (800ms → 250ms) on high-traffic endpoints.</li>
-            <li>Led migration to microservices, improving scalability 50% and halving page load times (2.4s → 1.2s).</li>
-          </ul>
-          <div class="tags"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Microservices</span></div>
-        </div>
-      </div>
-
-      <div class="t-item reveal">
-        <div class="t-node"></div>
-        <div class="t-card">
-          <p class="t-date mono">MAY 2019 — JUN 2020</p>
-          <h3>Full-Stack Software Engineer</h3>
-          <p class="t-org">Techie Computer · Anand, India</p>
-          <ul>
-            <li>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions.</li>
-            <li>Integrated 10+ third-party payment APIs (Stripe, PayPal) and shipping SDKs with robust error handling at 99.8% uptime.</li>
-            <li>Optimized MySQL schemas and indexing for 5,000+ SKU catalogs, improving product search 75% (2.5s → 0.6s).</li>
-          </ul>
-          <div class="tags"><span>React</span><span>MySQL</span><span>Stripe</span><span>E-commerce</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ EDUCATION ══════════ -->
-<section id="education">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ cat education.txt</p>
-    <h2 class="sec-title reveal">Education<span class="grad">.</span></h2>
-    <div class="edu-grid">
-      <div class="edu-card reveal">
-        <p class="t-date mono">JAN 2022 — APR 2023</p>
-        <h3>Master of Engineering</h3>
-        <p class="t-org">Electrical and Computer Engineering · University of Windsor</p>
-        <p class="edu-loc mono">Windsor, Ontario, Canada</p>
-      </div>
-      <div class="edu-card reveal">
-        <p class="t-date mono">AUG 2016 — AUG 2020</p>
-        <h3>Bachelor of Engineering</h3>
-        <p class="t-org">Computer Engineering · Gujarat Technological University</p>
-        <p class="edu-loc mono">Ahmedabad, India</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ CONTACT ══════════ -->
-<section id="contact">
-  <div class="wrap">
-    <p class="sec-cmd mono reveal">$ ./hire-me --now</p>
-    <h2 class="sec-title reveal">Let's build <span class="grad">something.</span></h2>
-    <p class="sec-sub reveal">Available immediately · Remote across Canada or on-site in Ontario.</p>
-    <div class="contact-grid">
-      <a class="contact-card reveal" href="mailto:bhrgavpatel04@gmail.com">
-        <span class="card-ico">✉</span>
-        <span class="c-label mono">EMAIL</span>
-        <span class="c-value">bhrgavpatel04@gmail.com</span>
-      </a>
-      <a class="contact-card reveal" href="tel:+16478579456">
-        <span class="card-ico">☎</span>
-        <span class="c-label mono">PHONE</span>
-        <span class="c-value">+1 (647) 857-9456</span>
-      </a>
-      <a class="contact-card reveal" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">
-        <span class="card-ico">in</span>
-        <span class="c-label mono">LINKEDIN</span>
-        <span class="c-value">linkedin.com/in/bhrgavpatel</span>
-      </a>
-      <a class="contact-card reveal" href="https://github.com/BhargavA09" target="_blank" rel="noopener">
-        <span class="card-ico">⌨</span>
-        <span class="c-label mono">GITHUB</span>
-        <span class="c-value">github.com/BhargavA09</span>
-      </a>
-    </div>
-    <div class="hero-btns center reveal">
-      <a href="mailto:bhrgavpatel04@gmail.com?subject=Let's%20talk" class="btn btn-primary">Send Email</a>
-      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
-    </div>
-
-    <form class="contact-form reveal" id="contactForm" novalidate>
-      <p class="form-title mono">$ send-message --to bhargav</p>
-      <div class="form-row">
-        <label>
-          <span class="mono">Your name</span>
-          <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" required>
-        </label>
-        <label>
-          <span class="mono">Your email</span>
-          <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" required>
-        </label>
-      </div>
-      <label>
-        <span class="mono">Message</span>
-        <textarea id="cfMsg" name="message" rows="5" placeholder="Hi Bhargav — let's talk about…" required></textarea>
-      </label>
-      <p class="form-error mono" id="cfError" hidden></p>
-      <button type="submit" class="btn btn-primary">Send via your email app</button>
-      <p class="form-note mono">This opens your own email app with the message prefilled — nothing is sent without your review.</p>
-    </form>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <div class="wrap foot-inner">
-    <p class="mono"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span> — built by hand, no templates.</p>
-    <p class="mono foot-dim">Windsor, ON · © 2026 Bhargav Patel</p>
-  </div>
-</footer>
-
-<!-- ══════════ CASE-STUDY MODALS ══════════ -->
-<div class="modal-overlay" id="modalOverlay" hidden>
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
-
-    <div class="modal-case" id="case-quantlab" hidden>
-      <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
-      <h3 id="modalTitle">QuantLab <span class="proj-sub">/ QuantTrade</span></h3>
-      <div class="modal-tabs mono" role="tablist">
-        <button class="mtab active" data-tab="problem">Problem</button>
-        <button class="mtab" data-tab="approach">Approach</button>
-        <button class="mtab" data-tab="results">Results</button>
-        <button class="mtab" data-tab="stack">Tech stack</button>
-      </div>
-      <div class="mtab-body" data-pane="problem">
-        <p>Real-time market data is noisy, fragmented, and fast — retail tooling either shows delayed charts or hides its logic in a black box. I wanted a platform that streams live data, explains its own signals, and quantifies risk instead of just drawing lines.</p>
-      </div>
-      <div class="mtab-body" data-pane="approach" hidden>
-        <ul>
-          <li>Architected the platform end to end — database, API, and UI.</li>
-          <li>Built a multi-source real-time data pipeline over WebSockets with custom caching and memory-safe SQLite persistence.</li>
-          <li>Designed a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
-          <li>Engineered a Monte Carlo simulation engine in TypeScript, forecasting outcomes across thousands of stochastic paths with dynamic confidence intervals.</li>
-          <li>Integrated Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
-          <li>Ships cross-platform as a web app plus an Android app (Capacitor).</li>
-        </ul>
-      </div>
-      <div class="mtab-body" data-pane="results" hidden>
-        <ul>
-          <li>Live in production at <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">quant-trade-neon.vercel.app</a> with GitHub auto-deploy.</li>
-          <li>Real-time pipeline streaming multi-source market data over WebSockets.</li>
-          <li>Monte Carlo engine forecasting thousands of stochastic paths per simulation run.</li>
-          <li>AI analytics and risk modeling wired directly into the live dashboard.</li>
-        </ul>
-      </div>
-      <div class="mtab-body" data-pane="stack" hidden>
-        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span><span>Vercel</span></div>
-        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
-      </div>
-    </div>
-
-    <div class="modal-case" id="case-netscanpro" hidden>
-      <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
-      <h3>Netscanpro</h3>
-      <div class="modal-tabs mono" role="tablist">
-        <button class="mtab active" data-tab="problem">Problem</button>
-        <button class="mtab" data-tab="approach">Approach</button>
-        <button class="mtab" data-tab="results">Results</button>
-        <button class="mtab" data-tab="stack">Tech stack</button>
-      </div>
-      <div class="mtab-body" data-pane="problem">
-        <p>Network security analysts drown in raw scan output. I built a dashboard that turns network security data into explorable, interactive visualizations — a dark UI built for people who live in dashboards.</p>
-      </div>
-      <div class="mtab-body" data-pane="approach" hidden>
-        <ul>
-          <li>Built with Vite + React + Tailwind CSS for fast iteration and a modern dark interface.</li>
-          <li>Interactive visualizations and scan workflows for exploring threat-intelligence data.</li>
-          <li>Deployed live on Vercel with GitHub auto-deploy — every push ships.</li>
-        </ul>
-      </div>
-      <div class="mtab-body" data-pane="results" hidden>
-        <ul>
-          <li>Live in production at <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">netscanpro.vercel.app</a>.</li>
-          <li>Interactive threat-intel visualizations and scan workflows usable directly in the browser.</li>
-        </ul>
-      </div>
-      <div class="mtab-body" data-pane="stack" hidden>
-        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span><span>Vercel</span></div>
-        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
-      </div>
-    </div>
-
-  </div>
+  <div id="scrollHint">SCROLL TO TREK ↓</div>
+  <div id="progressWrap"><div id="progressTrack"><div id="progressFill"></div></div></div>
 </div>
 
-<!-- ══════════ TERMINAL EASTER EGG ══════════ -->
-<button id="termBtn" class="term-btn mono" aria-label="Open terminal">>_</button>
-<div class="term-overlay" id="termOverlay" hidden>
-  <div class="term-win" role="dialog" aria-modal="true" aria-label="Terminal">
-    <div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="mono">bhargav@dev: ~</span><button id="termClose" aria-label="Close terminal">✕</button></div>
-    <div class="term-body mono" id="termBody"></div>
-    <div class="term-input-line mono"><span class="term-ps1">visitor@bhargav.dev:~$</span><input id="termInput" class="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal input"></div>
-  </div>
+<aside id="campCard" aria-live="polite"><button class="close" id="cardClose" aria-label="Close">✕</button><div id="cardBody"></div></aside>
+
+<div id="startOverlay">
+  <div class="pre">A PORTFOLIO EXPEDITION</div>
+  <h1>THE <span class="grad">TREK</span></h1>
+  <p>Five base camps. One mountain. Scroll to walk the trail through my work — from base camp to prayer flags.</p>
+  <button id="beginBtn">BEGIN THE TREK ↓</button>
+  <div class="alt"><a href="classic.html">or view the classic site →</a></div>
 </div>
 
-<script src="script.js"></script>
+<div id="fallback"><div class="box">
+  <h2>⛰ The trail needs WebGL</h2>
+  <p>Your browser couldn't start the 3D trek (WebGL unavailable or the 3D library failed to load). The full portfolio is still available in the classic view.</p>
+  <p><a class="btn live" href="classic.html">Open the classic portfolio →</a></p>
+</div></div>
+
+<noscript><div style="position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#05070d;color:#e8eef6;font-family:monospace;padding:32px;text-align:center">This experience needs JavaScript.&nbsp;<a href="classic.html" style="color:#00e5a0">Open the classic portfolio →</a></div></noscript>
+<script type="module">
+// ── error collector (test hook) ──
+window.__errors = [];
+window.addEventListener('error', e => window.__errors.push('window.onerror: ' + (e.message || e.error)));
+window.addEventListener('unhandledrejection', e => window.__errors.push('rejection: ' + String(e.reason && e.reason.message || e.reason)));
+
+const params = new URLSearchParams(location.search);
+const isMobile = matchMedia('(pointer:coarse)').matches || innerWidth < 768;
+
+function showFallback(){
+  document.getElementById('fallback').classList.add('show');
+  document.getElementById('startOverlay').classList.add('gone');
+  document.getElementById('hud').style.display = 'none';
+  const c = document.getElementById('scene'); if (c) c.style.display = 'none';
+}
+
+// ── load three (CDN, pinned) with graceful fallback ──
+let THREE = null;
+try { THREE = await import('three'); }
+catch (e) { window.__errors.push('three import failed: ' + e.message); showFallback(); throw e; }
+
+try { boot(THREE); } catch (e) { window.__errors.push('boot failed: ' + (e.message || e)); showFallback(); }
+
+function boot(THREE){
+
+/* ═══════════════ TRUTHFUL CONTENT (from classic.html) ═══════════════ */
+const CARDS = {
+about: {
+  kicker: '01 · BASE CAMP', title: 'Engineer first. <span class="grad">Operator always.</span>',
+  html: `
+  <p>I'm a full-stack software engineer with <strong>3+ years</strong> of experience shipping across React, Node.js, TypeScript, and .NET/C#. I hold an <strong>M.Eng in Electrical and Computer Engineering</strong> from the University of Windsor and I'm based in <strong>Windsor, Ontario</strong> — open to remote roles across Canada.</p>
+  <p>By day I keep production technology running at McDonald's Windsor as an <strong>IT Systems Manager</strong> — 99.9% uptime across 1,000+ daily transactions. By night I build <strong>QuantLab</strong>, an AI-driven trading intelligence platform with real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics.</p>
+  <p>I care about systems that are measurable: latency cut, uptime sustained, revenue shipped. If it can't be measured, it can't be improved.</p>
+  <div class="card-stats">
+    <div><b>3+</b>Years engineering</div><div><b>12+</b>Apps shipped to production</div>
+    <div><b>99.9%</b>Production uptime</div><div><b>68%</b>API latency cut (best)</div>
+  </div>`
+},
+skills: {
+  kicker: '02 · ASCENT', title: 'The <span class="grad">stack.</span>',
+  html: `
+  <div class="skill-group"><h4>LANGUAGES</h4><div class="tags"><span>C#</span><span>TypeScript</span><span>JavaScript (ES6+)</span><span>Python</span><span>SQL (T-SQL)</span><span>HTML5</span><span>CSS3</span></div></div>
+  <div class="skill-group"><h4>BACKEND</h4><div class="tags"><span>ASP.NET Core</span><span>Node.js</span><span>Express</span><span>NestJS</span><span>RESTful APIs</span><span>Microservices</span><span>WebSockets</span></div></div>
+  <div class="skill-group"><h4>FRONTEND</h4><div class="tags"><span>React 19</span><span>Redux</span><span>Tailwind CSS</span><span>Responsive Design</span><span>Vite</span><span>Capacitor</span></div></div>
+  <div class="skill-group"><h4>DATA</h4><div class="tags"><span>SQL Server</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Query Tuning</span><span>Stored Procedures</span><span>Data Pipelines</span></div></div>
+  <div class="skill-group"><h4>CLOUD &amp; DEVOPS</h4><div class="tags"><span>Microsoft Azure</span><span>AWS</span><span>Docker</span><span>CI/CD (GitHub Actions)</span><span>Azure DevOps</span><span>Git</span><span>Vercel</span></div></div>
+  <div class="skill-group"><h4>AI / LLM</h4><div class="tags"><span>Google Gemini 1.5 Pro</span><span>RAG</span><span>Prompt Engineering</span><span>Predictive Analytics</span></div></div>`
+},
+projects: {
+  kicker: '03 · SUMMIT', title: 'Featured <span class="grad">projects.</span>',
+  html: `
+  <p>Live in production, not screenshots. Click through and use them.</p>
+  <div class="proj"><div class="kind">AI TRADING INTELLIGENCE · 2023 — PRESENT</div>
+    <h4>QuantLab / QuantTrade</h4>
+    <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
+    <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
+    <div class="links"><a class="btn live" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">⌨ GitHub</a></div>
+  </div>
+  <div class="proj"><div class="kind">THREAT INTELLIGENCE DASHBOARD</div>
+    <h4>Netscanpro</h4>
+    <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern dark UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
+    <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
+    <div class="links"><a class="btn live" href="https://netscanpro.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener">⌨ GitHub</a></div>
+  </div>`
+},
+experience: {
+  kicker: '04 · THE RIDGE', title: 'Experience <span class="grad">timeline.</span>',
+  html: `
+  <div class="role"><div class="date">2023 — PRESENT</div><h4>Independent Full-Stack Software Engineer</h4><div class="org">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</div>
+    <ul><li>Architected an AI platform end to end (database, API, UI), integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li><li>Built a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li><li>Engineered a Monte Carlo simulation engine in TypeScript forecasting outcomes with dynamic confidence intervals.</li><li>Built a multi-source real-time data pipeline using WebSockets with custom caching and memory-safe SQLite persistence.</li></ul>
+    <div class="tags"><span>TypeScript</span><span>React 19</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span></div></div>
+  <div class="role"><div class="date">MAY 2023 — PRESENT</div><h4>IT Systems Manager &amp; Operations Lead</h4><div class="org">McDonald's · Windsor, ON</div>
+    <ul><li>Own production technology operations across POS platforms, databases, and kitchen display systems — 99.9% uptime across 1,000+ daily transactions.</li><li>Architect SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%.</li><li>Design and tune SQL Server queries and database integrations supporting reporting, inventory, and operational data flows.</li><li>Triage production faults with root-cause analysis in a high-volume 24/7 environment, including after-hours response.</li></ul>
+    <div class="tags"><span>SQL Server</span><span>System Integrations</span><span>Production Triage</span><span>Automation</span></div></div>
+  <div class="role"><div class="date">NOV 2020 — NOV 2021</div><h4>Full-Stack Software Engineer</h4><div class="org">Edukite Learning · Vadodara, India</div>
+    <ul><li>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%.</li><li>Tuned SQL queries and added Redis caching, cutting API response times 68% (800ms → 250ms) on high-traffic endpoints.</li><li>Led migration to microservices, improving scalability 50% and halving page load times (2.4s → 1.2s).</li></ul>
+    <div class="tags"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Microservices</span></div></div>
+  <div class="role"><div class="date">MAY 2019 — JUN 2020</div><h4>Full-Stack Software Engineer</h4><div class="org">Techie Computer · Anand, India</div>
+    <ul><li>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions.</li><li>Integrated 10+ third-party payment APIs (Stripe, PayPal) and shipping SDKs with robust error handling at 99.8% uptime.</li><li>Optimized MySQL schemas and indexing for 5,000+ SKU catalogs, improving product search 75% (2.5s → 0.6s).</li></ul>
+    <div class="tags"><span>React</span><span>MySQL</span><span>Stripe</span><span>E-commerce</span></div></div>`
+},
+contact: {
+  kicker: '05 · PRAYER FLAGS', title: "Let's build <span class=\"grad\">something.</span>",
+  html: `
+  <p>Available immediately · Remote across Canada or on-site in Ontario.</p>
+  <div class="contact-row">
+    <a href="mailto:bhrgavpatel04@gmail.com"><b>EMAIL</b>bhrgavpatel04@gmail.com</a>
+    <a href="tel:+16478579456"><b>PHONE</b>+1 (647) 857-9456</a>
+    <a href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener"><b>LINKEDIN</b>linkedin.com/in/bhrgavpatel</a>
+    <a href="https://github.com/BhargavA09" target="_blank" rel="noopener"><b>GITHUB</b>github.com/BhargavA09</a>
+  </div>
+  <p style="margin-top:12px"><a class="btn live" href="resume.pdf" download>↓ Download Resume</a></p>`
+}
+};
+
+const CAMPS = [
+  { t: 0.10, num: '01', name: 'BASE CAMP',   card: 'about' },
+  { t: 0.30, num: '02', name: 'ASCENT',      card: 'skills' },
+  { t: 0.50, num: '03', name: 'SUMMIT',      card: 'projects' },
+  { t: 0.70, num: '04', name: 'THE RIDGE',   card: 'experience' },
+  { t: 0.88, num: '05', name: 'PRAYER FLAGS',card: 'contact' },
+];
+
+/* ═══════════════ MATH: noise + path + terrain ═══════════════ */
+function hash2(x, y){ const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
+function vnoise(x, y){
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  const a = hash2(xi, yi), b = hash2(xi + 1, yi), c = hash2(xi, yi + 1), d = hash2(xi + 1, yi + 1);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+function fbm(x, y){ return vnoise(x, y) * 0.55 + vnoise(x * 2.13 + 5.2, y * 2.13 + 1.3) * 0.28 + vnoise(x * 4.41 + 9.1, y * 4.41 + 3.7) * 0.17; }
+function sstep(a, b, x){ const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+
+const L = 700;                                  // trek length (world units)
+function pathX(t){ return 55 * Math.sin(t * 5.2) + 22 * Math.sin(t * 12.7 + 1.3); }
+function pathY(t){ return t * 115; }            // the climb
+function pathPoint(t, out){
+  t = Math.min(1, Math.max(0, t));
+  out.set(pathX(t), pathY(t), -t * L); return out;
+}
+function terrainH(x, z){
+  const t = Math.min(1, Math.max(0, -z / L));
+  const px = pathX(t), d = Math.abs(x - px);
+  const climb = t * 115;
+  const side = sstep(7, 95, d);
+  const m = fbm(x * 0.012 + 3.1, z * 0.012 + 7.7);
+  let h = climb + Math.pow(side, 1.5) * (18 + 85 * m) + (fbm(x * 0.06, z * 0.06) - 0.5) * 7 * side;
+  h += sstep(110, 165, d) * (40 + 60 * fbm(x * 0.008 + 11, z * 0.008 + 4));   // far rim peaks
+  return h;
+}
+
+/* ═══════════════ RENDERER / SCENE ═══════════════ */
+const canvas = document.getElementById('scene');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+} catch (e) { showFallback(); return; }
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.5 : 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xdcc9a8, 55, 330);
+const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.1, 2200);
+
+// warm low sun + cool sky fill
+const sunDir = new THREE.Vector3(-0.45, 0.20, -0.87).normalize();
+const sun = new THREE.DirectionalLight(0xffd9a8, 1.9);
+sun.position.copy(sunDir).multiplyScalar(400); scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xbdd7ff, 0x5a4a3a, 0.95));
+
+// gradient sky dome with sun glow
+const skyMat = new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite: false, fog: false,
+  vertexShader: `varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    varying vec3 vP;
+    void main(){
+      vec3 d = normalize(vP);
+      float h = d.y;
+      vec3 zen = vec3(0.09, 0.20, 0.42);
+      vec3 mid = vec3(0.45, 0.62, 0.83);
+      vec3 hor = vec3(0.99, 0.78, 0.58);
+      vec3 col = mix(hor, mid, smoothstep(0.0, 0.28, h));
+      col = mix(col, zen, smoothstep(0.22, 0.75, h));
+      col = mix(vec3(0.15, 0.12, 0.11), col, smoothstep(-0.3, 0.0, h));
+      vec3 sd = normalize(vec3(-0.45, 0.20, -0.87));
+      float s = max(dot(d, sd), 0.0);
+      col += vec3(1.0, 0.72, 0.42) * pow(s, 120.0) * 1.1;
+      col += vec3(1.0, 0.78, 0.52) * pow(s, 7.0) * 0.22;
+      gl_FragColor = vec4(col, 1.0);
+    }`
+});
+const sky = new THREE.Mesh(new THREE.SphereGeometry(950, 24, 16), skyMat);
+sky.frustumCulled = false; scene.add(sky);
+
+/* ═══════════════ TERRAIN ═══════════════ */
+{
+  const W = 360, D = L + 160;
+  const segX = isMobile ? 90 : 150, segZ = isMobile ? 130 : 210;
+  const g = new THREE.PlaneGeometry(W, D, segX, segZ);
+  g.rotateX(-Math.PI / 2);
+  g.translate(0, 0, -L / 2 + 25);               // z ∈ [-L-55, 105]
+  const pos = g.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const rock = new THREE.Color(0x6b5a48), snowC = new THREE.Color(0xe9f1fb), tmp = new THREE.Color();
+  for (let i = 0; i < pos.count; i++){
+    const x = pos.getX(i), z = pos.getZ(i);
+    const h = terrainH(x, z);
+    pos.setY(i, h);
+    const f = sstep(42, 68, h);                  // snowline rises with altitude
+    tmp.copy(rock).lerp(snowC, f);
+    const v = (fbm(x * 0.05, z * 0.05) - 0.5) * 0.10;
+    tmp.offsetHSL(0, 0, v);
+    colors[i * 3] = tmp.r; colors[i * 3 + 1] = tmp.g; colors[i * 3 + 2] = tmp.b;
+  }
+  g.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  g.computeVertexNormals();
+  const terrain = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 1, metalness: 0 }));
+  scene.add(terrain);
+}
+
+/* ═══════════════ PATH RIBBON ═══════════════ */
+{
+  const N = 260, hw = 1.9;
+  const verts = [], idx = [];
+  for (let i = 0; i <= N; i++){
+    const t = i / N, cx = pathX(t), z = -t * L;
+    const y = terrainH(cx, z);
+    verts.push(cx - hw, y + 0.14, z, cx + hw, y + 0.14, z);
+    if (i < N){ const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+  g.setIndex(idx); g.computeVertexNormals();
+  scene.add(new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0x9a8a70, roughness: 1, side: THREE.DoubleSide })));
+}
+
+/* ═══════════════ PROPS ═══════════════ */
+const woodMat = new THREE.MeshStandardMaterial({ color: 0x6b4a2f, roughness: 0.9 });
+const tentMat = new THREE.MeshStandardMaterial({ color: 0xc65a1e, roughness: 0.85, flatShading: true });
+const poleMat = new THREE.MeshStandardMaterial({ color: 0x3a3f46, roughness: 0.6 });
+const flagColors = [0x2b6cb0, 0xf7fafc, 0xc53030, 0x2f855a, 0xd69e22];
+const waving = [];   // {mesh, phase}
+
+function makeSignTexture(num, name){
+  const c = document.createElement('canvas'); c.width = 512; c.height = 160;
+  const x = c.getContext('2d');
+  x.fillStyle = '#5a3d24'; x.fillRect(0, 0, 512, 160);
+  x.strokeStyle = '#8a6844'; x.lineWidth = 10; x.strokeRect(8, 8, 496, 144);
+  x.fillStyle = '#f5ead6'; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.font = '700 58px "JetBrains Mono", monospace';
+  x.fillText(num + ' · ' + name, 256, 82);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  return t;
+}
+
+function buildCamp(camp){
+  const t = camp.t, z = -t * L, px = pathX(t), gy = terrainH(px, z);
+  const grp = new THREE.Group();
+  const side = 1;
+
+  // tent (cone) + entrance shadow
+  const tent = new THREE.Mesh(new THREE.ConeGeometry(2.4, 3.0, 7), tentMat);
+  tent.position.set(px + 8 * side, terrainH(px + 8 * side, z) + 1.5, z - 4);
+  grp.add(tent);
+  const door = new THREE.Mesh(new THREE.ConeGeometry(1.0, 1.6, 4), new THREE.MeshStandardMaterial({ color: 0x1c130c, roughness: 1 }));
+  door.position.set(px + 8 * side, terrainH(px + 8 * side, z) + 0.8, z - 4 + 1.7);
+  door.rotation.y = Math.PI / 4; grp.add(door);
+
+  // wooden signpost with camp name
+  const post = new THREE.Mesh(new THREE.BoxGeometry(0.28, 3.2, 0.28), woodMat);
+  const sx = px - 5.5 * side, sz = z + 3;
+  post.position.set(sx, terrainH(sx, sz) + 1.6, sz); grp.add(post);
+  const board = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.8, 1.18),
+    new THREE.MeshStandardMaterial({ map: makeSignTexture(camp.num, camp.name), roughness: 0.9 })
+  );
+  board.position.set(sx, terrainH(sx, sz) + 2.75, sz);
+  board.rotation.y = 0.3 * side;   // angled toward the incoming walker
+  grp.add(board);
+
+  // flag pole with pennant
+  const fx = px + 4.5 * side, fz = z + 6;
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 5.2, 6), poleMat);
+  pole.position.set(fx, terrainH(fx, fz) + 2.6, fz); grp.add(pole);
+  const shape = new THREE.Shape(); shape.moveTo(0, 0); shape.lineTo(1.1, -0.22); shape.lineTo(0, -0.5); shape.closePath();
+  const penn = new THREE.Mesh(new THREE.ShapeGeometry(shape),
+    new THREE.MeshBasicMaterial({ color: 0x00e5a0, side: THREE.DoubleSide }));
+  penn.position.set(fx + 0.05, terrainH(fx, fz) + 5.0, fz);
+  grp.add(penn); waving.push({ mesh: penn, phase: Math.random() * 6.28, amp: 0.25 });
+
+  // small cairn (stacked stones) on the other side
+  for (let i = 0; i < 3; i++){
+    const s = new THREE.Mesh(new THREE.DodecahedronGeometry(0.55 - i * 0.12, 0),
+      new THREE.MeshStandardMaterial({ color: 0x7d7468, roughness: 1, flatShading: true }));
+    const cxp = px - 7.5 * side, czp = z - 5 - i * 0.2;
+    s.position.set(cxp, terrainH(cxp, czp) + 0.3 + i * 0.55, czp);
+    s.rotation.set(i, i * 2, i * 0.5); grp.add(s);
+  }
+  scene.add(grp);
+}
+CAMPS.forEach(buildCamp);
+
+/* ═══════════════ PRAYER-FLAG STRINGS across the path ═══════════════ */
+function flagString(t){
+  const z = -t * L, px = pathX(t);
+  const ax = px - 8.5, bx = px + 8.5;
+  const ay = terrainH(ax, z) + 4.6, by = terrainH(bx, z) + 4.6;
+  const grp = new THREE.Group();
+  [ [ax, ay], [bx, by] ].forEach(([x, y]) => {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 4.8, 6), poleMat);
+    p.position.set(x, y - 2.4, z); grp.add(p);
+  });
+  const a = new THREE.Vector3(ax, ay, z), b = new THREE.Vector3(bx, by, z);
+  const mid = a.clone().lerp(b, 0.5); mid.y -= 1.5;
+  const curve = new THREE.QuadraticBezierCurve3(a, mid, b);
+  const rope = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.02, 4),
+    new THREE.MeshBasicMaterial({ color: 0xd8cfc0 }));
+  grp.add(rope);
+  const tri = new THREE.Shape(); tri.moveTo(-0.28, 0); tri.lineTo(0.28, 0); tri.lineTo(0, -0.62); tri.closePath();
+  const triGeo = new THREE.ShapeGeometry(tri);
+  const NFLAGS = 15;
+  for (let i = 1; i < NFLAGS; i++){
+    const p = curve.getPoint(i / NFLAGS);
+    const f = new THREE.Mesh(triGeo, new THREE.MeshBasicMaterial({
+      color: flagColors[i % flagColors.length], side: THREE.DoubleSide }));
+    f.position.copy(p); f.position.y -= 0.03;
+    grp.add(f); waving.push({ mesh: f, phase: i * 0.7 + t * 20, amp: 0.35 });
+  }
+  scene.add(grp);
+}
+[0.03, 0.20, 0.40, 0.60, 0.79, 0.95].forEach(flagString);
+
+/* ═══════════════ SNOWFALL ═══════════════ */
+let snow, snowVel;
+function makeSnowTexture(){
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.5, 'rgba(255,255,255,0.85)');
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+  const t = new THREE.CanvasTexture(c); return t;
+}
+{
+  const N = isMobile ? 600 : 1500;
+  const p = new Float32Array(N * 3); snowVel = new Float32Array(N * 2);
+  for (let i = 0; i < N; i++){
+    p[i * 3] = (Math.random() - 0.5) * 140;
+    p[i * 3 + 1] = Math.random() * 50 - 8;
+    p[i * 3 + 2] = (Math.random() - 0.5) * 140;
+    snowVel[i * 2] = 1.5 + Math.random() * 2.5;   // fall speed
+    snowVel[i * 2 + 1] = Math.random() * 6.28;    // drift phase
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  snow = new THREE.Points(g, new THREE.PointsMaterial({
+    map: makeSnowTexture(), color: 0xffffff, size: 0.55, transparent: true, opacity: 0.9,
+    sizeAttenuation: true, depthWrite: false }));
+  snow.frustumCulled = false; scene.add(snow);
+}
+
+/* ═══════════════ DRIFTING CLOUDS ═══════════════ */
+const clouds = [];
+{
+  const c = document.createElement('canvas'); c.width = 256; c.height = 128;
+  const x = c.getContext('2d');
+  for (let i = 0; i < 14; i++){
+    const gx = 40 + Math.random() * 176, gy = 40 + Math.random() * 48, r = 22 + Math.random() * 30;
+    const gr = x.createRadialGradient(gx, gy, 0, gx, gy, r);
+    gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = gr; x.fillRect(0, 0, 256, 128);
+  }
+  const tex = new THREE.CanvasTexture(c);
+  for (let i = 0; i < (isMobile ? 5 : 8); i++){
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(52, 22),
+      new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.5, depthWrite: false }));
+    m.position.set((Math.random() - 0.5) * 300, 100 + Math.random() * 80, -Math.random() * L);
+    m.userData.speed = 0.8 + Math.random() * 1.4;
+    clouds.push(m); scene.add(m);
+  }
+}
+
+/* ═══════════════ HUD: progress dots, card, hints ═══════════════ */
+const track = document.getElementById('progressTrack');
+const fill = document.getElementById('progressFill');
+const card = document.getElementById('campCard');
+const cardBody = document.getElementById('cardBody');
+const hint = document.getElementById('scrollHint');
+const dots = CAMPS.map(c => {
+  const d = document.createElement('div');
+  d.className = 'camp-dot'; d.style.left = (c.t * 100) + '%';
+  d.innerHTML = `<span class="tip">${c.num} · ${c.name}</span>`;
+  d.title = c.num + ' · ' + c.name;
+  d.addEventListener('click', () => {
+    const y = c.t * (document.body.scrollHeight - innerHeight);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+  track.appendChild(d); return d;
+});
+
+let targetT = 0, curT = 0, bobPhase = 0, dismissedCard = null, cardCamp = null;
+const mouse = { x: 0, y: 0 };
+addEventListener('mousemove', e => {
+  mouse.x = (e.clientX / innerWidth) * 2 - 1;
+  mouse.y = -((e.clientY / innerHeight) * 2 - 1);
+});
+addEventListener('scroll', () => {
+  const max = document.body.scrollHeight - innerHeight;
+  targetT = Math.min(1, Math.max(0, scrollY / Math.max(1, max)));
+  if (scrollY > 40) hint.classList.add('gone');
+}, { passive: true });
+
+function showCard(key, camp){
+  const c = CARDS[key];
+  cardBody.innerHTML = `<div class="kicker">${c.kicker}</div><h3>${c.title}</h3>${c.html}`;
+  card.classList.add('show'); cardCamp = camp;
+}
+function hideCard(){ card.classList.remove('show'); cardCamp = null; }
+document.getElementById('cardClose').addEventListener('click', () => {
+  dismissedCard = cardCamp ? cardCamp.card : null; hideCard();
+});
+function updateCard(){
+  let near = null;
+  for (const c of CAMPS){ if (Math.abs(curT - c.t) < 0.032){ near = c; break; } }
+  if (near && dismissedCard === near.card) near = null;   // respect manual close
+  if (!near && dismissedCard){ /* keep dismissed until re-entering a camp */ }
+  if (near && !cardCamp){ showCard(near.card, near); }
+  else if (!near && cardCamp){ hideCard(); }
+  else if (near && cardCamp && near !== cardCamp){ showCard(near.card, near); }
+  dots.forEach((d, i) => d.classList.toggle('active', !!near && CAMPS[i] === near));
+}
+
+// start overlay
+const overlay = document.getElementById('startOverlay');
+function beginTrek(){
+  overlay.classList.add('gone');
+  const y = 0.045 * (document.body.scrollHeight - innerHeight);
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+document.getElementById('beginBtn').addEventListener('click', beginTrek);
+
+// test hooks: ?t=0.45 scroll position, ?card=projects force card, ?nostart=1 skip overlay
+if (params.has('nostart')) overlay.classList.add('gone');
+{
+  const qt = parseFloat(params.get('t'));
+  if (!isNaN(qt)) setTimeout(() => window.scrollTo(0, Math.min(1, Math.max(0, qt)) * (document.body.scrollHeight - innerHeight)), 400);
+  const qc = params.get('card');
+  if (qc && CARDS[qc]) setTimeout(() => showCard(qc, { card: qc }), 600);
+}
+
+/* ═══════════════ MAIN LOOP ═══════════════ */
+const clock = new THREE.Clock();
+let running = true;
+document.addEventListener('visibilitychange', () => { running = !document.hidden; });
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+const _p = new THREE.Vector3(), _q = new THREE.Vector3();
+function animate(){
+  requestAnimationFrame(animate);
+  if (!running) return;
+  const dt = Math.min(0.05, clock.getDelta());
+  const time = clock.elapsedTime;
+
+  // smooth dolly toward scroll target
+  curT += (targetT - curT) * Math.min(1, dt * 3.2);
+  if (Math.abs(targetT - curT) < 0.0002) curT = targetT;
+  const moving = Math.abs(targetT - curT) > 0.0006;
+
+  bobPhase += dt * (moving ? 7.5 : 1.4);
+  const bob = Math.sin(bobPhase) * (moving ? 0.085 : 0.025);
+  const sway = Math.sin(bobPhase * 0.5) * (moving ? 0.14 : 0.04);
+
+  pathPoint(curT, _p); pathPoint(Math.min(1, curT + 0.022), _q);
+  camera.position.set(_p.x + sway, _p.y + 2.35 + bob, _p.z);
+  camera.lookAt(_q.x + mouse.x * 5, _q.y + 1.7 + mouse.y * 2.2, _q.z);
+  sky.position.set(camera.position.x, 0, camera.position.z);
+
+  // prayer flags wave
+  for (const w of waving) w.mesh.rotation.y = Math.sin(time * 2.1 + w.phase) * w.amp;
+
+  // snowfall follows camera
+  snow.position.set(camera.position.x, camera.position.y - 12, camera.position.z);
+  const sp = snow.geometry.attributes.position;
+  for (let i = 0; i < sp.count; i++){
+    let y = sp.getY(i) - snowVel[i * 2] * dt;
+    let x = sp.getX(i) + Math.sin(time * 0.8 + snowVel[i * 2 + 1]) * dt * 1.2;
+    if (y < -8) y = 42;
+    if (x > 70) x = -70; else if (x < -70) x = 70;
+    sp.setY(i, y); sp.setX(i, x);
+  }
+  sp.needsUpdate = true;
+
+  // clouds drift
+  for (const cl of clouds){
+    cl.position.x += cl.userData.speed * dt;
+    if (cl.position.x > 170) cl.position.x = -170;
+    cl.lookAt(camera.position.x, cl.position.y, camera.position.z);
+  }
+
+  fill.style.width = (curT * 100) + '%';
+  updateCard();
+  renderer.render(scene, camera);
+}
+animate();
+}
+</script>
 </body>
 </html>
