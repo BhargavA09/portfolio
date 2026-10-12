@@ -300,3 +300,28 @@ body.modal-open{overflow:hidden}
   .modal{padding:28px 22px}
   .term-overlay{padding:12px}
 }
+
+/* ── insights ── */
+.insight-feature{display:grid;grid-template-columns:1.5fr .9fr;gap:0;background:var(--panel);
+  border:1px solid var(--line-soft);border-radius:var(--r);overflow:hidden;margin-top:36px;
+  transition:border-color .25s,box-shadow .25s}
+.insight-feature:hover{border-color:var(--line);box-shadow:0 20px 60px rgba(0,229,160,.07)}
+.insight-main{padding:40px 38px;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.insight-main .kicker{font-size:.72rem;color:var(--green);letter-spacing:.18em;margin-bottom:12px}
+.insight-main h3{font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+.insight-dek{color:var(--muted);font-size:1.02rem;line-height:1.7;margin-bottom:18px;max-width:56ch}
+.insight-meta{font-size:.8rem;color:var(--dim);margin-bottom:26px}
+.insight-meta b{color:var(--txt);font-weight:600}
+.insight-rail{background:var(--panel2);border-left:1px solid var(--line-soft);padding:34px 30px}
+.rail-label{font-size:.68rem;color:var(--dim);letter-spacing:.2em;margin:0 0 14px}
+.rail-label:not(:first-child){margin-top:26px}
+.stat-chip{background:rgba(0,229,160,.05);border:1px solid var(--line-soft);border-radius:10px;
+  padding:12px 14px;margin-bottom:10px}
+.stat-chip b{display:block;font-size:1.25rem;font-weight:800;color:var(--green);font-family:var(--mono)}
+.stat-chip span{font-size:.74rem;color:var(--muted)}
+.rail-src{font-size:.82rem;color:var(--muted);line-height:1.8}
+@media(max-width:900px){
+  .insight-feature{grid-template-columns:1fr}
+  .insight-rail{border-left:none;border-top:1px solid var(--line-soft)}
+  .insight-main{padding:30px 26px}
+}
