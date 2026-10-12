@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhargav Patel — The Trek · 3D Himalayan Portfolio</title>
-<meta name="description" content="Walk through the Himalayas with Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#). Five base camps: about, skills, projects, experience, contact.">
+<meta name="description" content="Walk through the Himalayas with Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#). Six base camps: about, skills, projects, experience, contact, analytics.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bhargav Patel — The Trek · 3D Portfolio">
-<meta property="og:description" content="A walk through the Himalayas: full-stack engineer (React, Node.js, TypeScript, .NET/C#), five base camps of about, skills, projects, experience and contact. Available immediately.">
-<meta property="og:url" content="https://portfolio-two-sand-mka2npx5wd.vercel.app/">
+<meta property="og:description" content="A walk through the Himalayas: full-stack engineer (React, Node.js, TypeScript, .NET/C#), six base camps of about, skills, projects, experience, contact and analytics. Available immediately.">
+<meta property="og:url" content="https://bharg-patel.vercel.app/">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bhargav Patel — The Trek · 3D Portfolio">
 <meta name="twitter:description" content="Walk the Himalayas through my work: QuantLab, Netscanpro, 3+ years of full-stack engineering. Available immediately.">
@@ -62,6 +62,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:h
 #insightTeaser a{font-family:var(--mono);font-size:12px;color:var(--cyan);text-decoration:none}
 #insightTeaser a:hover{text-decoration:underline}
 @media (max-width:900px){#insightTeaser{display:none}}
+
+/* ── Analytics HUD chip ────────────────── */
+#dashChip{position:absolute;left:22px;top:70px;background:rgba(8,13,22,.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);
+  border-radius:12px;padding:10px 14px;pointer-events:auto;box-shadow:0 10px 32px rgba(0,0,0,.5);
+  transition:border-color .25s;display:flex;align-items:center;gap:10px;text-decoration:none}
+#dashChip:hover{border-color:var(--emerald)}
+#dashChip .kicker{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--emerald)}
+#dashChip .t{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap}
+#dashChip .go{font-family:var(--mono);font-size:12px;color:var(--cyan)}
+@media (max-width:900px){#dashChip{display:none}}
 
 /* ── Camp card ───────────────────────── */
 #campCard{position:fixed;z-index:11;left:22px;bottom:74px;width:min(440px,calc(100vw - 44px));max-height:min(64vh,560px);overflow-y:auto;background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:0 18px 60px rgba(0,0,0,.55);transform:translateY(16px);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
@@ -148,6 +159,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:h
     <p>How the 2026 US–Iran war, Red Sea attacks and sanctions on Russian energy travelled through shipping chokepoints into oil and gas prices.</p>
     <a href="articles/when-wars-move-markets.html">Read the article →</a>
   </aside>
+  <a id="dashChip" href="dashboard.html">
+    <span><span class="kicker">ANALYTICS</span><br><span class="t">Traffic dashboard</span></span>
+    <span class="go">→</span>
+  </a>
   <div id="progressWrap"><div id="progressTrack"><div id="progressFill"></div></div></div>
 </div>
 
@@ -156,7 +171,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:h
 <div id="startOverlay">
   <div class="pre">A PORTFOLIO EXPEDITION</div>
   <h1>THE <span class="grad">TREK</span></h1>
-  <p>Five base camps. One mountain. Scroll to walk the trail through my work — from base camp to prayer flags.</p>
+  <p>Six base camps. One mountain. Scroll to walk the trail through my work — from base camp to the analytics lookout.</p>
   <button id="beginBtn">BEGIN THE TREK ↓</button>
   <div class="alt"><a href="classic.html">or view the classic site →</a></div>
 </div>
@@ -260,6 +275,16 @@ contact: {
     <a href="https://github.com/BhargavA09" target="_blank" rel="noopener"><b>GITHUB</b>github.com/BhargavA09</a>
   </div>
   <p style="margin-top:12px"><a class="btn live" href="resume.pdf" download>↓ Download Resume</a></p>`
+},
+analytics: {
+  kicker: '06 · LOOKOUT', title: 'Traffic <span class="grad">dashboard.</span>',
+  html: `
+  <p>A live read on who's visiting this portfolio — powered by the traffic dashboard.</p>
+  <div class="card-stats">
+    <div><b data-a="visitors">—</b>Visitors</div><div><b data-a="pageViews">—</b>Page views</div>
+    <div><b data-a="topSource">—</b>Top source</div><div><b data-a="topPage">—</b>Top page</div>
+  </div>
+  <p style="margin-top:12px"><a class="btn live" href="dashboard.html">Open full dashboard →</a></p>`
 }
 };
 
@@ -269,6 +294,7 @@ const CAMPS = [
   { t: 0.50, num: '03', name: 'SUMMIT',      card: 'projects' },
   { t: 0.70, num: '04', name: 'THE RIDGE',   card: 'experience' },
   { t: 0.88, num: '05', name: 'PRAYER FLAGS',card: 'contact' },
+  { t: 0.97, num: '06', name: 'ANALYTICS',   card: 'analytics' },
 ];
 
 /* ═══════════════ MATH: noise + path + terrain ═══════════════ */
@@ -788,6 +814,7 @@ function showCard(key, camp){
   const c = CARDS[key];
   cardBody.innerHTML = `<div class="kicker">${c.kicker}</div><h3>${c.title}</h3>${c.html}`;
   card.classList.add('show'); cardCamp = camp;
+  if (key === 'analytics') fillAnalytics();
 }
 function hideCard(){ card.classList.remove('show'); cardCamp = null; }
 document.getElementById('cardClose').addEventListener('click', () => {
@@ -802,6 +829,25 @@ function updateCard(){
   else if (!near && cardCamp){ hideCard(); }
   else if (near && cardCamp && near !== cardCamp){ showCard(near.card, near); }
   dots.forEach((d, i) => d.classList.toggle('active', !!near && CAMPS[i] === near));
+}
+
+/* ── traffic data for the Analytics camp card ── */
+let trafficData = null;
+const fmtCompact = n => n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n);
+fetch('traffic-data.json', {cache:'no-store'})
+  .then(r => r.ok ? r.json() : null)
+  .then(d => { trafficData = d; if (cardCamp && cardCamp.card === 'analytics') fillAnalytics(); })
+  .catch(() => { /* offline / file:// — tiles stay "—" */ });
+function fillAnalytics(){
+  if (!trafficData) return;
+  const d = trafficData;
+  const set = (k, v) => { const el = cardBody.querySelector(`[data-a="${k}"]`); if (el) el.textContent = v; };
+  set('visitors', d.visitors > 0 ? fmtCompact(d.visitors) : '—');
+  set('pageViews', d.pageViews > 0 ? fmtCompact(d.pageViews) : '—');
+  const topS = (d.sources || []).slice().sort((a,b) => b.pct - a.pct)[0];
+  set('topSource', topS ? topS.label : '—');
+  const topP = (d.pages || []).slice().sort((a,b) => b.views - a.views)[0];
+  set('topPage', topP ? topP.path : '—');
 }
 
 // start overlay
