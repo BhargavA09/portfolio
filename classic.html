@@ -31,7 +31,7 @@
       <a href="#projects" data-sec="projects">projects</a>
       <a href="#experience" data-sec="experience">experience</a>
       <a href="#education" data-sec="education">education</a>
-      <a href="#insights" data-sec="insights">insights</a>
+      <a href="#articles" data-sec="articles">articles</a>
       <a href="dashboard.html">dashboard</a>
       <a href="#contact" data-sec="contact" class="nav-cta">contact</a>
     </div>
@@ -268,29 +268,40 @@
   </div>
 </section>
 
-<!-- ══════════ INSIGHTS ══════════ -->
-<section id="insights">
+<!-- ══════════ ARTICLES ══════════ -->
+<section id="articles">
   <div class="wrap">
-    <p class="sec-cmd mono reveal">$ cat insights.log</p>
-    <h2 class="sec-title reveal">Insights<span class="grad">.</span></h2>
-    <p class="sec-sub reveal">Long-form analysis — researched, sourced, and written by me.</p>
-    <article class="insight-feature reveal">
-      <div class="insight-main">
-        <p class="kicker mono">INSIGHTS · GEOPOLITICS × FINANCE</p>
-        <h3>When Wars Move Markets</h3>
-        <p class="insight-dek">How the 2026 US–Iran war, Red Sea attacks and a sanctions war on Russian energy travelled through the world's shipping chokepoints into oil and gas prices — and from there into inflation, interest rates and growth forecasts.</p>
-        <p class="insight-meta mono">By <b>Bhargav Patel</b> · 12 Oct 2026 · ~8 min read</p>
-        <a class="btn btn-primary btn-sm" href="articles/when-wars-move-markets.html">Read the article →</a>
+    <p class="sec-cmd mono reveal">$ cat articles.log</p>
+    <h2 class="sec-title reveal">Articles<span class="grad">.</span></h2>
+    <p class="sec-sub reveal">Long-form analysis — researched, sourced, and written by me. More pieces on the way.</p>
+
+    <div class="art-rail-wrap reveal">
+      <button class="rail-btn rail-prev" id="artPrev" aria-label="Scroll articles left">←</button>
+      <div class="art-rail" id="artRail" tabindex="0" aria-label="Articles, scroll sideways"></div>
+      <button class="rail-btn rail-next" id="artNext" aria-label="Scroll articles right">→</button>
+    </div>
+    <p class="rail-hint mono" id="artHint" hidden>scroll →</p>
+
+    <div class="art-traffic reveal" id="artTraffic">
+      <div class="at-head">
+        <h3 class="mono">article traffic</h3>
+        <a class="btn btn-ghost btn-sm" href="dashboard.html">Open full dashboard →</a>
       </div>
-      <aside class="insight-rail">
-        <p class="rail-label mono">KEY FIGURES</p>
-        <div class="stat-chip"><b>$101.53</b><span>Brent crude · 8 Oct 2026</span></div>
-        <div class="stat-chip"><b>€84/MWh</b><span>TTF gas peak · Sep 2026</span></div>
-        <div class="stat-chip"><b>$4,351</b><span>Drewry index / 40ft · 8 Oct 2026</span></div>
-        <p class="rail-label mono">SOURCES</p>
-        <p class="rail-src">IMF · World Bank · IEA · EIA · Drewry · FAO</p>
-      </aside>
-    </article>
+      <div class="at-empty" id="atEmpty" hidden>
+        <p><b>No traffic data yet.</b> The rail is live and waiting for its first reader — connect analytics on the <a href="dashboard.html">dashboard</a> and article views will land here.</p>
+      </div>
+      <div class="at-grid" id="atGrid" hidden>
+        <div class="at-tiles" id="atTiles"></div>
+        <div class="at-pages">
+          <p class="at-label mono">VIEWS PER ARTICLE</p>
+          <div id="atBars"></div>
+        </div>
+        <div class="at-sources">
+          <p class="at-label mono">TOP SOURCES</p>
+          <div id="atSources"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -467,6 +478,95 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+/* ── Articles rail + article traffic (data-driven from articles.json + traffic-data.json) ── */
+(function(){
+  var rail = document.getElementById('artRail');
+  if (!rail) return;
+  var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var fmtN = function(n){ n = +n || 0; if (n >= 1e6) return (n/1e6).toFixed(1)+'M'; if (n >= 1e3) return (n/1e3).toFixed(1)+'k'; return String(n); };
+  var norm = function(p){ return String(p || '').replace(/^\/+/, ''); };
+
+  function getJSON(url){
+    return fetch(url, {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).catch(function(){ return null; });
+  }
+
+  Promise.all([getJSON('articles.json'), getJSON('traffic-data.json')]).then(function(res){
+    var articles = res[0] || [];
+    var tdata = res[1] || {};
+    tdata.pages = tdata.pages || [];
+    tdata.sources = tdata.sources || [];
+
+    function viewsFor(url){
+      var pg = null;
+      for (var i = 0; i < tdata.pages.length; i++){
+        if (norm(tdata.pages[i].path) === norm(url)){ pg = tdata.pages[i]; break; }
+      }
+      return pg ? (+pg.views || 0) : null;
+    }
+
+    /* rail cards */
+    if (!articles.length){
+      rail.innerHTML = '<p class="art-fallback">Articles are on the way — check back soon.</p>';
+    } else {
+      rail.innerHTML = articles.map(function(a){
+        var v = viewsFor(a.url);
+        return '<article class="art-card">' +
+          '<p class="kicker mono">' + esc(a.kicker || 'ARTICLE') + '</p>' +
+          '<h3>' + esc(a.title) + '</h3>' +
+          '<p class="art-dek">' + esc(a.dek || '') + '</p>' +
+          '<p class="art-views mono"><span aria-hidden="true">\uD83D\uDC41</span> ' + (v === null ? '—' : fmtN(v)) + ' views</p>' +
+          '<p class="art-meta mono">By <b>Bhargav Patel</b> &middot; ' + esc(a.date || '') + ' &middot; ' + esc(a.readTime || '') + '</p>' +
+          '<a class="btn btn-primary btn-sm" href="' + esc(a.url) + '">Read the article &rarr;</a>' +
+        '</article>';
+      }).join('');
+    }
+
+    /* rail arrows + hint */
+    var step = function(){ return Math.min(rail.clientWidth * 0.9, 460); };
+    document.getElementById('artPrev').addEventListener('click', function(){ rail.scrollBy({left: -step(), behavior: 'smooth'}); });
+    document.getElementById('artNext').addEventListener('click', function(){ rail.scrollBy({left: step(), behavior: 'smooth'}); });
+    var hint = document.getElementById('artHint');
+    var updHint = function(){ if (hint) hint.hidden = rail.scrollWidth <= rail.clientWidth + 4; };
+    updHint();
+    window.addEventListener('resize', updHint);
+
+    /* traffic panel */
+    var matched = articles.map(function(a){
+      var v = viewsFor(a.url);
+      return { title: a.title, views: v === null ? 0 : v };
+    });
+    var totalViews = matched.reduce(function(s, m){ return s + m.views; }, 0);
+    var hasData = totalViews > 0 || tdata.sources.length > 0;
+    document.getElementById('atEmpty').hidden = hasData;
+    var grid = document.getElementById('atGrid');
+    grid.hidden = !hasData;
+    if (!hasData) return;
+
+    var top = matched.slice().sort(function(x, y){ return y.views - x.views; })[0];
+    document.getElementById('atTiles').innerHTML = [
+      ['ARTICLE VIEWS', fmtN(totalViews)],
+      ['TOP ARTICLE', top && top.views > 0 ? esc(top.title) : '—'],
+      ['ARTICLES LIVE', String(articles.length)]
+    ].map(function(t){
+      return '<div class="at-tile"><div class="lbl">' + t[0] + '</div><div class="val"><span class="grad">' + t[1] + '</span></div></div>';
+    }).join('');
+
+    var maxV = Math.max.apply(null, matched.map(function(m){ return m.views; }).concat([1]));
+    document.getElementById('atBars').innerHTML = matched.length ? matched.map(function(m){
+      return '<div class="at-bar-row"><div class="t"><span>' + esc(m.title) + '</span><span class="n">' + fmtN(m.views) + '</span></div>' +
+        '<div class="abar"><i style="width:' + Math.round(m.views / maxV * 100) + '%"></i></div></div>';
+    }).join('') : '<p class="at-none">No article views yet.</p>';
+
+    var srcs = tdata.sources.slice().sort(function(a, b){ return b.pct - a.pct; }).slice(0, 5);
+    var maxP = Math.max.apply(null, srcs.map(function(s){ return s.pct; }).concat([1]));
+    document.getElementById('atSources').innerHTML = srcs.length ? srcs.map(function(s){
+      return '<div class="at-bar-row"><div class="t"><span>' + esc(s.label) + '</span><span class="n">' + s.pct + '%</span></div>' +
+        '<div class="abar"><i style="width:' + Math.round(s.pct / maxP * 100) + '%"></i></div></div>';
+    }).join('') : '<p class="at-none">Connect analytics to see where readers come from.</p>';
+  });
+})();
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

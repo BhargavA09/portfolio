@@ -73,6 +73,7 @@ table.dtab tr:last-child td{border-bottom:none}
     <p class="sec-cmd mono reveal">$ tail -f traffic.log</p>
     <h1 class="sec-title">Traffic <span class="grad">dashboard.</span></h1>
     <p style="color:var(--muted);max-width:640px">Who's reading the portfolio and the article. Data loads from <span class="mono" style="color:var(--cyan)">traffic-data.json</span> — wire up real analytics below to replace the sample feed.</p>
+    <p style="color:var(--dim);font-size:.85rem;margin-top:10px">Per-article stats now live in the <a href="classic.html#articles" style="color:var(--cyan)">Articles section &rarr;</a></p>
   </header>
 
   <div id="emptyState" class="empty-banner" hidden>
@@ -129,7 +130,7 @@ async function load(){
 }
 
 function render(d){
-  const hasData = d.visitors > 0 || d.pageViews > 0 || (d.sources||[]).length || (d.pages||[]).length || (d.referrers||[]).length;
+  const hasData = d.visitors > 0 || d.pageViews > 0 || (d.sources||[]).some(s=>s.pct>0) || (d.pages||[]).some(p=>(+p.views||0)>0) || (d.referrers||[]).some(r=>(+r.visits||0)>0);
   document.getElementById('emptyState').hidden = hasData;
   document.getElementById('updatedAt').textContent = d.updatedAt || '—';
 
