@@ -260,6 +260,8 @@ function vnoise(x, y){
   return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
 function fbm(x, y){ return vnoise(x, y) * 0.55 + vnoise(x * 2.13 + 5.2, y * 2.13 + 1.3) * 0.28 + vnoise(x * 4.41 + 9.1, y * 4.41 + 3.7) * 0.17; }
+function ridgeN(x, y){ const n = vnoise(x, y); return 1 - Math.abs(n * 2 - 1); }   // sharp crests at 1
+function ridgedFbm(x, y){ return ridgeN(x, y) * 0.5 + ridgeN(x * 2.31 + 4.7, y * 2.31 + 9.2) * 0.3 + ridgeN(x * 4.83 + 1.3, y * 4.83 + 7.7) * 0.2; }
 function sstep(a, b, x){ const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
 
 const L = 700;                                  // trek length (world units)
@@ -269,14 +271,27 @@ function pathPoint(t, out){
   t = Math.min(1, Math.max(0, t));
   out.set(pathX(t), pathY(t), -t * L); return out;
 }
+// frozen alpine lake site (beside the path, between camps 02 and 03)
+const LAKE = { t: 0.40, r: 17 };
+LAKE.x = pathX(LAKE.t) - 19;
+LAKE.z = -LAKE.t * L;
+LAKE.baseY = LAKE.t * 115 + 2.0;
 function terrainH(x, z){
   const t = Math.min(1, Math.max(0, -z / L));
   const px = pathX(t), d = Math.abs(x - px);
   const climb = t * 115;
   const side = sstep(7, 95, d);
   const m = fbm(x * 0.012 + 3.1, z * 0.012 + 7.7);
-  let h = climb + Math.pow(side, 1.5) * (18 + 85 * m) + (fbm(x * 0.06, z * 0.06) - 0.5) * 7 * side;
-  h += sstep(110, 165, d) * (40 + 60 * fbm(x * 0.008 + 11, z * 0.008 + 4));   // far rim peaks
+  const rg = ridgedFbm(x * 0.012 + 3.1, z * 0.012 + 7.7);
+  let h = climb + Math.pow(side, 1.6) * (14 + 95 * (0.42 * m + 0.58 * rg)) + (fbm(x * 0.06, z * 0.06) - 0.5) * 7 * side;
+  h += sstep(110, 165, d) * (40 + 70 * (0.4 * fbm(x * 0.008 + 11, z * 0.008 + 4) + 0.6 * ridgedFbm(x * 0.008 + 11, z * 0.008 + 4)));   // far rim peaks
+  // carve a flat bowl for the frozen lake
+  const ldx = x - LAKE.x, ldz = z - LAKE.z;
+  const ldist = Math.sqrt(ldx * ldx + ldz * ldz);
+  if (ldist < LAKE.r * 1.8){
+    const bowl = sstep(LAKE.r * 1.8, LAKE.r * 0.55, ldist);
+    h = h * (1 - bowl) + (LAKE.baseY + (1 - bowl) * 2.0) * bowl;
+  }
   return h;
 }
 
@@ -289,9 +304,11 @@ try {
 renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.5 : 2));
 renderer.setSize(innerWidth, innerHeight);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.12;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xdcc9a8, 55, 330);
+scene.fog = new THREE.FogExp2(0xd8c2a0, 0.0032);
 const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.1, 2200);
 
 // warm low sun + cool sky fill
@@ -309,26 +326,47 @@ const skyMat = new THREE.ShaderMaterial({
     void main(){
       vec3 d = normalize(vP);
       float h = d.y;
-      vec3 zen = vec3(0.09, 0.20, 0.42);
-      vec3 mid = vec3(0.45, 0.62, 0.83);
-      vec3 hor = vec3(0.99, 0.78, 0.58);
-      vec3 col = mix(hor, mid, smoothstep(0.0, 0.28, h));
-      col = mix(col, zen, smoothstep(0.22, 0.75, h));
-      col = mix(vec3(0.15, 0.12, 0.11), col, smoothstep(-0.3, 0.0, h));
+      vec3 zen = vec3(0.05, 0.13, 0.33);
+      vec3 upMid = vec3(0.20, 0.38, 0.66);
+      vec3 mid = vec3(0.52, 0.66, 0.85);
+      vec3 hor = vec3(0.98, 0.80, 0.60);
+      vec3 col = mix(hor, mid, smoothstep(-0.02, 0.22, h));
+      col = mix(col, upMid, smoothstep(0.18, 0.50, h));
+      col = mix(col, zen, smoothstep(0.45, 0.85, h));
+      col = mix(vec3(0.13, 0.11, 0.10), col, smoothstep(-0.25, 0.0, h));
       vec3 sd = normalize(vec3(-0.45, 0.20, -0.87));
       float s = max(dot(d, sd), 0.0);
-      col += vec3(1.0, 0.72, 0.42) * pow(s, 120.0) * 1.1;
-      col += vec3(1.0, 0.78, 0.52) * pow(s, 7.0) * 0.22;
+      // warm the horizon band near the sun's azimuth
+      float az = max(dot(normalize(vec3(d.x, 0.0, d.z) + vec3(1e-5)), normalize(vec3(sd.x, 0.0, sd.z))), 0.0);
+      col = mix(col, vec3(1.0, 0.62, 0.34), pow(az, 3.0) * (1.0 - smoothstep(0.0, 0.35, abs(h))) * 0.45);
+      col += vec3(1.0, 0.75, 0.45) * (pow(s, 350.0) * 2.2 + pow(s, 24.0) * 0.55 + pow(s, 6.0) * 0.28);
       gl_FragColor = vec4(col, 1.0);
     }`
 });
 const sky = new THREE.Mesh(new THREE.SphereGeometry(950, 24, 16), skyMat);
 sky.frustumCulled = false; scene.add(sky);
 
+// sun glow sprite (soft god-ray feel)
+{
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,240,220,1)');
+  g.addColorStop(0.25, 'rgba(255,210,150,0.55)');
+  g.addColorStop(1, 'rgba(255,200,140,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: new THREE.CanvasTexture(c), blending: THREE.AdditiveBlending,
+    depthWrite: false, fog: false, transparent: true, opacity: 0.9 }));
+  spr.position.copy(sunDir).multiplyScalar(880);
+  spr.scale.set(220, 220, 1);
+  sky.add(spr);
+}
+
 /* ═══════════════ TERRAIN ═══════════════ */
 {
   const W = 360, D = L + 160;
-  const segX = isMobile ? 90 : 150, segZ = isMobile ? 130 : 210;
+  const segX = isMobile ? 110 : 190, segZ = isMobile ? 150 : 260;
   const g = new THREE.PlaneGeometry(W, D, segX, segZ);
   g.rotateX(-Math.PI / 2);
   g.translate(0, 0, -L / 2 + 25);               // z ∈ [-L-55, 105]
@@ -339,7 +377,7 @@ sky.frustumCulled = false; scene.add(sky);
     const x = pos.getX(i), z = pos.getZ(i);
     const h = terrainH(x, z);
     pos.setY(i, h);
-    const f = sstep(42, 68, h);                  // snowline rises with altitude
+    const f = sstep(36, 60, h);                  // snowline rises with altitude
     tmp.copy(rock).lerp(snowC, f);
     const v = (fbm(x * 0.05, z * 0.05) - 0.5) * 0.10;
     tmp.offsetHSL(0, 0, v);
@@ -347,7 +385,42 @@ sky.frustumCulled = false; scene.add(sky);
   }
   g.setAttribute('color', new THREE.BufferAttribute(colors, 3));
   g.computeVertexNormals();
-  const terrain = new THREE.Mesh(g, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 1, metalness: 0 }));
+  // snow realism: sparkle glints, blue crevice tint (fake SSS), cliff rock exposure
+  const terrainMat = new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.94, metalness: 0 });
+  terrainMat.onBeforeCompile = (sh) => {
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWPos;\nvarying vec3 vSnowCol;')
+      .replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;\nvSnowCol = vColor;');
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', `#include <common>
+        varying vec3 vWPos; varying vec3 vSnowCol;
+        float th_hash(vec3 p){ p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3)); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+        float th_noise(vec3 x){ vec3 i = floor(x); vec3 f = fract(x); f = f * f * (3.0 - 2.0 * f);
+          float n000 = th_hash(i); float n100 = th_hash(i + vec3(1.0, 0.0, 0.0));
+          float n010 = th_hash(i + vec3(0.0, 1.0, 0.0)); float n110 = th_hash(i + vec3(1.0, 1.0, 0.0));
+          float n001 = th_hash(i + vec3(0.0, 0.0, 1.0)); float n101 = th_hash(i + vec3(1.0, 0.0, 1.0));
+          float n011 = th_hash(i + vec3(0.0, 1.0, 1.0)); float n111 = th_hash(i + vec3(1.0, 1.0, 1.0));
+          return mix(mix(mix(n000, n100, f.x), mix(n010, n110, f.x), f.y), mix(mix(n001, n101, f.x), mix(n011, n111, f.x), f.y), f.z); }`)
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        {
+          float snowM = smoothstep(0.60, 0.85, dot(vSnowCol, vec3(0.3333)));
+          vec3 nrm = normalize(normal);
+          float slope = 1.0 - nrm.y;
+          float cliff = smoothstep(0.42, 0.68, slope);
+          // steep cliffs: expose dark rock, no snow
+          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.30, 0.25, 0.20) * (0.85 + 0.3 * th_noise(vWPos * 0.35)), cliff * snowM);
+          // cool blue tint in snow crevices (fake subsurface scattering)
+          float crev = smoothstep(0.62, 0.28, th_noise(vWPos * 0.045));
+          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.58, 0.70, 0.92), snowM * (1.0 - cliff) * crev * 0.45);
+          // view-dependent snow sparkle glints
+          vec3 Vv = normalize(vViewPosition);
+          vec3 Ld = normalize(vec3(-0.45, 0.20, -0.87));
+          float cell = th_hash(floor(vWPos * 23.0));
+          float glint = step(0.986, cell) * pow(max(dot(reflect(-Ld, nrm), Vv), 0.0), 2.0);
+          totalEmissiveRadiance += vec3(1.0, 0.97, 0.92) * (glint * snowM * (1.0 - cliff) * 1.7);
+        }`);
+  };
+  const terrain = new THREE.Mesh(g, terrainMat);
   scene.add(terrain);
 }
 
@@ -365,6 +438,151 @@ sky.frustumCulled = false; scene.add(sky);
   g.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
   g.setIndex(idx); g.computeVertexNormals();
   scene.add(new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0x9a8a70, roughness: 1, side: THREE.DoubleSide })));
+}
+
+/* ═══════════════ FROZEN ALPINE LAKE ═══════════════ */
+{
+  const R = LAKE.r;
+  const iceMat = new THREE.MeshPhysicalMaterial({
+    color: 0xc4e6f2, metalness: 0, roughness: 0.14,
+    transmission: 0.92, thickness: 2.0, ior: 1.31,
+    attenuationColor: new THREE.Color(0x5fb6d4), attenuationDistance: 10,
+    clearcoat: 0.5, clearcoatRoughness: 0.25
+  });
+  const ice = new THREE.Mesh(new THREE.CircleGeometry(R * 0.92, 48), iceMat);
+  ice.rotation.x = -Math.PI / 2;
+  ice.position.set(LAKE.x, LAKE.baseY + 0.06, LAKE.z);
+  scene.add(ice);
+
+  // procedural ice cracks + frost overlay
+  const c = document.createElement('canvas'); c.width = c.height = 512;
+  const cx2 = c.getContext('2d');
+  cx2.clearRect(0, 0, 512, 512);
+  function crack(px, py, ang, len, w){
+    cx2.strokeStyle = 'rgba(16, 40, 58, 0.85)'; cx2.lineWidth = w; cx2.lineCap = 'round';
+    cx2.beginPath(); cx2.moveTo(px, py);
+    let ox = px, oy = py, a = ang;
+    for (let i = 0; i < len; i++){
+      a += (Math.random() - 0.5) * 0.9;
+      ox += Math.cos(a) * 14; oy += Math.sin(a) * 14;
+      cx2.lineTo(ox, oy);
+      if (Math.random() < 0.16 && w > 0.8 && i < len - 3) crack(ox, oy, a + (Math.random() < 0.5 ? 0.9 : -0.9), Math.max(0, len - i - 3), w * 0.6);
+    }
+    cx2.stroke();
+  }
+  for (let i = 0; i < 9; i++) crack(256 + (Math.random() - 0.5) * 160, 256 + (Math.random() - 0.5) * 160, Math.random() * 6.28, 14, 2.2);
+  for (let i = 0; i < 26; i++){
+    const fx = Math.random() * 512, fy = Math.random() * 512, fr = 12 + Math.random() * 36;
+    const fg = cx2.createRadialGradient(fx, fy, 0, fx, fy, fr);
+    fg.addColorStop(0, 'rgba(235,244,252,0.5)'); fg.addColorStop(1, 'rgba(235,244,252,0)');
+    cx2.fillStyle = fg; cx2.beginPath(); cx2.arc(fx, fy, fr, 0, 6.29); cx2.fill();
+  }
+  const cracks = new THREE.Mesh(new THREE.CircleGeometry(R * 0.92, 48),
+    new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0.85, depthWrite: false }));
+  cracks.rotation.x = -Math.PI / 2;
+  cracks.position.set(LAKE.x, LAKE.baseY + 0.10, LAKE.z);
+  scene.add(cracks);
+
+  // bright frost rim at the shoreline
+  const rim = new THREE.Mesh(new THREE.RingGeometry(R * 0.92, R * 1.12, 48),
+    new THREE.MeshBasicMaterial({ color: 0xe8f3fb, transparent: true, opacity: 0.75, depthWrite: false }));
+  rim.rotation.x = -Math.PI / 2;
+  rim.position.set(LAKE.x, LAKE.baseY + 0.09, LAKE.z);
+  scene.add(rim);
+
+  // scattered translucent ice chunks along the shore
+  const chunkMat = new THREE.MeshPhysicalMaterial({ color: 0xd6ecf7, roughness: 0.2, transmission: 0.7, thickness: 0.6, ior: 1.31 });
+  for (let i = 0; i < 10; i++){
+    const a = Math.random() * 6.28, rr = R * (0.95 + Math.random() * 0.35);
+    const ix = LAKE.x + Math.cos(a) * rr, iz = LAKE.z + Math.sin(a) * rr;
+    const s = new THREE.Mesh(new THREE.DodecahedronGeometry(0.4 + Math.random() * 0.8, 0), chunkMat);
+    s.position.set(ix, terrainH(ix, iz) + 0.25, iz);
+    s.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+    scene.add(s);
+  }
+}
+
+/* ═══════════════ ICEFALL / ICICLES ═══════════════ */
+{
+  const t = 0.62, z = -t * L, px = pathX(t);
+  const bx = px + 7, bz = z - 3, by = terrainH(bx, bz);
+  const slab = new THREE.Mesh(new THREE.BoxGeometry(7, 1.4, 3.4),
+    new THREE.MeshStandardMaterial({ color: 0x5a4f42, roughness: 1, flatShading: true }));
+  slab.position.set(bx, by + 1.1, bz); slab.rotation.set(0.08, 0.5, 0.12);
+  scene.add(slab);
+  const iceMat2 = new THREE.MeshPhysicalMaterial({ color: 0xcfe9f6, roughness: 0.08, transmission: 0.85, thickness: 0.7, ior: 1.31, emissive: 0x16303e, emissiveIntensity: 0.9 });
+  for (let i = 0; i < 18; i++){
+    const len = 1.2 + Math.random() * 2.0, rad = 0.14 + Math.random() * 0.14;
+    const ic = new THREE.Mesh(new THREE.ConeGeometry(rad, len, 7), iceMat2);
+    const ox = (Math.random() - 0.5) * 6.0, oz = (Math.random() - 0.5) * 2.6;
+    const wx = bx + ox * Math.cos(0.5) - oz * Math.sin(0.5);
+    const wz = bz + ox * Math.sin(0.5) + oz * Math.cos(0.5);
+    ic.position.set(wx, by + 0.8 - len / 2, wz);
+    ic.rotation.x = Math.PI; ic.rotation.z = (Math.random() - 0.5) * 0.12;
+    scene.add(ic);
+  }
+  for (let i = 0; i < 7; i++){
+    const hgt = 0.7 + Math.random() * 1.6;
+    const sh = new THREE.Mesh(new THREE.ConeGeometry(0.22 + Math.random() * 0.2, hgt, 5), iceMat2);
+    const sx2 = bx + (Math.random() - 0.5) * 8, sz2 = bz + 2.5 + Math.random() * 2;
+    sh.position.set(sx2, terrainH(sx2, sz2) + hgt / 2 - 0.1, sz2);
+    sh.rotation.set((Math.random() - 0.5) * 0.35, 0, (Math.random() - 0.5) * 0.35);
+    scene.add(sh);
+  }
+}
+
+/* ═══════════════ MIDGROUND PINES (instanced) ═══════════════ */
+{
+  const N = isMobile ? 20 : 48;
+  const trunkG = new THREE.CylinderGeometry(0.14, 0.2, 1.2, 5);
+  const folG = new THREE.ConeGeometry(1.5, 3.4, 7);
+  const fol2G = new THREE.ConeGeometry(1.05, 2.4, 7);
+  const trunkM = new THREE.MeshStandardMaterial({ color: 0x4a3320, roughness: 1 });
+  const folM = new THREE.MeshStandardMaterial({ color: 0x1e3a2a, roughness: 1, flatShading: true });
+  const trunks = new THREE.InstancedMesh(trunkG, trunkM, N);
+  const fols = new THREE.InstancedMesh(folG, folM, N);
+  const fols2 = new THREE.InstancedMesh(fol2G, folM, N);
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), eu = new THREE.Euler(), vv = new THREE.Vector3(), sc = new THREE.Vector3();
+  let placed = 0, guard = 0;
+  while (placed < N && guard++ < 600){
+    const t = Math.random(), side = Math.random() < 0.5 ? -1 : 1;
+    const d = 20 + Math.random() * 55;
+    const x = pathX(t) + side * d, z = -t * L + (Math.random() - 0.5) * 40;
+    if (Math.abs(x) > 165) continue;
+    const y = terrainH(x, z);
+    if (y - t * 115 > 55) continue;
+    const ldx = x - LAKE.x, ldz = z - LAKE.z;
+    if (ldx * ldx + ldz * ldz < Math.pow(LAKE.r * 2.2, 2)) continue;
+    const s = 0.9 + Math.random() * 1.6;
+    eu.set(0, Math.random() * 6.28, 0); q.setFromEuler(eu);
+    vv.set(x, y + 0.6 * s - 0.1, z); sc.set(s, s, s); m4.compose(vv, q, sc); trunks.setMatrixAt(placed, m4);
+    vv.set(x, y + 2.3 * s - 0.1, z); m4.compose(vv, q, sc); fols.setMatrixAt(placed, m4);
+    vv.set(x, y + 3.7 * s - 0.1, z); m4.compose(vv, q, sc); fols2.setMatrixAt(placed, m4);
+    placed++;
+  }
+  trunks.count = fols.count = fols2.count = placed;
+  trunks.instanceMatrix.needsUpdate = true; fols.instanceMatrix.needsUpdate = true; fols2.instanceMatrix.needsUpdate = true;
+  scene.add(trunks, fols, fols2);
+}
+
+/* ═══════════════ DISTANT RIDGE SILHOUETTES ═══════════════ */
+function ridgeStrip(w, h, seed, color){
+  const shape = new THREE.Shape();
+  shape.moveTo(-w / 2, 0);
+  const n = 26;
+  for (let i = 0; i <= n; i++){
+    const jx = -w / 2 + (i / n) * w;
+    const jy = h * (0.35 + 0.65 * Math.abs(Math.sin(i * 2.3 + seed) * 0.6 + Math.sin(i * 0.7 + seed * 2.0) * 0.4));
+    shape.lineTo(jx, jy);
+  }
+  shape.lineTo(w / 2, 0); shape.closePath();
+  return new THREE.Mesh(new THREE.ShapeGeometry(shape), new THREE.MeshBasicMaterial({ color, fog: true, side: THREE.DoubleSide }));
+}
+{
+  const r1 = ridgeStrip(1500, 150, 3.1, 0x847ca0);
+  r1.position.set(-80, 105, -L - 70); scene.add(r1);
+  const r2 = ridgeStrip(1900, 210, 7.7, 0x6a6488);
+  r2.position.set(120, 95, -L - 220); scene.add(r2);
 }
 
 /* ═══════════════ PROPS ═══════════════ */
@@ -463,8 +681,8 @@ function flagString(t){
 }
 [0.03, 0.20, 0.40, 0.60, 0.79, 0.95].forEach(flagString);
 
-/* ═══════════════ SNOWFALL ═══════════════ */
-let snow, snowVel;
+/* ═══════════════ SNOWFALL (two depth layers) ═══════════════ */
+const snowLayers = [];
 function makeSnowTexture(){
   const c = document.createElement('canvas'); c.width = c.height = 64;
   const x = c.getContext('2d');
@@ -473,25 +691,27 @@ function makeSnowTexture(){
   g.addColorStop(0.5, 'rgba(255,255,255,0.85)');
   g.addColorStop(1, 'rgba(255,255,255,0)');
   x.fillStyle = g; x.fillRect(0, 0, 64, 64);
-  const t = new THREE.CanvasTexture(c); return t;
+  return new THREE.CanvasTexture(c);
 }
-{
-  const N = isMobile ? 600 : 1500;
-  const p = new Float32Array(N * 3); snowVel = new Float32Array(N * 2);
+function makeSnowLayer(N, spread, yMax, size, opacity){
+  const p = new Float32Array(N * 3), vel = new Float32Array(N * 2);
   for (let i = 0; i < N; i++){
-    p[i * 3] = (Math.random() - 0.5) * 140;
-    p[i * 3 + 1] = Math.random() * 50 - 8;
-    p[i * 3 + 2] = (Math.random() - 0.5) * 140;
-    snowVel[i * 2] = 1.5 + Math.random() * 2.5;   // fall speed
-    snowVel[i * 2 + 1] = Math.random() * 6.28;    // drift phase
+    p[i * 3] = (Math.random() - 0.5) * spread;
+    p[i * 3 + 1] = Math.random() * yMax - 8;
+    p[i * 3 + 2] = (Math.random() - 0.5) * spread;
+    vel[i * 2] = 1.5 + Math.random() * 2.5;   // fall speed
+    vel[i * 2 + 1] = Math.random() * 6.28;     // drift phase
   }
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(p, 3));
-  snow = new THREE.Points(g, new THREE.PointsMaterial({
-    map: makeSnowTexture(), color: 0xffffff, size: 0.55, transparent: true, opacity: 0.9,
+  const pts = new THREE.Points(g, new THREE.PointsMaterial({
+    map: makeSnowTexture(), color: 0xffffff, size, transparent: true, opacity,
     sizeAttenuation: true, depthWrite: false }));
-  snow.frustumCulled = false; scene.add(snow);
+  pts.frustumCulled = false; scene.add(pts);
+  snowLayers.push({ pts, vel, spread });
 }
+makeSnowLayer(isMobile ? 600 : 1500, 140, 50, 0.55, 0.9);   // ambient flakes
+makeSnowLayer(isMobile ? 150 : 380, 48, 30, 0.5, 0.7);      // large near-camera flakes
 
 /* ═══════════════ DRIFTING CLOUDS ═══════════════ */
 const clouds = [];
@@ -615,17 +835,19 @@ function animate(){
   // prayer flags wave
   for (const w of waving) w.mesh.rotation.y = Math.sin(time * 2.1 + w.phase) * w.amp;
 
-  // snowfall follows camera
-  snow.position.set(camera.position.x, camera.position.y - 12, camera.position.z);
-  const sp = snow.geometry.attributes.position;
-  for (let i = 0; i < sp.count; i++){
-    let y = sp.getY(i) - snowVel[i * 2] * dt;
-    let x = sp.getX(i) + Math.sin(time * 0.8 + snowVel[i * 2 + 1]) * dt * 1.2;
-    if (y < -8) y = 42;
-    if (x > 70) x = -70; else if (x < -70) x = 70;
-    sp.setY(i, y); sp.setX(i, x);
+  // snowfall follows camera (per-layer bounds)
+  for (const layer of snowLayers){
+    layer.pts.position.set(camera.position.x, camera.position.y - 12, camera.position.z);
+    const sp = layer.pts.geometry.attributes.position, half = layer.spread / 2;
+    for (let i = 0; i < sp.count; i++){
+      let y = sp.getY(i) - layer.vel[i * 2] * dt;
+      let x = sp.getX(i) + Math.sin(time * 0.8 + layer.vel[i * 2 + 1]) * dt * 1.2;
+      if (y < -8) y = 42;
+      if (x > half) x = -half; else if (x < -half) x = half;
+      sp.setY(i, y); sp.setX(i, x);
+    }
+    sp.needsUpdate = true;
   }
-  sp.needsUpdate = true;
 
   // clouds drift
   for (const cl of clouds){
