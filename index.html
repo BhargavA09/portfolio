@@ -5,12 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhargav Patel — Full-Stack Software Engineer</title>
 <meta name="description" content="Bhargav Patel is a Full-Stack Software Engineer based in Windsor, Ontario. React, Node.js, TypeScript, .NET/C#, Python, SQL. Open to remote roles across Canada.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bhargav Patel — Full-Stack Software Engineer">
+<meta property="og:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Based in Windsor, Ontario — available immediately, open to remote across Canada.">
+<meta property="og:url" content="https://portfolio-two-sand-mka2npx5wd.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bhargav Patel — Full-Stack Software Engineer">
+<meta name="twitter:description" content="Full-stack engineer (React, Node.js, TypeScript, .NET/C#) building real-time, data-driven products. Available immediately, open to remote across Canada.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 
 <!-- ══════════ NAV ══════════ -->
 <nav id="nav">
@@ -40,6 +49,7 @@
     <p class="hero-sub reveal">Full-stack engineer building real-time, data-driven products — from AI trading platforms to production systems that never sleep. Windsor, Ontario.</p>
     <div class="hero-btns reveal">
       <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
     <div class="hero-meta mono reveal">
@@ -118,10 +128,11 @@
     <h2 class="sec-title reveal">Featured <span class="grad">projects.</span></h2>
     <p class="sec-sub reveal">Live in production, not screenshots. Click through and use them.</p>
 
-    <article class="proj reveal">
+    <article class="proj reveal" data-case="quantlab" tabindex="0" role="button" aria-label="Open QuantLab case study">
       <div class="proj-visual quantlab">
         <div class="mini-chart" id="miniChart"></div>
         <div class="proj-badge mono">● LIVE</div>
+        <div class="proj-hint mono">▸ click for case study</div>
       </div>
       <div class="proj-body">
         <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
@@ -135,10 +146,11 @@
       </div>
     </article>
 
-    <article class="proj reveal">
+    <article class="proj reveal" data-case="netscanpro" tabindex="0" role="button" aria-label="Open Netscanpro case study">
       <div class="proj-visual netscan">
         <div class="radar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
         <div class="proj-badge mono">● LIVE</div>
+        <div class="proj-hint mono">▸ click for case study</div>
       </div>
       <div class="proj-body">
         <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
@@ -154,9 +166,36 @@
   </div>
 </section>
 
-<!-- ══════════ EXPERIENCE ══════════ -->
-<section id="experience">
+<!-- ══════════ GITHUB ══════════ -->
+<section id="github">
   <div class="wrap">
+    <p class="sec-cmd mono reveal">$ gh stats --user BhargavA09</p>
+    <h2 class="sec-title reveal">Open source <span class="grad">footprint.</span></h2>
+    <p class="sec-sub reveal">Live from my public GitHub profile.</p>
+    <div class="gh-grid" id="ghGrid">
+      <div class="gh-card reveal">
+        <span class="gh-num mono" id="ghRepos">…</span>
+        <span class="stat-label">Public repositories</span>
+      </div>
+      <div class="gh-card reveal">
+        <span class="gh-num mono" id="ghFollowers">…</span>
+        <span class="stat-label">Followers</span>
+      </div>
+      <div class="gh-card gh-langs reveal">
+        <span class="gh-label mono">TOP LANGUAGES</span>
+        <div class="lang-bars" id="ghLangs"><p class="gh-fallback">Loading…</p></div>
+      </div>
+      <a class="gh-card gh-link reveal" href="https://github.com/BhargavA09" target="_blank" rel="noopener">
+        <span class="gh-num mono">⌨</span>
+        <span class="stat-label">github.com/BhargavA09 ↗</span>
+      </a>
+    </div>
+    <p class="gh-fallback mono" id="ghFallback" hidden>GitHub stats are unavailable right now — view the profile directly at <a href="https://github.com/BhargavA09" target="_blank" rel="noopener">github.com/BhargavA09</a>.</p>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">  <div class="wrap">
     <p class="sec-cmd mono reveal">$ git log --career --oneline</p>
     <h2 class="sec-title reveal">Experience <span class="grad">timeline.</span></h2>
     <div class="timeline">
@@ -279,7 +318,29 @@
     </div>
     <div class="hero-btns center reveal">
       <a href="mailto:bhrgavpatel04@gmail.com?subject=Let's%20talk" class="btn btn-primary">Send Email</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>↓ Download Resume</a>
     </div>
+
+    <form class="contact-form reveal" id="contactForm" novalidate>
+      <p class="form-title mono">$ send-message --to bhargav</p>
+      <div class="form-row">
+        <label>
+          <span class="mono">Your name</span>
+          <input type="text" id="cfName" name="name" placeholder="Jane Doe" autocomplete="name" required>
+        </label>
+        <label>
+          <span class="mono">Your email</span>
+          <input type="email" id="cfEmail" name="email" placeholder="jane@company.com" autocomplete="email" required>
+        </label>
+      </div>
+      <label>
+        <span class="mono">Message</span>
+        <textarea id="cfMsg" name="message" rows="5" placeholder="Hi Bhargav — let's talk about…" required></textarea>
+      </label>
+      <p class="form-error mono" id="cfError" hidden></p>
+      <button type="submit" class="btn btn-primary">Send via your email app</button>
+      <p class="form-note mono">This opens your own email app with the message prefilled — nothing is sent without your review.</p>
+    </form>
   </div>
 </section>
 
@@ -291,6 +352,91 @@
     <p class="mono foot-dim">Windsor, ON · © 2026 Bhargav Patel</p>
   </div>
 </footer>
+
+<!-- ══════════ CASE-STUDY MODALS ══════════ -->
+<div class="modal-overlay" id="modalOverlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+
+    <div class="modal-case" id="case-quantlab" hidden>
+      <p class="proj-kind mono">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
+      <h3 id="modalTitle">QuantLab <span class="proj-sub">/ QuantTrade</span></h3>
+      <div class="modal-tabs mono" role="tablist">
+        <button class="mtab active" data-tab="problem">Problem</button>
+        <button class="mtab" data-tab="approach">Approach</button>
+        <button class="mtab" data-tab="results">Results</button>
+        <button class="mtab" data-tab="stack">Tech stack</button>
+      </div>
+      <div class="mtab-body" data-pane="problem">
+        <p>Real-time market data is noisy, fragmented, and fast — retail tooling either shows delayed charts or hides its logic in a black box. I wanted a platform that streams live data, explains its own signals, and quantifies risk instead of just drawing lines.</p>
+      </div>
+      <div class="mtab-body" data-pane="approach" hidden>
+        <ul>
+          <li>Architected the platform end to end — database, API, and UI.</li>
+          <li>Built a multi-source real-time data pipeline over WebSockets with custom caching and memory-safe SQLite persistence.</li>
+          <li>Designed a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
+          <li>Engineered a Monte Carlo simulation engine in TypeScript, forecasting outcomes across thousands of stochastic paths with dynamic confidence intervals.</li>
+          <li>Integrated Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
+          <li>Ships cross-platform as a web app plus an Android app (Capacitor).</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="results" hidden>
+        <ul>
+          <li>Live in production at <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">quant-trade-neon.vercel.app</a> with GitHub auto-deploy.</li>
+          <li>Real-time pipeline streaming multi-source market data over WebSockets.</li>
+          <li>Monte Carlo engine forecasting thousands of stochastic paths per simulation run.</li>
+          <li>AI analytics and risk modeling wired directly into the live dashboard.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="stack" hidden>
+        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span><span>Vercel</span></div>
+        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
+      </div>
+    </div>
+
+    <div class="modal-case" id="case-netscanpro" hidden>
+      <p class="proj-kind mono">THREAT INTELLIGENCE DASHBOARD</p>
+      <h3>Netscanpro</h3>
+      <div class="modal-tabs mono" role="tablist">
+        <button class="mtab active" data-tab="problem">Problem</button>
+        <button class="mtab" data-tab="approach">Approach</button>
+        <button class="mtab" data-tab="results">Results</button>
+        <button class="mtab" data-tab="stack">Tech stack</button>
+      </div>
+      <div class="mtab-body" data-pane="problem">
+        <p>Network security analysts drown in raw scan output. I built a dashboard that turns network security data into explorable, interactive visualizations — a dark UI built for people who live in dashboards.</p>
+      </div>
+      <div class="mtab-body" data-pane="approach" hidden>
+        <ul>
+          <li>Built with Vite + React + Tailwind CSS for fast iteration and a modern dark interface.</li>
+          <li>Interactive visualizations and scan workflows for exploring threat-intelligence data.</li>
+          <li>Deployed live on Vercel with GitHub auto-deploy — every push ships.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="results" hidden>
+        <ul>
+          <li>Live in production at <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">netscanpro.vercel.app</a>.</li>
+          <li>Interactive threat-intel visualizations and scan workflows usable directly in the browser.</li>
+        </ul>
+      </div>
+      <div class="mtab-body" data-pane="stack" hidden>
+        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span><span>Vercel</span></div>
+        <p style="margin-top:16px"><a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">⌨ View source on GitHub</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ TERMINAL EASTER EGG ══════════ -->
+<button id="termBtn" class="term-btn mono" aria-label="Open terminal">>_</button>
+<div class="term-overlay" id="termOverlay" hidden>
+  <div class="term-win" role="dialog" aria-modal="true" aria-label="Terminal">
+    <div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="mono">bhargav@dev: ~</span><button id="termClose" aria-label="Close terminal">✕</button></div>
+    <div class="term-body mono" id="termBody"></div>
+    <div class="term-input-line mono"><span class="term-ps1">visitor@bhargav.dev:~$</span><input id="termInput" class="term-input" autocomplete="off" spellcheck="false" aria-label="Terminal input"></div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

@@ -6,9 +6,10 @@ Personal portfolio site for **Bhargav Patel**, Full-Stack Software Engineer (Win
 
 Plain static files — no build step, no dependencies:
 
-- `index.html` — single-page site: hero, about, skills, featured projects, experience timeline, education, contact
+- `index.html` — single-page site: hero, about, skills, featured projects (+ case-study modals), GitHub stats, experience timeline, education, contact form
 - `styles.css` — dark "trading desk" theme (emerald/cyan on near-black)
-- `script.js` — animated candlestick canvas, typing effect, skills ticker, scroll reveals, animated counters
+- `script.js` — animated candlestick canvas, typing effect, skills ticker, scroll reveals, animated counters, modals, terminal easter egg, contact form
+- `resume.pdf` — downloadable resume, rendered verbatim from `Bhargav_Patel_Resume_ATS.md` via `hidden_files/render_resume.py` (regenerate with: `python3 hidden_files/render_resume.py files/Bhargav_Patel_Resume_ATS.md ~/workspace/portfolio-site/resume.pdf` from the goal workspace)
 
 Every fact on the page comes from Bhargav's verified resume/projects. No lorem ipsum.
 

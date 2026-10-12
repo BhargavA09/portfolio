@@ -180,3 +180,153 @@ if (mini) {
   }, 2000);
 }
 })();
+
+/* ── 8. Scroll progress bar ── */
+const prog = document.getElementById('progress');
+if (prog) {
+  const upd = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+  };
+  addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd();
+}
+
+/* ── 9. Case-study modals ── */
+const overlay = document.getElementById('modalOverlay');
+const modalClose = document.getElementById('modalClose');
+function openCase(key){
+  const c = document.getElementById('case-' + key);
+  if (!c || !overlay) return;
+  overlay.querySelectorAll('.modal-case').forEach(el => el.hidden = true);
+  c.hidden = false;
+  // reset to Problem tab
+  c.querySelectorAll('.mtab').forEach((t,i) => t.classList.toggle('active', i === 0));
+  c.querySelectorAll('.mtab-body').forEach(p => p.hidden = p.dataset.pane !== 'problem');
+  overlay.hidden = false;
+  document.body.classList.add('modal-open');
+  modalClose.focus();
+}
+function closeModal(){
+  if (!overlay) return;
+  overlay.hidden = true;
+  document.body.classList.remove('modal-open');
+}
+document.querySelectorAll('.proj[data-case]').forEach(card => {
+  card.addEventListener('click', e => {
+    if (e.target.closest('a')) return; // let real links work
+    openCase(card.dataset.case);
+  });
+  card.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('a')) { e.preventDefault(); openCase(card.dataset.case); }
+  });
+});
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (overlay) overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && overlay && !overlay.hidden) closeModal(); });
+document.querySelectorAll('.modal-case').forEach(c => {
+  c.querySelectorAll('.mtab').forEach(tab => tab.addEventListener('click', () => {
+    c.querySelectorAll('.mtab').forEach(t => t.classList.toggle('active', t === tab));
+    c.querySelectorAll('.mtab-body').forEach(p => p.hidden = p.dataset.pane !== tab.dataset.tab);
+  }));
+});
+
+/* ── 10. Live GitHub stats ── */
+(function ghStats(){
+  const reposEl = document.getElementById('ghRepos'),
+        folEl = document.getElementById('ghFollowers'),
+        langsEl = document.getElementById('ghLangs'),
+        fbEl = document.getElementById('ghFallback');
+  if (!reposEl) return;
+  const fail = () => {
+    reposEl.textContent = '–'; folEl.textContent = '–';
+    if (langsEl) langsEl.innerHTML = '<p class="gh-fallback">Unavailable</p>';
+    if (fbEl) fbEl.hidden = false;
+  };
+  fetch('https://api.github.com/users/BhargavA09')
+    .then(r => { if (!r.ok) throw 0; return r.json(); })
+    .then(u => {
+      reposEl.textContent = u.public_repos ?? '?';
+      folEl.textContent = u.followers ?? '?';
+      return fetch('https://api.github.com/users/BhargavA09/repos?per_page=100');
+    })
+    .then(r => { if (!r.ok) throw 0; return r.json(); })
+    .then(repos => {
+      const counts = {};
+      repos.forEach(rp => { if (rp.language) counts[rp.language] = (counts[rp.language] || 0) + 1; });
+      const total = Object.values(counts).reduce((a,b) => a+b, 0);
+      const top = Object.entries(counts).sort((a,b) => b[1]-a[1]).slice(0,5);
+      if (!top.length || !langsEl) { fail(); return; }
+      langsEl.innerHTML = top.map(([lang, n]) => {
+        const pct = Math.round(n / total * 100);
+        return '<div class="lang-row"><span class="lang-name">' + lang + '</span>' +
+               '<span class="lang-track"><span class="lang-fill" style="width:' + pct + '%"></span></span>' +
+               '<span class="lang-pct">' + pct + '%</span></div>';
+      }).join('');
+    })
+    .catch(fail);
+})();
+
+/* ── 11. Terminal easter egg ── */
+(function terminal(){
+  const btn = document.getElementById('termBtn'), ov = document.getElementById('termOverlay'),
+        body = document.getElementById('termBody'), input = document.getElementById('termInput'),
+        close = document.getElementById('termClose');
+  if (!btn || !ov) return;
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const CMDS = {
+    help: () => 'available commands: <span class="t-green">whoami</span> <span class="t-green">skills</span> <span class="t-green">projects</span> <span class="t-green">experience</span> <span class="t-green">contact</span> <span class="t-green">hire</span> <span class="t-green">clear</span> <span class="t-green">exit</span>',
+    whoami: () => '<span class="t-cyan">Bhargav Patel</span> — Full-Stack Software Engineer\nWindsor, Ontario, Canada · M.Eng, University of Windsor\n3+ years across React, Node.js, TypeScript, .NET/C#, Python, SQL',
+    skills: () => 'languages:  C#, TypeScript, JavaScript, Python, SQL\nbackend:    ASP.NET Core, Node.js, Express, REST, microservices, WebSockets\nfrontend:   React 19, Tailwind CSS, Vite\ncloud:      Azure, AWS, Docker, GitHub Actions, Vercel\nai:         Google Gemini, RAG, prompt engineering',
+    projects: () => '<span class="t-cyan">QuantLab</span> — AI trading intelligence platform · live: quant-trade-neon.vercel.app\n<span class="t-cyan">Netscanpro</span> — threat-intel dashboard · live: netscanpro.vercel.app\ntype a project name? try <span class="t-green">projects</span> again on the page — click a card for the case study.',
+    experience: () => '2023–now   Independent Full-Stack Engineer — QuantLab platform\n2023–now   IT Systems Manager & Operations Lead — McDonald\u2019s, Windsor (99.9% uptime)\n2020–2021   Full-Stack Software Engineer — Edukite Learning\n2019–2020   Full-Stack Software Engineer — Techie Computer',
+    contact: () => 'email:    bhrgavpatel04@gmail.com\nphone:    +1 (647) 857-9456\nlinkedin: linkedin.com/in/bhrgavpatel\ngithub:   github.com/BhargavA09',
+    hire: () => '<span class="t-green">Status: available immediately.</span>\nRemote across Canada, or on-site / hybrid anywhere in Ontario.\nScroll to the contact section or type <span class="t-green">contact</span>.'
+  };
+  function print(html){ const d = document.createElement('div'); d.innerHTML = html; body.appendChild(d); body.scrollTop = body.scrollHeight; }
+  function openTerm(){
+    ov.hidden = false;
+    if (!body.dataset.booted) {
+      body.dataset.booted = '1';
+      print('<span class="t-dim">bhargav.dev shell — type</span> <span class="t-green">help</span> <span class="t-dim">to begin. (tip: press</span> <span class="t-green">~</span> <span class="t-dim">anytime)</span>');
+    }
+    input.focus();
+  }
+  function closeTerm(){ ov.hidden = true; btn.focus(); }
+  btn.addEventListener('click', openTerm);
+  close.addEventListener('click', closeTerm);
+  ov.addEventListener('click', e => { if (e.target === ov) closeTerm(); });
+  addEventListener('keydown', e => {
+    if (e.key === '~' && !ov.hidden === false && document.activeElement !== input && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) {
+      e.preventDefault(); openTerm();
+    } else if (e.key === 'Escape' && !ov.hidden) closeTerm();
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const raw = input.value.trim(); input.value = '';
+    print('<span class="t-green">visitor@bhargav.dev:~$</span> ' + esc(raw));
+    const cmd = raw.toLowerCase();
+    if (cmd === 'clear') { body.innerHTML = ''; return; }
+    if (cmd === 'exit') { closeTerm(); return; }
+    if (cmd === '') return;
+    print(CMDS[cmd] ? CMDS[cmd]() : '<span class="t-dim">command not found:</span> ' + esc(raw) + ' <span class="t-dim">— try</span> <span class="t-green">help</span>');
+  });
+})();
+
+/* ── 12. Contact form → visitor's email app ── */
+const form = document.getElementById('contactForm');
+if (form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('cfName').value.trim(),
+          email = document.getElementById('cfEmail').value.trim(),
+          msg = document.getElementById('cfMsg').value.trim(),
+          err = document.getElementById('cfError');
+    err.hidden = true;
+    if (!name || !msg) { err.textContent = '$ error: name and message are required.'; err.hidden = false; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = '$ error: that email doesn\u2019t look valid.'; err.hidden = false; return; }
+    const subject = encodeURIComponent('Portfolio inquiry from ' + name);
+    const body = encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = 'mailto:bhrgavpatel04@gmail.com?subject=' + subject + '&body=' + body;
+  });
+}
