@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="author" content="Bhargav Patel">
+<meta name="publisher" content="Bhargav Patel">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>The Diversification Doctrine</title>
+    <meta name="description" content="Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration, only larger." />
+    <meta property="og:title" content="The Diversification Doctrine" />
+    <meta property="og:description" content="Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies pay the same price, only larger." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bharg-patel.vercel.app/articles/the-diversification-doctrine.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The Diversification Doctrine" />
+    <meta name="twitter:description" content="Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies pay the same price, only larger." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --paper: #f6f6f3;
+        --surface: #ffffff;
+        --surface-2: #ececea;
+        --ink: #17191d;
+        --ink-2: #454a52;
+        --ink-3: #6d737d;
+        --rule: #d8d8d2;
+        --rule-strong: #17191d;
+        --accent: #b3261e;
+        --accent-soft: rgba(179, 38, 30, 0.08);
+        --steel: #2f5d6e;
+        --steel-soft: rgba(47, 93, 110, 0.10);
+        --amber: #9a6a12;
+        --chart-grid: #dcdcd6;
+        --chart-line: #b3261e;
+        --chart-line-2: #2f5d6e;
+        --shadow: 0 1px 2px rgba(20, 22, 26, 0.06), 0 8px 24px rgba(20, 22, 26, 0.06);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #101216;
+          --surface: #171a1f;
+          --surface-2: #1e2127;
+          --ink: #eceef0;
+          --ink-2: #b9bec6;
+          --ink-3: #8b919b;
+          --rule: #2c3038;
+          --rule-strong: #eceef0;
+          --accent: #e2604f;
+          --accent-soft: rgba(226, 96, 79, 0.12);
+          --steel: #7fb3c4;
+          --steel-soft: rgba(127, 179, 196, 0.12);
+          --amber: #d9a441;
+          --chart-grid: #2c3038;
+          --chart-line: #e2604f;
+          --chart-line-2: #7fb3c4;
+          --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation: none !important; transition: none !important; }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif; }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+      /* ---------- progress + nav ---------- */
+      #progress {
+        position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+        background: var(--accent); z-index: 60;
+      }
+      nav.toc {
+        position: sticky; top: 0; z-index: 50;
+        background: var(--paper);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav.toc .inner {
+        max-width: 1080px; margin: 0 auto; padding: 0 20px;
+        display: flex; align-items: center; gap: 4px; overflow-x: auto;
+        scrollbar-width: none;
+      }
+      nav.toc .inner::-webkit-scrollbar { display: none; }
+      nav.toc .brand {
+        font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 13px;
+        letter-spacing: 0.02em; white-space: nowrap; padding: 12px 14px 12px 0;
+        border-right: 1px solid var(--rule); margin-right: 10px;
+      }
+      nav.toc a {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 500;
+        color: var(--ink-2); text-decoration: none; white-space: nowrap;
+        padding: 12px 10px; border-bottom: 2px solid transparent;
+      }
+      nav.toc a:hover { color: var(--ink); }
+      nav.toc a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+      .prose { max-width: 720px; }
+
+      /* ---------- masthead ---------- */
+      header.masthead { padding: 52px 0 8px; }
+      .kicker {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+        display: flex; align-items: center; gap: 12px;
+      }
+      .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+      h1 {
+        font-size: clamp(40px, 6.4vw, 68px); line-height: 1.04; font-weight: 900;
+        letter-spacing: -0.015em; margin: 20px 0 18px; max-width: 900px;
+      }
+      .dek {
+        font-size: clamp(19px, 2.6vw, 24px); line-height: 1.45; color: var(--ink-2);
+        max-width: 780px; margin: 0 0 26px; font-weight: 400;
+      }
+      .byline {
+        display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 0;
+        border-top: 2px solid var(--rule-strong); border-bottom: 1px solid var(--rule);
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13px; color: var(--ink-2);
+      }
+      .byline b { color: var(--ink); font-weight: 600; }
+      figure.hero { margin: 28px 0 6px; }
+      figure.hero img {
+        width: 100%; height: auto; display: block; aspect-ratio: 16 / 9;
+        object-fit: cover; border: 1px solid var(--rule);
+      }
+      figure.inline { margin: 24px 0 8px; }
+      figure.inline img {
+        width: 100%; height: auto; display: block; border: 1px solid var(--rule);
+      }
+      figcaption {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; color: var(--ink-3);
+        padding-top: 8px; line-height: 1.5;
+      }
+
+      /* ---------- causal chain ---------- */
+      .chain {
+        display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: stretch; gap: 0; margin: 34px 0 6px;
+      }
+      .chain .step {
+        background: var(--surface); border: 1px solid var(--rule); padding: 16px 16px 14px;
+        box-shadow: var(--shadow);
+      }
+      .chain .step .n {
+        font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--accent);
+        font-weight: 600; letter-spacing: 0.08em;
+      }
+      .chain .step h3 {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 15.5px; margin: 6px 0 6px; line-height: 1.3;
+      }
+      .chain .step p { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0;
+        font-family: "IBM Plex Sans", sans-serif; }
+      .chain .arrow {
+        display: flex; align-items: center; justify-content: center; padding: 0 7px;
+        color: var(--accent); font-size: 20px; font-family: "IBM Plex Sans", sans-serif;
+      }
+      @media (max-width: 760px) {
+        .chain { grid-template-columns: 1fr; }
+        .chain .arrow { transform: rotate(90deg); padding: 5px 0; }
+      }
+
+      /* ---------- stat band ---------- */
+      .statband {
+        display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+        background: var(--rule); border: 1px solid var(--rule); margin: 30px 0 10px;
+      }
+      .statband .cell { background: var(--surface); padding: 16px 16px 13px; }
+      .statband .v {
+        font-family: "IBM Plex Mono", monospace; font-size: clamp(20px, 2.6vw, 27px);
+        font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+      }
+      .statband .v .unit { color: var(--accent); font-size: 0.62em; }
+      .statband .l {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-2);
+        margin-top: 6px; line-height: 1.45;
+      }
+      .statband .s {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 11px; color: var(--ink-3); margin-top: 3px;
+      }
+      @media (max-width: 900px) { .statband { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 460px) { .statband { grid-template-columns: 1fr; } }
+
+      /* ---------- sections ---------- */
+      section { padding: 40px 0 6px; scroll-margin-top: 64px; }
+      .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 6px; }
+      .sec-num {
+        font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
+        color: var(--accent); border: 1px solid var(--accent); padding: 3px 8px; white-space: nowrap;
+      }
+      h2 {
+        font-size: clamp(27px, 4vw, 38px); line-height: 1.15; font-weight: 900;
+        letter-spacing: -0.01em; margin: 0;
+      }
+      .sec-rule { height: 2px; background: var(--rule-strong); margin: 14px 0 22px; }
+      h3.sub {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 19px; font-weight: 700;
+        margin: 30px 0 8px; letter-spacing: -0.01em;
+      }
+      p { margin: 0 0 16px; }
+      p.lede { font-size: 20px; line-height: 1.55; }
+      .src { color: var(--ink-3); font-size: 0.8em; font-family: "IBM Plex Sans", sans-serif; }
+      a { color: var(--steel); }
+
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+      @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+
+      /* flashpoint cards */
+      .flash {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 20px 22px 8px; margin: 0 0 18px;
+      }
+      .flash .tag {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 11.5px; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+      }
+      .flash .tag.hot { color: var(--accent); }
+      .flash .tag.latent { color: var(--amber); }
+      .flash .tag.strain { color: var(--steel); }
+      .flash h3 {
+        font-size: 22px; margin: 5px 0 8px; font-weight: 700; line-height: 1.25;
+      }
+      .flash p { font-size: 16.5px; line-height: 1.58; }
+      .flash ul { margin: 0 0 14px; padding-left: 20px; }
+      .flash li { font-size: 15.5px; line-height: 1.55; margin-bottom: 6px; }
+      .flash li::marker { color: var(--accent); }
+
+      /* charts */
+      .chart-card {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 20px 22px 14px; margin: 22px 0;
+      }
+      .chart-card h4 {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 15px; font-weight: 700; margin: 0 0 2px;
+      }
+      .chart-card .chart-sub {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; color: var(--ink-3); margin: 0 0 12px;
+      }
+      .chart-card svg { width: 100%; height: auto; display: block; }
+      .chart-note {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-3);
+        border-top: 1px solid var(--rule); padding-top: 9px; margin-top: 10px; line-height: 1.55;
+      }
+      svg text { font-family: "IBM Plex Sans", sans-serif; }
+      svg .axis { fill: var(--ink-3); font-size: 11px; }
+      svg .val { fill: var(--ink); font-size: 12.5px; font-weight: 600; font-family: "IBM Plex Mono", monospace; }
+      svg .annot { fill: var(--ink-2); font-size: 11.5px; }
+      svg .grid { stroke: var(--chart-grid); stroke-width: 1; }
+
+      /* tables */
+      .tbl-wrap { overflow-x: auto; margin: 18px 0 8px; border: 1px solid var(--rule); background: var(--surface); }
+      table { border-collapse: collapse; width: 100%; font-family: "IBM Plex Sans", sans-serif; font-size: 14px; }
+      caption {
+        text-align: left; font-weight: 700; font-size: 14.5px; padding: 14px 16px 4px; color: var(--ink);
+      }
+      th, td { padding: 9px 16px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+      thead th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+      td.num, th.num { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; white-space: nowrap; }
+      tbody tr:last-child td { border-bottom: none; }
+      .tbl-note { font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-3); padding: 0 2px; margin: 2px 0 20px; line-height: 1.55; }
+      @media (max-width: 640px) {
+        .tbl-wrap { overflow-x: visible; }
+        table { table-layout: fixed; font-size: 12.5px; }
+        caption { padding: 12px 12px 4px; font-size: 13.5px; }
+        th, td { padding: 8px 10px; overflow-wrap: break-word; }
+        td.num, th.num { white-space: normal; font-size: 12.5px; }
+        thead th { font-size: 10.5px; }
+      }
+
+      /* quotes */
+      blockquote.pull {
+        margin: 30px 0; padding: 4px 0 4px 26px; border-left: 3px solid var(--accent);
+      }
+      blockquote.pull p {
+        font-size: clamp(21px, 3vw, 27px); line-height: 1.4; font-weight: 600; margin: 0 0 8px;
+      }
+      blockquote.pull cite {
+        font-family: "IBM Plex Sans", sans-serif; font-style: normal; font-size: 13px; color: var(--ink-2);
+      }
+
+      /* scenario toggle */
+      .scenario {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 22px; margin: 22px 0;
+      }
+      .scenario .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+      .scenario button {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13.5px; font-weight: 600;
+        padding: 9px 16px; border: 1px solid var(--rule-strong); background: transparent;
+        color: var(--ink); cursor: pointer; border-radius: 999px;
+      }
+      .scenario button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+      .scenario button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .scenario .big {
+        font-family: "IBM Plex Mono", monospace; font-size: clamp(44px, 7vw, 64px);
+        font-weight: 600; line-height: 1; letter-spacing: -0.03em;
+      }
+      .scenario .big small { font-size: 0.36em; color: var(--ink-3); letter-spacing: 0; }
+      .scenario .desc { font-size: 16.5px; color: var(--ink-2); margin-top: 12px; max-width: 660px; }
+      .scenario .desc b { color: var(--ink); }
+
+      /* caveats */
+      .caveats {
+        background: var(--accent-soft); border: 1px solid var(--accent);
+        padding: 22px 24px 10px; margin: 26px 0;
+      }
+      .caveats h3 { font-family: "IBM Plex Sans", sans-serif; font-size: 16px; margin: 0 0 10px; color: var(--accent); }
+      .caveats li { font-size: 15.5px; margin-bottom: 9px; line-height: 1.55; }
+      .caveats ul { padding-left: 20px; margin: 0 0 12px; }
+
+      .exposure { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 8px 0 10px; }
+      @media (max-width: 760px) { .exposure { grid-template-columns: 1fr; } }
+      .exposure h4 { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; margin: 0 0 10px; color: var(--ink-2); }
+      .exposure ul { margin: 0; padding-left: 20px; }
+      .exposure li { font-size: 16px; margin-bottom: 7px; line-height: 1.5; }
+
+      footer {
+        border-top: 2px solid var(--rule-strong); margin-top: 48px; padding: 26px 0 60px;
+      }
+      footer h3 { font-family: "IBM Plex Sans", sans-serif; font-size: 15px; margin: 0 0 12px; }
+      footer p, footer li { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; color: var(--ink-2); line-height: 1.65; }
+      footer ul { columns: 2; column-gap: 34px; padding-left: 18px; margin: 0 0 16px; }
+      @media (max-width: 640px) { footer ul { columns: 1; } }
+      .pending {
+        border: 1px dashed var(--amber); color: var(--ink);
+        padding: 14px 18px; font-family: "IBM Plex Sans", sans-serif; font-size: 14px; line-height: 1.6; margin: 20px 0;
+      }
+      .pending b { color: var(--amber); }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <nav class="toc" aria-label="Article sections">
+      <div class="inner">
+        <span class="brand">THE DIVERSIFICATION DOCTRINE</span>
+        <a href="#trap">The trap</a>
+        <a href="#geography">Geography</a>
+        <a href="#sectors">Sectors</a>
+        <a href="#nations">Nations</a>
+        <a href="#playbook">Playbook</a>
+        <a href="#caveats">Open questions</a>
+      </div>
+    </nav>
+
+    <div class="wrap">
+      <header class="masthead">
+        <div class="kicker">Research brief · Finance &amp; geopolitics</div>
+        <h1>The Diversification Doctrine</h1>
+        <p class="dek">Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration, only larger.</p>
+        <div class="byline">
+          <span><b>By</b> Bhargav Patel</span>
+          <span><b>Compiled</b> 13 October 2026</span>
+          <span><b>Coverage</b> Market structure and sovereign-wealth data to October 2026</span>
+          <span><b>Sources</b> Counterpoint Research · Norges Bank Investment Management · Global SWF · 13F filings</span>
+        </div>
+      </header>
+
+      <figure class="hero">
+        <img src="diversification-hero.jpg" alt="Abstract illustration of a globally diversified portfolio — investment nodes spread across continents and sectors" />
+        <figcaption>Illustration: spreading exposure across borders and sectors is the oldest risk discipline in finance — and the most frequently ignored.</figcaption>
+      </figure>
+
+      <div class="chain">
+        <div class="step"><div class="n">STEP 01</div><h3>The concentrated bet</h3><p>One country, one sector, one stock. Everything riding on a single outcome.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 02</div><h3>The shock arrives</h3><p>A war, a crash, a sanction, a supply cut — always uninvited, never scheduled.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 03</div><h3>Losses compound</h3><p>With no offsetting winners, the whole portfolio falls together. There is nowhere to hide.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 04</div><h3>The diversified buffer</h3><p>Uncorrelated assets cushion the blow: while one leg falls, others hold or rise.</p></div>
+      </div>
+
+      <div class="statband">
+        <div class="cell"><div class="v">90<span class="unit">%</span></div><div class="l">of the world&rsquo;s most advanced chips are made in Taiwan</div><div class="s">Motley Fool, Mar 2026</div></div>
+        <div class="cell"><div class="v">$2.2<span class="unit">tn</span></div><div class="l">Norway&rsquo;s sovereign wealth fund — the largest on earth</div><div class="s">NBIM, end-2025</div></div>
+        <div class="cell"><div class="v">1.5<span class="unit">%</span></div><div class="l">of every listed company in the world, owned by Norway&rsquo;s fund</div><div class="s">13F Insight, Q4 2025</div></div>
+        <div class="cell"><div class="v">7,000<span class="unit">+</span></div><div class="l">companies across 60 countries in that single portfolio</div><div class="s">Norges Bank, 2026</div></div>
+        <div class="cell"><div class="v">73<span class="unit">%</span></div><div class="l">of global foundry revenue captured by one company, TSMC</div><div class="s">Counterpoint, Q2 2026</div></div>
+      </div>
+
+      <section id="trap">
+        <div class="sec-head"><span class="sec-num">01</span><h2>The concentration trap</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Most portfolios do not fail because the investor picked the wrong asset. They fail because the investor picked too few of them — and the few they picked all shared the same hidden risk.</p>
+        <p>Ask a typical investor where their money sits and you will hear a familiar pattern: domestic stocks, the employer&rsquo;s shares, maybe a hot sector fund bought near its peak. Behavioural economists call the first habit <b>home-country bias</b> — the persistent overweighting of one&rsquo;s own market, even though no single country dominates global returns for long. The second habit is loyalty mistaken for strategy: employees who hold their company&rsquo;s stock watched that logic detonate at Enron, where workers lost both their jobs and their retirement savings in the same bankruptcy.</p>
+        <p>Harry Markowitz, who formalised modern portfolio theory in 1952, called diversification &ldquo;the only free lunch in investing.&rdquo; The logic is arithmetic, not opinion: combine assets whose prices do not move in lockstep and the portfolio&rsquo;s volatility falls without necessarily sacrificing expected return. The lunch is only free, however, if the assets are <i>genuinely</i> different — different sectors, different geographies, different economic drivers. Ten tech stocks are not diversification. They are a concentrated bet wearing a costume.</p>
+      </section>
+
+      <section id="geography">
+        <div class="sec-head"><span class="sec-num">02</span><h2>Geography is a risk factor</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">A portfolio can be perfectly balanced across sectors and still hinge on a single strait, a single island, or a single refinery town. The map itself is a position.</p>
+
+        <div class="flash">
+          <div class="tag hot">Single point of failure</div>
+          <h3>Taiwan makes the world&rsquo;s intelligence</h3>
+          <p>Roughly 90% of the most advanced semiconductors on earth are manufactured in Taiwan, and one company — TSMC — captures about 70% of global foundry revenue, rising to 73% in Q2 2026 on AI demand <span class="src">(Counterpoint Research)</span>. Nvidia&rsquo;s AI accelerators, Apple&rsquo;s processors, AMD&rsquo;s chips: virtually all of them pass through fabs on a single island. A cross-strait crisis would not merely dent tech stocks — it would halt production of phones, cars, servers and weapons systems worldwide.</p>
+          <ul>
+            <li>TSMC&rsquo;s Arizona, Kumamoto and Dresden fabs will not reach frontier-node scale before 2028–2030 at the earliest.</li>
+            <li>For the rest of this decade, Taiwan remains the world&rsquo;s chokepoint for advanced AI chips.</li>
+          </ul>
+        </div>
+
+        <div class="flash">
+          <div class="tag strain">Strained artery</div>
+          <h3>Energy still travels through straits</h3>
+          <p>As the companion brief <i>When Wars Move Markets</i> traced, a large share of the world&rsquo;s traded oil and liquefied natural gas squeezes through a handful of maritime chokepoints — Hormuz, Malacca, Bab el-Mandeb. Any portfolio or any economy indexed to energy prices is, whether it knows it or not, indexed to the politics of those straits.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag latent">Latent leverage</div>
+          <h3>Refining is the quiet monopoly</h3>
+          <p>Mining gets the headlines; refining gets the leverage. China dominates the refining of rare earths and much of the world&rsquo;s battery-chemical processing — the unglamorous middle of the clean-energy supply chain. Export controls there would not stop mines from digging; they would stop everyone else from building. Diversification that ignores the middle of the chain is decoration.</p>
+        </div>
+
+        <p>The personal-finance translation is direct: if every holding in a portfolio ultimately depends on the same geography — the same strait, the same island, the same trade relationship — the portfolio is concentrated no matter how many tickers it contains.</p>
+      </section>
+
+      <section id="sectors">
+        <div class="sec-head"><span class="sec-num">03</span><h2>Sectors rotate; survivors diversify</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Every decade anoints a sector that &ldquo;can&rsquo;t lose&rdquo; — and then teaches the holders otherwise.</p>
+        <p>In 2000 it was technology: the Nasdaq fell roughly three-quarters from peak to trough, and investors who were &ldquo;diversified&rdquo; across twenty dot-com names discovered they owned one risk. In 2008 it was financials, where the sector at the centre of the crisis led the market down. In 2022 the wheel turned again: energy stocks surged while technology sank — the year&rsquo;s winners and losers were almost a mirror image of the previous decade&rsquo;s.</p>
+        <p>That rotation is the whole argument. No one can reliably predict which sector leads next, but a portfolio spread across sectors does not need to: it harvests whichever rotation arrives. Sector concentration is a forecast; sector diversification is the admission that forecasts fail — and a structure that survives the failure.</p>
+        <div class="chart-card">
+          <h4>The rotation, stylised</h4>
+          <div class="chart-sub">Leadership changes hands; the diversified holder collects either way.</div>
+          <svg viewBox="0 0 560 220" width="100%" role="img" aria-label="Stylised chart showing sector leadership rotating across three eras">
+            <g font-family="IBM Plex Sans, sans-serif" font-size="12">
+              <text x="20" y="20" font-weight="700">Sector leadership by era (illustrative)</text>
+              <rect x="20" y="40" width="150" height="34" fill="#b3261e" opacity="0.85"/><text x="30" y="62" fill="#fff">2000s: Energy</text>
+              <rect x="20" y="84" width="90" height="34" fill="#2f5d6e" opacity="0.85"/><text x="30" y="106" fill="#fff">2000s: Tech</text>
+              <rect x="200" y="40" width="80" height="34" fill="#b3261e" opacity="0.35"/><text x="210" y="62">2010s: Energy</text>
+              <rect x="200" y="84" width="170" height="34" fill="#2f5d6e" opacity="0.85"/><text x="210" y="106" fill="#fff">2010s: Tech</text>
+              <rect x="390" y="40" width="140" height="34" fill="#b3261e" opacity="0.85"/><text x="400" y="62" fill="#fff">2020s: Energy</text>
+              <rect x="390" y="84" width="100" height="34" fill="#2f5d6e" opacity="0.5"/><text x="400" y="106" fill="#fff">2020s: Tech</text>
+              <text x="20" y="150" font-size="11" fill="#6d737d">2000</text><text x="200" y="150" font-size="11" fill="#6d737d">2010</text><text x="390" y="150" font-size="11" fill="#6d737d">2020</text>
+              <text x="20" y="180" font-size="12">The concentrated investor must guess the next bar.</text>
+              <text x="20" y="200" font-size="12" font-weight="700">The diversified investor owns all of them.</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section id="nations">
+        <div class="sec-head"><span class="sec-num">04</span><h2>When nations don&rsquo;t diversify</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Everything above applies to countries too — with the stakes multiplied by millions of livelihoods. A nation whose economy is one commodity is a household with one income and no savings.</p>
+
+        <div class="flash">
+          <div class="tag hot">The warning</div>
+          <h3>Venezuela: the concentrated nation</h3>
+          <p>For decades oil accounted for the overwhelming majority of Venezuela&rsquo;s export revenue and government income. When crude prices collapsed in the mid-2010s, the economy had no second engine: output, imports, the currency and living standards fell together. Economists call the broader pattern <b>Dutch disease</b> — a dominant resource sector hollows out everything else, leaving the country maximally exposed to the one price it cannot control.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag strain">The model</div>
+          <h3>Norway: oil wealth, converted</h3>
+          <p>Norway also found oil. Instead of spending the windfall, it funnelled surplus revenues into the Government Pension Fund Global — now roughly <b>$2.2 trillion</b>, the largest sovereign wealth fund on earth <span class="src">(Norges Bank, end-2025)</span>. The fund owns about <b>1.5% of every listed company in the world</b>: more than 7,000 companies across 60 countries <span class="src">(13F Insight, Q4 2025)</span>. Norway took the most concentrated asset imaginable — hydrocarbons under one seabed — and converted it into the most diversified portfolio ever assembled. A fiscal rule caps annual spending at 3% of expected real returns, so today&rsquo;s voters cannot consume tomorrow&rsquo;s capital.</p>
+          <ul>
+            <li>2025 return: 15.1%, about $247 billion — driven by global tech, financial and materials stocks.</li>
+            <li>The Gulf states are running the same playbook: Saudi Arabia&rsquo;s PIF (~$0.9tn) targets $2.67tn by 2030 to fund economic transformation.</li>
+          </ul>
+        </div>
+
+        <p>The lesson generalises: diversification is not just a portfolio tactic but a development strategy. Countries that recycle commodity booms into broad-based assets — financial, industrial, human — buy insurance against the bust. Countries that don&rsquo;t, buy the bust.</p>
+      </section>
+
+      <section id="playbook">
+        <div class="sec-head"><span class="sec-num">05</span><h2>The playbook</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Diversification is a discipline, not a product. Here is what it looks like in practice — at household scale and at national scale.</p>
+        <div class="grid2">
+          <div class="flash">
+            <div class="tag strain">For individuals</div>
+            <h3>Build the buffer</h3>
+            <ul>
+              <li><b>Go global:</b> a world-equity index fund is the simplest cure for home-country bias.</li>
+              <li><b>Cap any single position:</b> no stock, sector or country should be able to sink you alone.</li>
+              <li><b>Rebalance on a schedule:</b> sell a little of what soared, buy a little of what lagged — annually is enough.</li>
+              <li><b>Audit hidden concentrations:</b> employer stock plus a domestic index can mean triple exposure to one economy.</li>
+              <li><b>Keep the emergency fund boring:</b> diversification starts with cash that never needs to be sold in a panic.</li>
+            </ul>
+          </div>
+          <div class="flash">
+            <div class="tag latent">For governments</div>
+            <h3>Insure the economy</h3>
+            <ul>
+              <li><b>Sovereign wealth funds:</b> convert finite resource revenues into permanent, diversified financial wealth (the Norway model).</li>
+              <li><b>Industrial policy with an exit:</b> build second and third engines — manufacturing, services, tech — before the first one stalls.</li>
+              <li><b>Friend-shoring &amp; redundancy:</b> dual-source critical inputs; no single strait, island or supplier should be load-bearing.</li>
+              <li><b>Strategic reserves:</b> stockpiles of energy, food and critical minerals buy time when diversification fails.</li>
+              <li><b>Fiscal rules:</b> cap windfall spending so booms build buffers instead of appetites.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="caveats">
+        <div class="sec-head"><span class="sec-num">06</span><h2>Where the argument bends</h2></div>
+        <div class="sec-rule"></div>
+        <div class="caveats">
+          <h3>Open questions &amp; honest limits — read these before citing</h3>
+          <ul>
+            <li><strong>Correlations go to one in a crisis.</strong> Diversification&rsquo;s protection is weakest exactly when it is most wanted: in panics, nearly everything falls together. The buffer softens drawdowns; it does not abolish them.</li>
+            <li><strong>Diworsification is real.</strong> Past a point, adding holdings adds fees, complexity and overlap without adding safety — fifty funds that all own the same mega-caps are one fund with extra paperwork.</li>
+            <li><strong>Don&rsquo;t diversify into what you don&rsquo;t understand.</strong> Exotic assets bought for their low correlation can carry risks — illiquidity, fraud, leverage — that swamp the diversification benefit.</li>
+            <li><strong>Geography cuts both ways.</strong> Spreading into unstable jurisdictions can import political risk faster than it exports concentration risk. Diversify across <i>stable, uncorrelated</i> exposures, not merely across borders.</li>
+            <li><strong>Figures are as-reported.</strong> Foundry shares come from Counterpoint Research via trade press; sovereign-fund sizes for non-Norwegian funds are analyst estimates, not audited figures. Norway&rsquo;s numbers are the exception — published and audited.</li>
+          </ul>
+        </div>
+        <div class="pending"><b>Still to come:</b> a third brief is planned on how shipping chokepoints convert into consumer prices — completing the trilogy with <i>When Wars Move Markets</i> and this piece.</div>
+      </section>
+
+      <footer>
+        <h3>Sources</h3>
+        <p>Market structure: Counterpoint Research foundry-share data (Q2 2026, via Crypto Briefing); TSMC revenue and node data (TrendForce/Counterpoint via trade press); Motley Fool semiconductor analysis (Mar 2026). Sovereign wealth: Norges Bank Investment Management annual results (end-2025); 13F Insight analysis of NBIM Q4 2025 US filings; Global SWF sovereign-fund rankings (Sept 2026); Global Brands Magazine sovereign-wealth overview (2026).</p>
+        <p>Conceptual framing draws on Markowitz (1952) portfolio theory and the Dutch-disease literature; country sketches (Venezuela, Norway, Gulf states) are stylised summaries of widely reported histories, not primary research. Photographs/illustrations are generated visuals, illustrative of the themes — not depictions of specific places or events.</p>
+        <p>Research brief compiled 13 October 2026. This page presents reported figures with their sources and caveats; it is not investment advice.</p>
+      </footer>
+    </div>
+
+    <script>
+      // Reading progress bar
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+
+      // Scrollspy for the section nav
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+        var map = {};
+        links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+        if (!('IntersectionObserver' in window)) return;
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              links.forEach(function (a) { a.classList.remove('active'); });
+              var link = map[e.target.id];
+              if (link) link.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        ['trap', 'geography', 'sectors', 'nations', 'playbook', 'caveats'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+    </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
