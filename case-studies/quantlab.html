@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuantLab — Case Study | Bhargav Patel</title>
+<meta name="description" content="Case study: QuantLab (QuantTrade), an AI-driven trading intelligence platform architected end to end by Bhargav Patel — React 19, TypeScript, Node.js, Gemini 1.5 Pro, Monte Carlo engine, real-time WebSockets pipeline.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="QuantLab — Case Study | Bhargav Patel">
+<meta property="og:description" content="AI-driven trading intelligence platform, architected end to end: real-time WebSockets pipeline, neural intelligence core, Monte Carlo engine, Gemini-powered analytics. Live in production.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.cs-hero{padding:150px 0 60px}
+.cs-hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.cs-hero h1 .grad{white-space:nowrap}
+.cs-kicker{color:var(--dim);font-size:.9rem;margin-bottom:14px}
+.cs-sub{color:var(--muted);max-width:640px;font-size:1.06rem;margin:20px 0 32px}
+.cs-meta{margin-top:30px;color:var(--dim);font-size:.82rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.cs-hero .hero-btns{margin-top:6px}
+.lede{color:var(--muted);font-size:1.05rem;max-width:760px;margin:0 0 36px}
+.lede strong{color:var(--txt)}
+.cs-body p{color:var(--muted);margin-bottom:18px;max-width:760px}
+.cs-body p strong{color:var(--txt)}
+.cs-body ul{list-style:none;max-width:760px}
+.cs-body ul li{color:var(--muted);margin-bottom:12px;padding-left:26px;position:relative}
+.cs-body ul li::before{content:"▸";color:var(--green);position:absolute;left:0}
+.cs-body ul li strong{color:var(--txt)}
+.perf-note{color:var(--dim);font-size:.8rem;margin-top:22px;max-width:640px}
+.perf-note .mono{color:var(--green)}
+.back-links{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.case-footer{border-top:1px solid var(--line-soft);padding:34px 0;background:var(--bg2)}
+@media(max-width:640px){.cs-hero{padding:120px 0 44px}}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="../index.html" class="brand"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="../classic.html#about">about</a>
+      <a href="../classic.html#projects">projects</a>
+      <a href="../classic.html#experience">experience</a>
+      <a href="../classic.html#contact" class="nav-cta">contact</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<header class="cs-hero">
+  <div class="wrap">
+    <div class="status-pill reveal"><span class="pulse"></span> LIVE IN PRODUCTION</div>
+    <p class="cs-kicker mono reveal">$ cat case-studies/quantlab.md</p>
+    <h1 class="reveal">QuantLab <span class="grad">/ QuantTrade</span></h1>
+    <p class="cs-sub reveal">An AI-driven trading intelligence platform I architected end to end — database, API, and UI — streaming real-time market data through a neural intelligence core and a Monte Carlo simulation engine, with Google Gemini 1.5 Pro powering predictive analytics and risk modeling.</p>
+    <div class="hero-btns reveal">
+      <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Launch live app</a>
+      <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost">⌨ View source on GitHub</a>
+    </div>
+    <div class="cs-meta mono reveal">
+      <span>independent · windsor, on · remote</span><span class="dot">·</span>
+      <span>2023 — present</span><span class="dot">·</span>
+      <span>react 19 · typescript · node.js · gemini 1.5 pro</span>
+    </div>
+  </div>
+</header>
+<main>
+<section id="overview" class="cs-body">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat overview.md</p>
+    <h2 class="sec-title reveal">The <span class="grad">overview.</span></h2>
+    <div class="reveal">
+      <p>Real-time market data is <strong>noisy, fragmented, and fast</strong>. Most retail trading tooling either shows delayed charts or hides its logic inside a black box — traders get lines on a screen, not reasoning they can act on. I wanted to build the opposite: a platform that <strong>streams live data, explains its own signals, and quantifies risk</strong> instead of just drawing lines.</p>
+      <p><strong>QuantLab</strong> — deployed publicly as QuantTrade — is that platform. It's an AI-driven trading intelligence system I designed and built entirely on my own, from the database schema up through the API to the user interface, and it has been <strong>live in production since 2023</strong>. Every part of the stack is mine: the real-time pipeline, the analysis engine, the AI integrations, and the dashboard traders actually look at.</p>
+      <p>The project doubles as my proving ground for full-stack engineering under real constraints — latency budgets, production uptime, and a UI that has to stay readable while data never stops moving.</p>
+    </div>
+  </div>
+</section>
+<section id="architecture" class="cs-body">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat architecture.md</p>
+    <h2 class="sec-title reveal">How it's <span class="grad">built.</span></h2>
+    <p class="lede reveal">Six subsystems, one coherent pipeline: raw market data flows in over WebSockets, gets analyzed autonomously, gets simulated probabilistically, and lands on a dashboard where AI explains what it all means.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">⌁</span> Real-time data pipeline</h3>
+        <p style="font-size:.92rem;margin-bottom:14px">A multi-source real-time pipeline streaming market data over <strong style="color:var(--txt)">WebSockets</strong>, with custom caching so the UI never waits on a round trip and never drops a tick.</p>
+        <div class="tags"><span>WebSockets</span><span>Node.js</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">◈</span> Neural intelligence core</h3>
+        <p style="font-size:.92rem;margin-bottom:14px">A custom neural core running <strong style="color:var(--txt)">autonomous analysis cycles</strong> — continuously identifying market regimes and alpha opportunities without manual prompting.</p>
+        <div class="tags"><span>TypeScript</span><span>Custom ML</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">∑</span> Monte Carlo engine</h3>
+        <p style="font-size:.92rem;margin-bottom:14px">A simulation engine in <strong style="color:var(--txt)">TypeScript</strong> forecasting outcomes across <strong style="color:var(--txt)">thousands of stochastic paths</strong> per run, with dynamic confidence intervals so every forecast carries its own uncertainty.</p>
+        <div class="tags"><span>TypeScript</span><span>Stochastic modeling</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">✦</span> AI analytics &amp; risk modeling</h3>
+        <p style="font-size:.92rem;margin-bottom:14px"><strong style="color:var(--txt)">Google Gemini 1.5 Pro</strong> wired directly into the live dashboard for real-time predictive analytics and risk modeling — signals come with explanations, not just numbers.</p>
+        <div class="tags"><span>Gemini 1.5 Pro</span><span>Risk modeling</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">▦</span> Persistence layer</h3>
+        <p style="font-size:.92rem;margin-bottom:14px">A <strong style="color:var(--txt)">memory-safe SQLite</strong> persistence layer under the API — reliable local storage for market snapshots, simulation runs, and analysis history.</p>
+        <div class="tags"><span>SQLite</span><span>Node.js</span></div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="card-ico">▣</span> Frontend &amp; delivery</h3>
+        <p style="font-size:.92rem;margin-bottom:14px">A <strong style="color:var(--txt)">React 19 + TypeScript</strong> UI on a clean Node.js REST API, shipped cross-platform as a web app plus an <strong style="color:var(--txt)">Android app (Capacitor)</strong>, deployed on Vercel with GitHub auto-deploy.</p>
+        <div class="tags"><span>React 19</span><span>Capacitor</span><span>Vercel</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="performance" class="cs-body">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat performance.md</p>
+    <h2 class="sec-title reveal">Measured, <span class="grad">not claimed.</span></h2>
+    <p class="lede reveal">Two numbers I stand behind — both observed on the live production deployment, not from a benchmark script.</p>
+    <div class="stats reveal" style="max-width:640px">
+      <div class="stat"><span class="stat-num" data-prefix="−" data-count="68" data-suffix="%">0</span><span class="stat-label">API response times cut</span></div>
+      <div class="stat"><span class="stat-num" data-count="99.9" data-decimals="1" data-suffix="%">0</span><span class="stat-label">Production uptime</span></div>
+    </div>
+    <p class="perf-note reveal">The latency cut came from an optimization pass on the API layer — caching hot paths, tightening queries, and trimming payloads. The uptime figure reflects the live Vercel deployment serving real traffic. Both are measured outcomes, reported as observed.</p>
+  </div>
+</section>
+<section id="engineering" class="cs-body">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat engineering.md</p>
+    <h2 class="sec-title reveal">Engineered like <span class="grad">production.</span></h2>
+    <div class="reveal">
+      <ul>
+        <li><strong>Clean REST API contracts.</strong> Every endpoint is documented and versioned; the frontend never guesses at a response shape, so integrations stay stable as the platform grows.</li>
+        <li><strong>Testing as a quality gate.</strong> Unit, integration, and end-to-end tests run as CI/CD gates on <strong>GitHub Actions</strong> — nothing merges or deploys green unless the pipeline says so.</li>
+        <li><strong>Responsive, validation-driven UX.</strong> The dashboard adapts from desktop to mobile, and every input is validated before it can touch the pipeline — bad data is rejected at the edge, not debugged in production.</li>
+        <li><strong>Continuous deployment.</strong> GitHub auto-deploy keeps the live app at <span class="mono" style="color:var(--green)">quant-trade-neon.vercel.app</span> in lockstep with the main branch — every push is a release candidate.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section id="summary" class="cs-body">
+  <div class="wrap">
+    <p class="sec-cmd mono reveal">$ cat summary.md</p>
+    <h2 class="sec-title reveal">Built <span class="grad">end to end.</span></h2>
+    <div class="reveal">
+      <p>QuantLab is a one-engineer vertical slice of a real product company: <strong>database design, API architecture, frontend development, AI integration, CI/CD, and production operations</strong> — all mine, all in the same codebase, all live.</p>
+      <p>That's the part I'm proudest of. It's easy to demo a model in a notebook; it's harder to keep a real-time platform fast, available, and understandable for years. QuantLab has been doing that since 2023, and every subsystem in it taught me something I bring to client and employer work: <strong>measure everything, gate everything, and ship like someone is depending on it.</strong></p>
+      <div class="hero-btns" style="margin-top:28px">
+        <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Launch live app</a>
+        <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost">⌨ View source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="case-footer">
+  <div class="wrap">
+    <div class="foot-inner">
+      <span class="foot-dim mono">$ exit — case-study/quantlab</span>
+      <div class="back-links">
+        <a href="../classic.html#projects" class="btn btn-ghost btn-sm">← All projects</a>
+        <a href="../index.html" class="btn btn-ghost btn-sm">Home</a>
+        <a href="../resume.pdf" class="btn btn-ghost btn-sm" download>↓ Resume</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+"use strict";
+var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+}, {threshold: .12}) : null;
+document.querySelectorAll(".reveal").forEach(function(el){
+  if (io) { io.observe(el); } else { el.classList.add("in"); }
+});
+var btn = document.getElementById("menuBtn"), links = document.getElementById("navLinks");
+if (btn && links) {
+  btn.addEventListener("click", function(){ links.classList.toggle("open"); });
+  links.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){ links.classList.remove("open"); });
+  });
+}
+function fmt(el, v){
+  var dec = parseInt(el.getAttribute("data-decimals") || "0", 10);
+  var pre = el.getAttribute("data-prefix") || "";
+  var suf = el.getAttribute("data-suffix") || "";
+  return pre + v.toFixed(dec) + suf;
+}
+function animate(el){
+  var target = parseFloat(el.getAttribute("data-count"));
+  if (isNaN(target)) return;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) { el.textContent = fmt(el, target); return; }
+  var t0 = performance.now(), dur = 1400;
+  (function tick(now){
+    var p = Math.min(1, (now - t0) / dur);
+    var e = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(el, target * e);
+    if (p < 1) requestAnimationFrame(tick);
+  })(t0);
+}
+var cio = ("IntersectionObserver" in window) ? new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if (e.isIntersecting) { animate(e.target); cio.observe(el); } });
+}, {threshold: .4}) : null;
+document.querySelectorAll(".stat-num").forEach(function(el){
+  if (cio) { cio.observe(el); } else { animate(el); }
+});
+})();
+</script>
+</body>
+</html>
