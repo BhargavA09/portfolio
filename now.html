@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- now.html — "Now / build-in-public" log for bhargav.dev.
+     ENTRIES ARE EDITED VIA now.json (same folder). Add/edit entries there
+     as {"tag":"...","title":"...","body":"..."}; this page renders them
+     automatically, with an inline copy below as the offline/file:// fallback. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Now — Bhargav Patel</title>
+<meta name="description" content="What Bhargav Patel is focused on right now: interviews, QuantLab, Insights articles, and Netscanpro.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Now — Bhargav Patel">
+<meta property="og:description" content="Build-in-public log: what Bhargav Patel is working on right now.">
+<style>
+:root{
+  --bg:#05070d; --panel:#0a101c; --line:rgba(0,229,160,.14);
+  --txt:#e8ecf4; --muted:#8b93a7; --dim:#5b6376;
+  --green:#00e5a0; --cyan:#38e1ff; --amber:#ffb454; --red:#ff5d6c;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);line-height:1.65;
+  background-image:radial-gradient(900px 500px at 85% -5%,rgba(0,229,160,.06),transparent 60%)}
+::selection{background:rgba(0,229,160,.28)}
+/* ── minimal top bar ── */
+.topbar{border-bottom:1px solid rgba(139,147,167,.14);background:rgba(5,7,13,.85);backdrop-filter:blur(10px)}
+.topbar-inner{max-width:880px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--txt);text-decoration:none}
+.brand-prompt{color:var(--green)}
+.brand-accent{color:var(--cyan)}
+.back-links{display:flex;gap:18px}
+.back-links a{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-decoration:none}
+.back-links a::before{content:"~/";color:var(--dim)}
+.back-links a:hover{color:var(--green)}
+/* ── log ── */
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+.cmd{font-family:var(--mono);color:var(--green);font-size:.9rem;margin:56px 0 8px}
+h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800;letter-spacing:-.02em}
+h1 .grad{background:linear-gradient(100deg,var(--green),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin-top:10px;max-width:60ch}
+.updated-line{font-family:var(--mono);font-size:.8rem;color:var(--dim);margin-top:14px}
+.updated-line .ts{color:var(--green)}
+.timeline{margin:44px 0 80px;border-left:2px solid rgba(0,229,160,.18);padding-left:0;list-style:none}
+.entry{position:relative;padding:0 0 30px 34px}
+.entry:last-child{padding-bottom:0}
+.entry::before{content:"";position:absolute;left:-7px;top:8px;width:12px;height:12px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--green);box-shadow:0 0 10px rgba(0,229,160,.5)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  color:var(--green);border:1px solid rgba(0,229,160,.35);background:rgba(0,229,160,.07);
+  border-radius:6px;padding:3px 10px;margin-bottom:8px}
+.tag.cyan{color:var(--cyan);border-color:rgba(56,225,255,.35);background:rgba(56,225,255,.07)}
+.tag.amber{color:var(--amber);border-color:rgba(255,180,84,.35);background:rgba(255,180,84,.07)}
+.entry h2{font-size:1.15rem;font-weight:700;margin-bottom:4px}
+.entry p{color:var(--muted);max-width:62ch}
+.entry p .accent{color:var(--txt)}
+.footer{border-top:1px solid rgba(139,147,167,.14);padding:26px 0 40px}
+.footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer p{font-family:var(--mono);font-size:.78rem;color:var(--dim)}
+.footer a{color:var(--green);text-decoration:none}
+@media(max-width:560px){
+  .cmd{margin-top:36px}
+  .entry{padding-left:26px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../classic.html"><span class="brand-prompt">&gt;_</span> bhargav<span class="brand-accent">.dev</span></a>
+    <div class="back-links">
+      <a href="../classic.html">classic</a>
+      <a href="../index.html">trek</a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="cmd">$ cat now.log</p>
+  <h1>Now — <span class="grad">build in public</span></h1>
+  <p class="sub">A running log of what I'm focused on, built, and shipping. Updated by hand, kept honest — one entry at a time.</p>
+  <p class="updated-line">last updated <span class="ts" id="updated">…</span></p>
+
+  <ul class="timeline" id="timeline" aria-live="polite"></ul>
+</main>
+
+<div class="footer">
+  <div class="wrap">
+    <p><a href="../classic.html">← classic view</a> &nbsp;·&nbsp; <a href="../index.html">← 3D trek</a></p>
+    <p>entries live in <span style="color:var(--green)">now.json</span></p>
+  </div>
+</div>
+
+<script>
+/* Inline fallback mirror of now.json — used when fetch fails (file:// or offline).
+   Edit the JSON file, not this copy, when updating the live site. */
+const NOW_FALLBACK = {
+  "updated": "2026-10-14",
+  "entries": [
+    {"tag": "FOCUS", "title": "Actively interviewing",
+     "body": "Interviewing for front-end and full-stack roles — remote across Canada, available immediately."},
+    {"tag": "BUILDING", "title": "QuantLab",
+     "body": "AI-driven trading intelligence platform: real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics."},
+    {"tag": "WRITING", "title": "Insights articles",
+     "body": "Writing the Insights article series — the third article, on AI agents, just published."},
+    {"tag": "MAINTAINING", "title": "Netscanpro",
+     "body": "Maintaining the threat-intelligence dashboard: live feeds, indicators, and network visibility."},
+    {"tag": "OPEN TO WORK", "title": "Hiring?",
+     "body": "Open to remote roles across Canada — full-stack, front-end, and .NET/C# work. Get in touch via the contact section on the homepage."}
+  ]
+};
+
+const TAG_COLORS = {
+  "FOCUS": "amber",
+  "BUILDING": "",
+  "WRITING": "cyan",
+  "MAINTAINING": "cyan",
+  "OPEN TO WORK": ""
+};
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function render(data) {
+  const upd = data && data.updated;
+  document.getElementById("updated").textContent = upd || "unknown";
+  const tl = document.getElementById("timeline");
+  tl.innerHTML = "";
+  const entries = (data && Array.isArray(data.entries)) ? data.entries : [];
+  entries.forEach(function (e) {
+    const li = el("li", "entry");
+    const tagCls = "tag" + (TAG_COLORS[e.tag] ? " " + TAG_COLORS[e.tag] : "");
+    li.appendChild(el("span", tagCls, e.tag));
+    li.appendChild(el("h2", null, e.title));
+    li.appendChild(el("p", null, e.body));
+    tl.appendChild(li);
+  });
+}
+
+fetch("now.json", { cache: "no-store" })
+  .then(function (r) { if (!r.ok) throw new Error("bad status"); return r.json(); })
+  .then(render)
+  .catch(function () { render(NOW_FALLBACK); });
+</script>
+</body>
+</html>

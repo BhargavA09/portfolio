@@ -1,11 +1,20 @@
 [
   {
-    "slug": "the-diversification-doctrine",
-    "title": "The Diversification Doctrine",
+    "date": "14 Oct 2026",
+    "dek": "AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. Here is what that changes about who does what, who gets paid, and who carries the risk.",
+    "kicker": "INSIGHTS · AI × ECONOMICS",
+    "readTime": "~7 min read",
+    "slug": "the-ai-agent-economy",
+    "title": "The AI Agent Economy",
+    "url": "articles/the-ai-agent-economy.html"
+  },
+  {
+    "date": "13 Oct 2026",
     "dek": "Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration, only larger.",
     "kicker": "INSIGHTS · GEOPOLITICS × FINANCE",
-    "date": "13 Oct 2026",
     "readTime": "~7 min read",
+    "slug": "the-diversification-doctrine",
+    "title": "The Diversification Doctrine",
     "url": "articles/the-diversification-doctrine.html"
   },
   {
