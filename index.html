@@ -15,7 +15,7 @@
 <meta name="twitter:description" content="Walk the Himalayas through my work: QuantLab, Netscanpro, 3+ years of full-stack engineering. Available immediately.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="chat-widget.css">
 <style>
 :root{
   --bg:#05070d; --panel:rgba(8,13,22,.88); --line:rgba(0,229,160,.22);
@@ -148,16 +148,16 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:h
     <div class="wordmark"><b>▲</b> THE TREK — Bhargav Patel</div>
     <div class="hud-links">
       <a href="classic.html">Classic view</a>
-      <a href="classic.html#articles">Insights</a>
+      <a href="classic.html#articles">Insights</a> <a href="now.html">Now</a>
       <a href="resume.pdf" class="resume" download>↓ Resume</a>
     </div>
   </div>
   <div id="scrollHint">SCROLL TO TREK ↓</div>
   <aside id="insightTeaser">
     <p class="kicker">INSIGHTS · LATEST</p>
-    <h4>The Diversification Doctrine</h4>
-    <p>Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies pay the same price, only larger.</p>
-    <a href="articles/the-diversification-doctrine.html">Read the article →</a>
+    <h4>The AI Agent Economy</h4>
+    <p>AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. What that changes about who does what, who gets paid, and who carries the risk.</p>
+    <a href="articles/the-ai-agent-economy.html">Read the article →</a>
   </aside>
   <a id="dashChip" href="dashboard.html">
     <span><span class="kicker">ANALYTICS</span><br><span class="t">Traffic dashboard</span></span>
@@ -239,7 +239,7 @@ projects: {
     <h4>QuantLab / QuantTrade</h4>
     <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
     <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
-    <div class="links"><a class="btn live" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">⌨ GitHub</a></div>
+    <div class="links"><a class="btn live" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">⌨ GitHub</a><a class="btn" href="case-studies/quantlab.html">▸ Case study</a></div>
   </div>
   <div class="proj"><div class="kind">THREAT INTELLIGENCE DASHBOARD</div>
     <h4>Netscanpro</h4>
@@ -929,6 +929,6 @@ function animate(){
 animate();
 }
 </script>
-<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script><script src="chat-widget.js"></script>
 </body>
 </html>
