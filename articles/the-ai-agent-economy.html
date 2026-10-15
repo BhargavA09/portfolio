@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="author" content="Bhargav Patel">
+<meta name="publisher" content="Bhargav Patel">
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>The AI Agent Economy</title>
+    <meta name="description" content="AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. What that changes for the people who build software, and for the people who allocate capital." />
+    <meta property="og:title" content="The AI Agent Economy" />
+    <meta property="og:description" content="AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. What that changes for builders and investors." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bharg-patel.vercel.app/articles/the-ai-agent-economy.html" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The AI Agent Economy" />
+    <meta name="twitter:description" content="AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. What that changes for builders and investors." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --paper: #f6f6f3;
+        --surface: #ffffff;
+        --surface-2: #ececea;
+        --ink: #17191d;
+        --ink-2: #454a52;
+        --ink-3: #6d737d;
+        --rule: #d8d8d2;
+        --rule-strong: #17191d;
+        --accent: #b3261e;
+        --accent-soft: rgba(179, 38, 30, 0.08);
+        --steel: #2f5d6e;
+        --steel-soft: rgba(47, 93, 110, 0.10);
+        --amber: #9a6a12;
+        --chart-grid: #dcdcd6;
+        --chart-line: #b3261e;
+        --chart-line-2: #2f5d6e;
+        --shadow: 0 1px 2px rgba(20, 22, 26, 0.06), 0 8px 24px rgba(20, 22, 26, 0.06);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #101216;
+          --surface: #171a1f;
+          --surface-2: #1e2127;
+          --ink: #eceef0;
+          --ink-2: #b9bec6;
+          --ink-3: #8b919b;
+          --rule: #2c3038;
+          --rule-strong: #eceef0;
+          --accent: #e2604f;
+          --accent-soft: rgba(226, 96, 79, 0.12);
+          --steel: #7fb3c4;
+          --steel-soft: rgba(127, 179, 196, 0.12);
+          --amber: #d9a441;
+          --chart-grid: #2c3038;
+          --chart-line: #e2604f;
+          --chart-line-2: #7fb3c4;
+          --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation: none !important; transition: none !important; }
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+        font-size: 18px;
+        line-height: 1.62;
+        -webkit-font-smoothing: antialiased;
+      }
+      .sans { font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif; }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+      /* ---------- progress + nav ---------- */
+      #progress {
+        position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+        background: var(--accent); z-index: 60;
+      }
+      nav.toc {
+        position: sticky; top: 0; z-index: 50;
+        background: var(--paper);
+        border-bottom: 1px solid var(--rule);
+      }
+      nav.toc .inner {
+        max-width: 1080px; margin: 0 auto; padding: 0 20px;
+        display: flex; align-items: center; gap: 4px; overflow-x: auto;
+        scrollbar-width: none;
+      }
+      nav.toc .inner::-webkit-scrollbar { display: none; }
+      nav.toc .brand {
+        font-family: "IBM Plex Sans", sans-serif; font-weight: 700; font-size: 13px;
+        letter-spacing: 0.02em; white-space: nowrap; padding: 12px 14px 12px 0;
+        border-right: 1px solid var(--rule); margin-right: 10px;
+      }
+      nav.toc a {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13px; font-weight: 500;
+        color: var(--ink-2); text-decoration: none; white-space: nowrap;
+        padding: 12px 10px; border-bottom: 2px solid transparent;
+      }
+      nav.toc a:hover { color: var(--ink); }
+      nav.toc a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+      .prose { max-width: 720px; }
+
+      /* ---------- masthead ---------- */
+      header.masthead { padding: 52px 0 8px; }
+      .kicker {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; font-weight: 600;
+        letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+        display: flex; align-items: center; gap: 12px;
+      }
+      .kicker::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+      h1 {
+        font-size: clamp(40px, 6.4vw, 68px); line-height: 1.04; font-weight: 900;
+        letter-spacing: -0.015em; margin: 20px 0 18px; max-width: 900px;
+      }
+      .dek {
+        font-size: clamp(19px, 2.6vw, 24px); line-height: 1.45; color: var(--ink-2);
+        max-width: 780px; margin: 0 0 26px; font-weight: 400;
+      }
+      .byline {
+        display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 14px 0;
+        border-top: 2px solid var(--rule-strong); border-bottom: 1px solid var(--rule);
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13px; color: var(--ink-2);
+      }
+      .byline b { color: var(--ink); font-weight: 600; }
+      figure.hero { margin: 28px 0 6px; }
+      figure.hero img {
+        width: 100%; height: auto; display: block; aspect-ratio: 16 / 9;
+        object-fit: cover; border: 1px solid var(--rule);
+      }
+      figure.inline { margin: 24px 0 8px; }
+      figure.inline img {
+        width: 100%; height: auto; display: block; border: 1px solid var(--rule);
+      }
+      figcaption {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; color: var(--ink-3);
+        padding-top: 8px; line-height: 1.5;
+      }
+
+      /* ---------- causal chain ---------- */
+      .chain {
+        display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+        align-items: stretch; gap: 0; margin: 34px 0 6px;
+      }
+      .chain .step {
+        background: var(--surface); border: 1px solid var(--rule); padding: 16px 16px 14px;
+        box-shadow: var(--shadow);
+      }
+      .chain .step .n {
+        font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--accent);
+        font-weight: 600; letter-spacing: 0.08em;
+      }
+      .chain .step h3 {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 15.5px; margin: 6px 0 6px; line-height: 1.3;
+      }
+      .chain .step p { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0;
+        font-family: "IBM Plex Sans", sans-serif; }
+      .chain .arrow {
+        display: flex; align-items: center; justify-content: center; padding: 0 7px;
+        color: var(--accent); font-size: 20px; font-family: "IBM Plex Sans", sans-serif;
+      }
+      @media (max-width: 760px) {
+        .chain { grid-template-columns: 1fr; }
+        .chain .arrow { transform: rotate(90deg); padding: 5px 0; }
+      }
+
+      /* ---------- stat band ---------- */
+      .statband {
+        display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+        background: var(--rule); border: 1px solid var(--rule); margin: 30px 0 10px;
+      }
+      .statband .cell { background: var(--surface); padding: 16px 16px 13px; }
+      .statband .v {
+        font-family: "IBM Plex Mono", monospace; font-size: clamp(20px, 2.6vw, 27px);
+        font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
+      }
+      .statband .v .unit { color: var(--accent); font-size: 0.62em; }
+      .statband .l {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-2);
+        margin-top: 6px; line-height: 1.45;
+      }
+      .statband .s {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 11px; color: var(--ink-3); margin-top: 3px;
+      }
+      @media (max-width: 900px) { .statband { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 460px) { .statband { grid-template-columns: 1fr; } }
+
+      /* ---------- sections ---------- */
+      section { padding: 40px 0 6px; scroll-margin-top: 64px; }
+      .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 6px; }
+      .sec-num {
+        font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600;
+        color: var(--accent); border: 1px solid var(--accent); padding: 3px 8px; white-space: nowrap;
+      }
+      h2 {
+        font-size: clamp(27px, 4vw, 38px); line-height: 1.15; font-weight: 900;
+        letter-spacing: -0.01em; margin: 0;
+      }
+      .sec-rule { height: 2px; background: var(--rule-strong); margin: 14px 0 22px; }
+      h3.sub {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 19px; font-weight: 700;
+        margin: 30px 0 8px; letter-spacing: -0.01em;
+      }
+      p { margin: 0 0 16px; }
+      p.lede { font-size: 20px; line-height: 1.55; }
+      .src { color: var(--ink-3); font-size: 0.8em; font-family: "IBM Plex Sans", sans-serif; }
+      a { color: var(--steel); }
+
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+      @media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+
+      /* flashpoint cards */
+      .flash {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 20px 22px 8px; margin: 0 0 18px;
+      }
+      .flash .tag {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 11.5px; font-weight: 700;
+        letter-spacing: 0.1em; text-transform: uppercase;
+      }
+      .flash .tag.hot { color: var(--accent); }
+      .flash .tag.latent { color: var(--amber); }
+      .flash .tag.strain { color: var(--steel); }
+      .flash h3 {
+        font-size: 22px; margin: 5px 0 8px; font-weight: 700; line-height: 1.25;
+      }
+      .flash p { font-size: 16.5px; line-height: 1.58; }
+      .flash ul { margin: 0 0 14px; padding-left: 20px; }
+      .flash li { font-size: 15.5px; line-height: 1.55; margin-bottom: 6px; }
+      .flash li::marker { color: var(--accent); }
+
+      /* charts */
+      .chart-card {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 20px 22px 14px; margin: 22px 0;
+      }
+      .chart-card h4 {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 15px; font-weight: 700; margin: 0 0 2px;
+      }
+      .chart-card .chart-sub {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12.5px; color: var(--ink-3); margin: 0 0 12px;
+      }
+      .chart-card svg { width: 100%; height: auto; display: block; }
+      .chart-note {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-3);
+        border-top: 1px solid var(--rule); padding-top: 9px; margin-top: 10px; line-height: 1.55;
+      }
+      svg text { font-family: "IBM Plex Sans", sans-serif; }
+      svg .axis { fill: var(--ink-3); font-size: 11px; }
+      svg .val { fill: var(--ink); font-size: 12.5px; font-weight: 600; font-family: "IBM Plex Mono", monospace; }
+      svg .annot { fill: var(--ink-2); font-size: 11.5px; }
+      svg .grid { stroke: var(--chart-grid); stroke-width: 1; }
+
+      /* tables */
+      .tbl-wrap { overflow-x: auto; margin: 18px 0 8px; border: 1px solid var(--rule); background: var(--surface); }
+      table { border-collapse: collapse; width: 100%; font-family: "IBM Plex Sans", sans-serif; font-size: 14px; }
+      caption {
+        text-align: left; font-weight: 700; font-size: 14.5px; padding: 14px 16px 4px; color: var(--ink);
+      }
+      th, td { padding: 9px 16px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+      thead th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+      td.num, th.num { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; white-space: nowrap; }
+      tbody tr:last-child td { border-bottom: none; }
+      .tbl-note { font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-3); padding: 0 2px; margin: 2px 0 20px; line-height: 1.55; }
+      @media (max-width: 640px) {
+        .tbl-wrap { overflow-x: visible; }
+        table { table-layout: fixed; font-size: 12.5px; }
+        caption { padding: 12px 12px 4px; font-size: 13.5px; }
+        th, td { padding: 8px 10px; overflow-wrap: break-word; }
+        td.num, th.num { white-space: normal; font-size: 12.5px; }
+        thead th { font-size: 10.5px; }
+      }
+
+      /* quotes */
+      blockquote.pull {
+        margin: 30px 0; padding: 4px 0 4px 26px; border-left: 3px solid var(--accent);
+      }
+      blockquote.pull p {
+        font-size: clamp(21px, 3vw, 27px); line-height: 1.4; font-weight: 600; margin: 0 0 8px;
+      }
+      blockquote.pull cite {
+        font-family: "IBM Plex Sans", sans-serif; font-style: normal; font-size: 13px; color: var(--ink-2);
+      }
+
+      /* scenario toggle */
+      .scenario {
+        background: var(--surface); border: 1px solid var(--rule); box-shadow: var(--shadow);
+        padding: 22px; margin: 22px 0;
+      }
+      .scenario .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+      .scenario button {
+        font-family: "IBM Plex Sans", sans-serif; font-size: 13.5px; font-weight: 600;
+        padding: 9px 16px; border: 1px solid var(--rule-strong); background: transparent;
+        color: var(--ink); cursor: pointer; border-radius: 999px;
+      }
+      .scenario button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+      .scenario button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+      .scenario .big {
+        font-family: "IBM Plex Mono", monospace; font-size: clamp(44px, 7vw, 64px);
+        font-weight: 600; line-height: 1; letter-spacing: -0.03em;
+      }
+      .scenario .big small { font-size: 0.36em; color: var(--ink-3); letter-spacing: 0; }
+      .scenario .desc { font-size: 16.5px; color: var(--ink-2); margin-top: 12px; max-width: 660px; }
+      .scenario .desc b { color: var(--ink); }
+
+      /* caveats */
+      .caveats {
+        background: var(--accent-soft); border: 1px solid var(--accent);
+        padding: 22px 24px 10px; margin: 26px 0;
+      }
+      .caveats h3 { font-family: "IBM Plex Sans", sans-serif; font-size: 16px; margin: 0 0 10px; color: var(--accent); }
+      .caveats li { font-size: 15.5px; margin-bottom: 9px; line-height: 1.55; }
+      .caveats ul { padding-left: 20px; margin: 0 0 12px; }
+
+      .exposure { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 8px 0 10px; }
+      @media (max-width: 760px) { .exposure { grid-template-columns: 1fr; } }
+      .exposure h4 { font-family: "IBM Plex Sans", sans-serif; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; margin: 0 0 10px; color: var(--ink-2); }
+      .exposure ul { margin: 0; padding-left: 20px; }
+      .exposure li { font-size: 16px; margin-bottom: 7px; line-height: 1.5; }
+
+      footer {
+        border-top: 2px solid var(--rule-strong); margin-top: 48px; padding: 26px 0 60px;
+      }
+      footer h3 { font-family: "IBM Plex Sans", sans-serif; font-size: 15px; margin: 0 0 12px; }
+      footer p, footer li { font-family: "IBM Plex Sans", sans-serif; font-size: 13px; color: var(--ink-2); line-height: 1.65; }
+      footer ul { columns: 2; column-gap: 34px; padding-left: 18px; margin: 0 0 16px; }
+      @media (max-width: 640px) { footer ul { columns: 1; } }
+      .pending {
+        border: 1px dashed var(--amber); color: var(--ink);
+        padding: 14px 18px; font-family: "IBM Plex Sans", sans-serif; font-size: 14px; line-height: 1.6; margin: 20px 0;
+      }
+      .pending b { color: var(--amber); }
+    </style>
+  </head>
+  <body>
+    <div id="progress" aria-hidden="true"></div>
+
+    <nav class="toc" aria-label="Article sections">
+      <div class="inner">
+        <span class="brand">THE AI AGENT ECONOMY</span>
+        <a href="#leap">The leap</a>
+        <a href="#work">Real work</a>
+        <a href="#economics">The economics</a>
+        <a href="#builders">For builders</a>
+        <a href="#investors">For investors</a>
+        <a href="#caveats">Open questions</a>
+      </div>
+    </nav>
+
+    <div class="wrap">
+      <header class="masthead">
+        <div class="kicker">Research brief · Technology &amp; markets</div>
+        <h1>The AI Agent Economy</h1>
+        <p class="dek">AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. Here is what that changes about who does what, who gets paid, and who carries the risk.</p>
+        <div class="byline">
+          <span><b>By</b> Bhargav Patel</span>
+          <span><b>Compiled</b> 14 October 2026</span>
+          <span><b>Coverage</b> First-principles analysis of agent-driven knowledge work</span>
+          <span><b>Method</b> Qualitative reasoning; no invented statistics or anecdotes</span>
+        </div>
+      </header>
+
+      <div class="chain">
+        <div class="step"><div class="n">STEP 01</div><h3>The task</h3><p>A goal stated in words: &ldquo;reconcile these invoices,&rdquo; &ldquo;draft the migration.&rdquo; No step-by-step instructions.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 02</div><h3>The loop</h3><p>The agent plans, calls tools, observes results, and replans. Errors become corrections, not dead ends.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 03</div><h3>The memory</h3><p>What was done, what failed, what&rsquo;s pending — persisted across sessions, so work compounds instead of restarting.</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><div class="n">STEP 04</div><h3>The check</h3><p>A human verifies the outcome before anything irreversible ships. Judgment, not execution, is the scarce input.</p></div>
+      </div>
+
+      <section id="leap">
+        <div class="sec-head"><span class="sec-num">01</span><h2>From answers to actions</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">For several years the story of AI in knowledge work was about answers: you asked a question, a model produced text, and the exchange ended at the reply. What is happening now is categorically different, and it matters more than the models&rsquo; growing eloquence — AI systems are starting to <i>do</i> things.</p>
+        <p>The chatbot&rsquo;s question was &ldquo;what do you know?&rdquo; The agent&rsquo;s question is &ldquo;what can you touch?&rdquo; Three changes answer it.</p>
+
+        <div class="flash">
+          <div class="tag hot">The decisive change</div>
+          <h3>Tool use: from language to leverage</h3>
+          <p>A model that can call an API can alter the world: query a database, move money, open a ticket, commit code. Language was the interface to human attention; tools are the interface to human systems. This is what converts a clever reply into an economic act — the boundary that matters is no longer what the model can <i>say</i> but what it is <i>permitted</i> to do.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag strain">The compounding change</div>
+          <h3>Memory: from sessions to continuity</h3>
+          <p>A chatbot starts every conversation as a stranger. An agent with persistent memory does not: it knows what was tried, what failed, and what is still pending. That continuity turns a sequence of one-shot answers into a continuing task. Organisations hire for responsibility over time, not single utterances, and memory is the cheapest way to give a system something like responsibility.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag latent">The reliability change</div>
+          <h3>Planning loops: errors become corrections</h3>
+          <p>Propose a plan, act, observe the result, replan. The loop buys the property that moved agents from demo to utility: recovery from their own mistakes without a human re-prompting. Reliability comes from the loop, not from a flawless model.</p>
+        </div>
+
+        <div class="chart-card">
+          <h4>The agent loop, stylised</h4>
+          <div class="chart-sub">Each turn feeds the next; the loop makes reliability structural rather than hoped-for.</div>
+          <svg viewBox="0 0 560 200" width="100%" role="img" aria-label="Illustrative diagram of the agent planning loop">
+            <g font-family="IBM Plex Sans, sans-serif" font-size="13">
+              <rect x="20" y="70" width="110" height="60" rx="4" fill="#f6f6f3" stroke="#17191d" stroke-width="1.5"/>
+              <text x="75" y="96" text-anchor="middle" font-weight="700">Plan</text>
+              <text x="75" y="114" text-anchor="middle" font-size="11" fill="#454a52">choose next step</text>
+              <rect x="165" y="70" width="110" height="60" rx="4" fill="#f6f6f3" stroke="#17191d" stroke-width="1.5"/>
+              <text x="220" y="96" text-anchor="middle" font-weight="700">Act</text>
+              <text x="220" y="114" text-anchor="middle" font-size="11" fill="#454a52">call tools</text>
+              <rect x="310" y="70" width="110" height="60" rx="4" fill="#f6f6f3" stroke="#17191d" stroke-width="1.5"/>
+              <text x="365" y="96" text-anchor="middle" font-weight="700">Observe</text>
+              <text x="365" y="114" text-anchor="middle" font-size="11" fill="#454a52">read results</text>
+              <rect x="455" y="70" width="85" height="60" rx="4" fill="#b3261e" opacity="0.12" stroke="#b3261e" stroke-width="1.5"/>
+              <text x="497" y="96" text-anchor="middle" font-weight="700" fill="#b3261e">Verify</text>
+              <text x="497" y="114" text-anchor="middle" font-size="11" fill="#454a52">human checks</text>
+              <text x="130" y="105" font-size="18" fill="#b3261e">→</text>
+              <text x="275" y="105" font-size="18" fill="#b3261e">→</text>
+              <text x="420" y="105" font-size="18" fill="#b3261e">→</text>
+              <text x="280" y="168" font-size="12" fill="#454a52">← failure returns here: replan, retry, don&rsquo;t ask the human to restart</text>
+            </g>
+          </svg>
+          <div class="chart-note">Schematic: recovery happens inside the loop, which is why agents tolerate imperfect models.</div>
+        </div>
+
+        <p>No fundamentally new intelligence was required — only the scaffolding around the model maturing. The next gains will come as much from better environments to act in as from smarter models.</p>
+      </section>
+
+      <section id="work">
+        <div class="sec-head"><span class="sec-num">02</span><h2>Where agents already do real work</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Strip away the marketing and a pattern emerges: agents succeed first wherever the task is legible, the feedback is fast, and the cost of a mistake is bounded. That is why three domains lead.</p>
+
+        <div class="flash">
+          <div class="tag hot">Legible task · fast feedback</div>
+          <h3>Code: the agent&rsquo;s home turf</h3>
+          <p>The work is expressed in a formal language, and — crucially — the agent can see its own failures: the compiler complains, the tests fail. An agent that writes code and runs the test suite closes its own feedback loop in seconds. Programming is one of the few knowledge tasks where correctness can be checked automatically — and the rule generalises: the further a task is from a fast, cheap verifier, the slower agent adoption will be.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag strain">High volume · structured input</div>
+          <h3>Support: the tier that never sleeps</h3>
+          <p>Support is a queue of structured problems with clear resolution criteria. Agents triage and resolve the routine tier while escalating the ambiguous cases — but they are only as good as the knowledge base they consult, and they fail where it is stale.</p>
+        </div>
+
+        <div class="flash">
+          <div class="tag latent">Rule-bound · auditable</div>
+          <h3>Ops: the quiet takeover</h3>
+          <p>Reconciliation, data entry, report generation — the unglamorous machinery of every company, rule-bound and auditable: an agent does it at volume, a human spot-checks afterwards. This is where the most value accrues least visibly.</p>
+        </div>
+
+        <blockquote class="pull">
+          <p>An agent succeeds wherever the task is legible, the feedback is fast, and the cost of a mistake is bounded.</p>
+          <cite>— the deployment rule, stated three ways across code, support, and ops</cite>
+        </blockquote>
+
+        <p>The pattern tells you what to watch next: whichever field builds a fast, cheap verifier becomes the next one where agents graduate from assistant to worker.</p>
+      </section>
+
+      <section id="economics">
+        <div class="sec-head"><span class="sec-num">03</span><h2>The new economics of doing things</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Every economy is a system of bottlenecks, and agents move the bottleneck. The cost of executing a well-specified task is collapsing toward the cost of compute; the cost of <i>specifying</i> it well — and of trusting the result — is not.</p>
+
+        <div class="tbl-wrap">
+          <table>
+            <caption>Where the scarcity moved</caption>
+            <thead><tr><th>Resource</th><th>Old economy</th><th>Agent economy</th></tr></thead>
+            <tbody>
+              <tr><td><b>Execution</b></td><td>Scarce — human hours, linear and expensive</td><td>Cheap — parallel, marginal cost near compute</td></tr>
+              <tr><td><b>Specification</b></td><td>Cheap — brief a person and they fill the gaps</td><td>Scarce — vague goals produce confident wrong work</td></tr>
+              <tr><td><b>Verification</b></td><td>Bundled — the worker checks as they go</td><td>Unbundled — someone must check the agent&rsquo;s work</td></tr>
+              <tr><td><b>Liability</b></td><td>Clear — the employee or the vendor is responsible</td><td>Murky — the agent acted, but who authorised it?</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tbl-note">Qualitative, not measured. The claim is about the direction of the shift, which is structural, not its speed, which is not.</p>
+
+        <h3 class="sub">Trust is the new throughput</h3>
+        <p>Labour was expensive and trust was cheap — interviews, references, probation. With agents it is the reverse: where checking is cheaper than doing, agents scale freely; where checking costs as much as doing, or a mistake is catastrophic, agents stay fenced. The adoption frontier is set not by model quality but by <b>verification economics</b>.</p>
+
+        <h3 class="sub">Liability is the hidden tax</h3>
+        <p>When an employee errs, the liability chain is settled law. When an agent acting under delegated permission charges the wrong customer or deletes the wrong records, the chain is foggy: the vendor sold the model, the deployer configured it, the user prompted it. Unclear liability taxes every deployment — and it will be the last bottleneck cleared, because it is cleared by courts and contracts, not benchmarks.</p>
+
+        <p>The net effect: the price of getting something done falls, while the price of being <i>sure</i> it was done right rises in relative importance. Margin migrates toward whoever sells certainty — verification, audit trails, insurance — and away from whoever merely sells execution.</p>
+      </section>
+
+      <section id="builders">
+        <div class="sec-head"><span class="sec-num">04</span><h2>What this means for builders</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">If execution is cheap, scarcity moves up the stack: deciding what is worth doing, and knowing whether it was done well. The skill that compounds is no longer typing — it is judgment.</p>
+
+        <h3 class="sub">Taste becomes the job</h3>
+        <p>When a hundred candidate implementations can be generated in an afternoon, the value is not in producing them but in <i>choosing</i>: which design is maintainable, which edge case matters, which abstraction survives the next requirement. The ability to look at machine-generated output and spot the flaw that matters becomes the core skill, trained only by having built things the slow way first. There is no shortcut to taste.</p>
+
+        <h3 class="sub">Design for delegation</h3>
+        <p>The second shift is in what we build. Products designed for humans — buttons, dashboards, forms — are awkward for agents. Products designed for delegation look different: deterministic identifiers, machine-readable contracts, structured outputs, APIs first. The winning pattern is the <b>checkpoint architecture</b>: free running through reversible steps, a check before every irreversible one. </p>
+
+        <div class="grid2">
+          <div class="flash">
+            <div class="tag strain">Build this in</div>
+            <h3>Agent-shaped habits</h3>
+            <ul>
+              <li><b>Reversible by default:</b> destructive actions require an explicit grant, not an implicit assumption.</li>
+              <li><b>Scorecards over vibes:</b> an agent in production needs a tracked success rate.</li>
+            </ul>
+          </div>
+          <div class="flash">
+            <div class="tag hot">Watch for this</div>
+            <h3>The failure modes</h3>
+            <ul>
+              <li><b>Confident wrongness:</b> agents fail at the top of their competence — looking right is worse than looking wrong.</li>
+              <li><b>Skill atrophy:</b> teams that stop doing the work stop knowing when the agent is wrong. Keep humans practised on the hard parts.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="investors">
+        <div class="sec-head"><span class="sec-num">05</span><h2>What this means for investors</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">Capital follows margin, and margin follows the bottleneck. In the agent economy the bottleneck is not intelligence — intelligence is commoditising — it is everything around it.</p>
+
+        <div class="flash">
+          <div class="tag hot">Where the margin pools</div>
+          <h3>The durable layers</h3>
+          <ul>
+            <li><b>Distribution and workflow ownership.</b> Whoever owns the customer and the workflow captures the rent. Switching a model is a config change; switching a workflow is a migration.</li>
+            <li><b>Trust infrastructure.</b> Verification tooling, audit trails, agent identity, and liability insurance for machine action — the businesses that sell certainty in a world of cheap execution.</li>
+            <li><b>Data gravity.</b> Agents improve fastest inside domains with proprietary, permissioned data — real interactions, real operational histories. Every action generates the training signal for the next one.</li>
+          </ul>
+        </div>
+
+        <div class="flash">
+          <div class="tag latent">Be skeptical of</div>
+          <h3>The fragile middle</h3>
+          <ul>
+            <li><b>Thin wrappers.</b> A chat UI over someone else&rsquo;s model, with no distribution and no proprietary data, is a feature waiting to be absorbed by the platform it depends on.</li>
+            <li><b>Automation theatre.</b> Demos where the agent works are cheap; deployments where it is <i>trusted</i> are expensive. Value the second, not the first.</li>
+          </ul>
+        </div>
+
+        <p>The historical pattern holds: in every platform shift, the durable fortunes went to those who owned the scarce complement, not the abundant core. Intelligence is the abundant core here; distribution, trust, and data are the scarce complements.</p>
+      </section>
+
+      <section id="caveats">
+        <div class="sec-head"><span class="sec-num">06</span><h2>Where the argument bends</h2></div>
+        <div class="sec-rule"></div>
+        <p class="lede">A measured take, not a prediction: the agent economy is real infrastructure in the making, but its shape will be decided by forces slower than technology. Forces like these:</p>
+        <div class="caveats">
+          <h3>Open questions &amp; honest limits — read these before citing</h3>
+          <ul>
+            <li><strong>Capability is not adoption.</strong> Working technology can still take a decade to deploy, because organisations, contracts, and habits move slower than code. The binding constraints are liability law and organisational trust, not benchmarks.</li>
+            <li><strong>The verifier&rsquo;s regress.</strong> If checking an agent&rsquo;s work requires another agent, who checks the checker? At some point a human signs — and that signature does not scale with compute.</li>
+            <li><strong>Concentration risk.</strong> If a handful of providers intermediate most knowledge work, the economy gains a new single point of failure — and a new tollbooth. The diversification logic of the earlier briefs in this series applies here too.</li>
+            <li><strong>No numbers were harmed.</strong> This brief deliberately cites no statistics, company anecdotes, or market-size estimates. The argument is structural — which way the pressures point, not how fast they arrive.</li>
+          </ul>
+        </div>
+        <p>The economy that emerges will not be &ldquo;agents replace everyone.&rdquo; It will be messier: humans moving up the stack into judgment, specification, and liability-bearing roles — the parts of work where being wrong is expensive. The question is not whether agents do more of the doing. It is who owns the checking, the deciding, and the paying when things go wrong. That is where the value has always been; the agent economy only makes it visible.</p>
+      </section>
+
+      <footer>
+        <h3>Notes on method</h3>
+        <p>This brief is a first-principles analysis of agent-driven knowledge work, compiled 14 October 2026. It contains no invented statistics, quotations, company anecdotes, or personal-experience claims; all assertions are qualitative and structural. It is part of a series with <i>When Wars Move Markets</i> and <i>The Diversification Doctrine</i> on this site.</p>
+        <p>Illustrations are schematic diagrams drawn for this article, not data visualisations. It is not investment advice.</p>
+      </footer>
+    </div>
+
+    <script>
+      // Reading progress bar
+      (function () {
+        var bar = document.getElementById('progress');
+        function onScroll() {
+          var h = document.documentElement;
+          var max = h.scrollHeight - h.clientHeight;
+          bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+        }
+        document.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      })();
+
+      // Scrollspy for the section nav
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+        var map = {};
+        links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+        if (!('IntersectionObserver' in window)) return;
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              links.forEach(function (a) { a.classList.remove('active'); });
+              var link = map[e.target.id];
+              if (link) link.classList.add('active');
+            }
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        ['leap', 'work', 'economics', 'builders', 'investors', 'caveats'].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      })();
+    </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
