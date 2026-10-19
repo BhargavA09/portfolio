@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhargav Patel — The Trek · 3D Himalayan Portfolio</title>
+<meta name="description" content="Walk through the Himalayas with Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#). Six base camps: about, skills, projects, experience, contact, analytics.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2305070d'/%3E%3Ctext x='10' y='43' font-family='monospace' font-size='30' font-weight='bold' fill='%2300e5a0'%3E%3E_%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bhargav Patel — The Trek · 3D Portfolio">
+<meta property="og:description" content="A walk through the Himalayas: full-stack engineer (React, Node.js, TypeScript, .NET/C#), six base camps of about, skills, projects, experience, contact and analytics. Available immediately.">
+<meta property="og:url" content="https://bharg-patel.vercel.app/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bhargav Patel — The Trek · 3D Portfolio">
+<meta name="twitter:description" content="Walk the Himalayas through my work: QuantLab, Netscanpro, 3+ years of full-stack engineering. Available immediately.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070d; --panel:rgba(8,13,22,.88); --line:rgba(0,229,160,.22);
+  --emerald:#00e5a0; --cyan:#22d3ee; --text:#e8eef6; --dim:#93a1b5;
+  --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0}
+#scrollSpace{position:relative;z-index:1;height:900vh;pointer-events:none}
+
+/* ── HUD ─────────────────────────────── */
+#hud{position:fixed;inset:0;z-index:10;pointer-events:none}
+#topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:16px 22px}
+.wordmark{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.wordmark b{color:var(--emerald);font-weight:700}
+.hud-links{pointer-events:auto;display:flex;gap:10px}
+.hud-links a{font-family:var(--mono);font-size:12px;color:var(--text);text-decoration:none;border:1px solid var(--line);background:rgba(5,8,14,.55);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px;transition:.2s}
+.hud-links a:hover{border-color:var(--emerald);color:var(--emerald)}
+.hud-links a.resume{border-color:rgba(34,211,238,.5);color:var(--cyan)}
+
+#progressWrap{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;width:min(520px,72vw);pointer-events:auto}
+#progressTrack{position:relative;height:3px;background:rgba(255,255,255,.16);border-radius:2px}
+#progressFill{position:absolute;left:0;top:0;bottom:0;width:0%;border-radius:2px;background:linear-gradient(90deg,var(--emerald),var(--cyan));box-shadow:0 0 10px rgba(0,229,160,.7)}
+.camp-dot{position:absolute;top:50%;width:11px;height:11px;border-radius:50%;background:#0a0f18;border:2px solid var(--dim);transform:translate(-50%,-50%);cursor:pointer;transition:.2s}
+.camp-dot:hover{border-color:var(--emerald);transform:translate(-50%,-50%) scale(1.25)}
+.camp-dot.active{border-color:var(--emerald);background:var(--emerald);box-shadow:0 0 12px rgba(0,229,160,.9)}
+.camp-dot .tip{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.08em;white-space:nowrap;color:var(--text);background:rgba(5,8,14,.8);border:1px solid var(--line);padding:4px 8px;border-radius:6px;opacity:0;transition:.2s}
+.camp-dot:hover .tip{opacity:1}
+
+#scrollHint{position:absolute;left:50%;transform:translateX(-50%);bottom:52px;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,.8);animation:bob 1.8s ease-in-out infinite;transition:opacity .6s}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+#scrollHint.gone{opacity:0}
+
+/* ── Insights teaser ─────────────────── */
+#insightTeaser{position:absolute;right:22px;bottom:74px;width:284px;background:rgba(8,13,22,.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);
+  border-radius:14px;padding:16px 18px;pointer-events:auto;box-shadow:0 14px 44px rgba(0,0,0,.5);
+  transition:border-color .25s}
+#insightTeaser:hover{border-color:var(--emerald)}
+#insightTeaser .kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--emerald);margin-bottom:6px}
+#insightTeaser h4{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+#insightTeaser p{font-size:12.5px;line-height:1.55;color:#aebbcc;margin-bottom:10px}
+#insightTeaser a{font-family:var(--mono);font-size:12px;color:var(--cyan);text-decoration:none}
+#insightTeaser a:hover{text-decoration:underline}
+@media (max-width:900px){#insightTeaser{display:none}}
+
+/* ── Analytics HUD chip ────────────────── */
+#dashChip{position:absolute;left:22px;top:70px;background:rgba(8,13,22,.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);
+  border-radius:12px;padding:10px 14px;pointer-events:auto;box-shadow:0 10px 32px rgba(0,0,0,.5);
+  transition:border-color .25s;display:flex;align-items:center;gap:10px;text-decoration:none}
+#dashChip:hover{border-color:var(--emerald)}
+#dashChip .kicker{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--emerald)}
+#dashChip .t{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap}
+#dashChip .go{font-family:var(--mono);font-size:12px;color:var(--cyan)}
+@media (max-width:900px){#dashChip{display:none}}
+
+/* ── Camp card ───────────────────────── */
+#campCard{position:fixed;z-index:11;left:22px;bottom:74px;width:min(440px,calc(100vw - 44px));max-height:min(64vh,560px);overflow-y:auto;background:var(--panel);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:0 18px 60px rgba(0,0,0,.55);transform:translateY(16px);opacity:0;pointer-events:none;transition:opacity .35s,transform .35s}
+#campCard.show{transform:none;opacity:1;pointer-events:auto}
+#campCard .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--emerald);margin-bottom:8px}
+#campCard h3{font-size:22px;font-weight:800;letter-spacing:-.01em;margin-bottom:10px}
+#campCard h3 .grad{background:linear-gradient(90deg,var(--emerald),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+#campCard p{font-size:14px;line-height:1.65;color:#c9d4e2;margin-bottom:10px}
+#campCard p strong{color:var(--text)}
+#campCard .close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:6px}
+#campCard .close:hover{color:var(--text)}
+.card-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 4px}
+.card-stats div{background:rgba(0,229,160,.06);border:1px solid rgba(0,229,160,.16);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:12px}
+.card-stats b{display:block;font-size:17px;color:var(--emerald)}
+.skill-group{margin-bottom:12px}
+.skill-group h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cyan);margin-bottom:6px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags span{font-family:var(--mono);font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:4px 9px;border-radius:999px;color:#d5deea}
+.proj{border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:14px;margin-bottom:12px;background:rgba(255,255,255,.02)}
+.proj .kind{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--cyan);margin-bottom:6px}
+.proj h4{font-size:17px;margin-bottom:6px}
+.proj p{font-size:13px}
+.proj .links{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:12px;text-decoration:none;padding:8px 14px;border-radius:8px;border:1px solid var(--line);color:var(--emerald);transition:.2s;display:inline-block}
+.btn:hover{background:rgba(0,229,160,.12)}
+.btn.live{border-color:rgba(0,229,160,.55);background:rgba(0,229,160,.1)}
+.role{margin-bottom:14px}
+.role .date{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--cyan)}
+.role h4{font-size:16px;margin:3px 0 2px}
+.role .org{font-size:12px;color:var(--dim);margin-bottom:6px}
+.role ul{margin:0 0 6px 16px;font-size:13px;line-height:1.6;color:#c9d4e2}
+.contact-row{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.contact-row a{font-family:var(--mono);font-size:13px;color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:10px 12px;transition:.2s;word-break:break-all}
+.contact-row a:hover{border-color:var(--emerald);color:var(--emerald)}
+.contact-row a b{color:var(--cyan);font-weight:500;margin-right:8px}
+
+/* ── Start overlay / fallback ─────────── */
+#startOverlay{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at 50% 65%,rgba(8,15,28,.25) 0%,rgba(4,6,11,.88) 75%);transition:opacity .8s;padding:24px}
+#startOverlay.gone{opacity:0;pointer-events:none}
+#startOverlay .pre{font-family:var(--mono);font-size:12px;letter-spacing:.3em;color:var(--cyan);margin-bottom:14px}
+#startOverlay h1{font-size:clamp(44px,9vw,96px);font-weight:800;letter-spacing:.06em;line-height:1}
+#startOverlay h1 .grad{background:linear-gradient(90deg,#fff,var(--emerald),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+#startOverlay p{font-family:var(--mono);font-size:13px;color:var(--dim);margin:16px 0 28px;max-width:520px;line-height:1.7}
+#beginBtn{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:#04120c;background:linear-gradient(90deg,var(--emerald),var(--cyan));border:none;border-radius:999px;padding:15px 42px;cursor:pointer;font-weight:700;box-shadow:0 8px 32px rgba(0,229,160,.35);transition:.2s}
+#beginBtn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,160,.5)}
+#startOverlay .alt{margin-top:18px;font-family:var(--mono);font-size:12px}
+#startOverlay .alt a{color:var(--dim);text-decoration:none}
+#startOverlay .alt a:hover{color:var(--emerald)}
+
+#fallback{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;text-align:center;background:var(--bg);padding:32px}
+#fallback.show{display:flex}
+#fallback .box{max-width:520px}
+#fallback h2{font-size:28px;margin-bottom:12px}
+#fallback p{color:var(--dim);line-height:1.7;margin-bottom:20px;font-size:15px}
+
+@media (max-width:640px){
+  #campCard{left:12px;right:12px;bottom:66px;width:auto;max-height:56vh;padding:18px}
+  .wordmark{font-size:11px}
+  #topbar{padding:12px 14px}
+  .hud-links a{padding:7px 10px;font-size:11px}
+}
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<div id="scrollSpace"></div>
+
+<div id="hud">
+  <div id="topbar">
+    <div class="wordmark"><b>▲</b> THE TREK — Bhargav Patel</div>
+    <div class="hud-links">
+      <a href="classic.html">Classic view</a>
+      <a href="classic.html#articles">Insights</a>
+      <a href="resume.pdf" class="resume" download>↓ Resume</a>
+    </div>
+  </div>
+  <div id="scrollHint">SCROLL TO TREK ↓</div>
+  <aside id="insightTeaser">
+    <p class="kicker">INSIGHTS · LATEST</p>
+    <h4>The Diversification Doctrine</h4>
+    <p>Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies pay the same price, only larger.</p>
+    <a href="articles/the-diversification-doctrine.html">Read the article →</a>
+  </aside>
+  <a id="dashChip" href="dashboard.html">
+    <span><span class="kicker">ANALYTICS</span><br><span class="t">Traffic dashboard</span></span>
+    <span class="go">→</span>
+  </a>
+  <div id="progressWrap"><div id="progressTrack"><div id="progressFill"></div></div></div>
+</div>
+
+<aside id="campCard" aria-live="polite"><button class="close" id="cardClose" aria-label="Close">✕</button><div id="cardBody"></div></aside>
+
+<div id="startOverlay">
+  <div class="pre">A PORTFOLIO EXPEDITION</div>
+  <h1>THE <span class="grad">TREK</span></h1>
+  <p>Six base camps. One mountain. Scroll to walk the trail through my work — from base camp to the analytics lookout.</p>
+  <button id="beginBtn">BEGIN THE TREK ↓</button>
+  <div class="alt"><a href="classic.html">or view the classic site →</a></div>
+</div>
+
+<div id="fallback"><div class="box">
+  <h2>⛰ The trail needs WebGL</h2>
+  <p>Your browser couldn't start the 3D trek (WebGL unavailable or the 3D library failed to load). The full portfolio is still available in the classic view.</p>
+  <p><a class="btn live" href="classic.html">Open the classic portfolio →</a></p>
+</div></div>
+
+<noscript><div style="position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#05070d;color:#e8eef6;font-family:monospace;padding:32px;text-align:center">This experience needs JavaScript.&nbsp;<a href="classic.html" style="color:#00e5a0">Open the classic portfolio →</a></div></noscript>
+<script type="module">
+// ── error collector (test hook) ──
+window.__errors = [];
+window.addEventListener('error', e => window.__errors.push('window.onerror: ' + (e.message || e.error)));
+window.addEventListener('unhandledrejection', e => window.__errors.push('rejection: ' + String(e.reason && e.reason.message || e.reason)));
+
+const params = new URLSearchParams(location.search);
+const isMobile = matchMedia('(pointer:coarse)').matches || innerWidth < 768;
+
+function showFallback(){
+  document.getElementById('fallback').classList.add('show');
+  document.getElementById('startOverlay').classList.add('gone');
+  document.getElementById('hud').style.display = 'none';
+  const c = document.getElementById('scene'); if (c) c.style.display = 'none';
+}
+
+// ── load three (CDN, pinned) with graceful fallback ──
+let THREE = null;
+try { THREE = await import('three'); }
+catch (e) { window.__errors.push('three import failed: ' + e.message); showFallback(); throw e; }
+
+try { boot(THREE); } catch (e) { window.__errors.push('boot failed: ' + (e.message || e)); showFallback(); }
+
+function boot(THREE){
+
+/* ═══════════════ TRUTHFUL CONTENT (from classic.html) ═══════════════ */
+const CARDS = {
+about: {
+  kicker: '01 · BASE CAMP', title: 'Engineer first. <span class="grad">Operator always.</span>',
+  html: `
+  <p>I'm a full-stack software engineer with <strong>3+ years</strong> of experience shipping across React, Node.js, TypeScript, and .NET/C#. I hold an <strong>M.Eng in Electrical and Computer Engineering</strong> from the University of Windsor and I'm based in <strong>Windsor, Ontario</strong> — open to remote roles across Canada.</p>
+  <p>By day I keep production technology running at McDonald's Windsor as an <strong>IT Systems Manager</strong> — 99.9% uptime across 1,000+ daily transactions. By night I build <strong>QuantLab</strong>, an AI-driven trading intelligence platform with real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics.</p>
+  <p>I care about systems that are measurable: latency cut, uptime sustained, revenue shipped. If it can't be measured, it can't be improved.</p>
+  <div class="card-stats">
+    <div><b>3+</b>Years engineering</div><div><b>12+</b>Apps shipped to production</div>
+    <div><b>99.9%</b>Production uptime</div><div><b>68%</b>API latency cut (best)</div>
+  </div>`
+},
+skills: {
+  kicker: '02 · ASCENT', title: 'The <span class="grad">stack.</span>',
+  html: `
+  <div class="skill-group"><h4>LANGUAGES</h4><div class="tags"><span>C#</span><span>TypeScript</span><span>JavaScript (ES6+)</span><span>Python</span><span>SQL (T-SQL)</span><span>HTML5</span><span>CSS3</span></div></div>
+  <div class="skill-group"><h4>BACKEND</h4><div class="tags"><span>ASP.NET Core</span><span>Node.js</span><span>Express</span><span>NestJS</span><span>RESTful APIs</span><span>Microservices</span><span>WebSockets</span></div></div>
+  <div class="skill-group"><h4>FRONTEND</h4><div class="tags"><span>React 19</span><span>Redux</span><span>Tailwind CSS</span><span>Responsive Design</span><span>Vite</span><span>Capacitor</span></div></div>
+  <div class="skill-group"><h4>DATA</h4><div class="tags"><span>SQL Server</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Query Tuning</span><span>Stored Procedures</span><span>Data Pipelines</span></div></div>
+  <div class="skill-group"><h4>CLOUD &amp; DEVOPS</h4><div class="tags"><span>Microsoft Azure</span><span>AWS</span><span>Docker</span><span>CI/CD (GitHub Actions)</span><span>Azure DevOps</span><span>Git</span><span>Vercel</span></div></div>
+  <div class="skill-group"><h4>AI / LLM</h4><div class="tags"><span>Google Gemini 1.5 Pro</span><span>RAG</span><span>Prompt Engineering</span><span>Predictive Analytics</span></div></div>`
+},
+projects: {
+  kicker: '03 · SUMMIT', title: 'Featured <span class="grad">projects.</span>',
+  html: `
+  <p>Live in production, not screenshots. Click through and use them.</p>
+  <div class="proj"><div class="kind">AI TRADING INTELLIGENCE · 2023 — PRESENT</div>
+    <h4>QuantLab / QuantTrade</h4>
+    <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
+    <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
+    <div class="links"><a class="btn live" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">⌨ GitHub</a></div>
+  </div>
+  <div class="proj"><div class="kind">THREAT INTELLIGENCE DASHBOARD</div>
+    <h4>Netscanpro</h4>
+    <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern dark UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
+    <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
+    <div class="links"><a class="btn live" href="https://netscanpro.vercel.app" target="_blank" rel="noopener">↗ Live App</a><a class="btn" href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener">⌨ GitHub</a></div>
+  </div>`
+},
+experience: {
+  kicker: '04 · THE RIDGE', title: 'Experience <span class="grad">timeline.</span>',
+  html: `
+  <div class="role"><div class="date">2023 — PRESENT</div><h4>Independent Full-Stack Software Engineer</h4><div class="org">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</div>
+    <ul><li>Architected an AI platform end to end (database, API, UI), integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li><li>Built a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li><li>Engineered a Monte Carlo simulation engine in TypeScript forecasting outcomes with dynamic confidence intervals.</li><li>Built a multi-source real-time data pipeline using WebSockets with custom caching and memory-safe SQLite persistence.</li></ul>
+    <div class="tags"><span>TypeScript</span><span>React 19</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span></div></div>
+  <div class="role"><div class="date">MAY 2023 — PRESENT</div><h4>IT Systems Manager &amp; Operations Lead</h4><div class="org">McDonald's · Windsor, ON</div>
+    <ul><li>Own production technology operations across POS platforms, databases, and kitchen display systems — 99.9% uptime across 1,000+ daily transactions.</li><li>Architect SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%.</li><li>Design and tune SQL Server queries and database integrations supporting reporting, inventory, and operational data flows.</li><li>Triage production faults with root-cause analysis in a high-volume 24/7 environment, including after-hours response.</li></ul>
+    <div class="tags"><span>SQL Server</span><span>System Integrations</span><span>Production Triage</span><span>Automation</span></div></div>
+  <div class="role"><div class="date">NOV 2020 — NOV 2021</div><h4>Full-Stack Software Engineer</h4><div class="org">Edukite Learning · Vadodara, India</div>
+    <ul><li>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%.</li><li>Tuned SQL queries and added Redis caching, cutting API response times 68% (800ms → 250ms) on high-traffic endpoints.</li><li>Led migration to microservices, improving scalability 50% and halving page load times (2.4s → 1.2s).</li></ul>
+    <div class="tags"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Microservices</span></div></div>
+  <div class="role"><div class="date">MAY 2019 — JUN 2020</div><h4>Full-Stack Software Engineer</h4><div class="org">Techie Computer · Anand, India</div>
+    <ul><li>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions.</li><li>Integrated 10+ third-party payment APIs (Stripe, PayPal) and shipping SDKs with robust error handling at 99.8% uptime.</li><li>Optimized MySQL schemas and indexing for 5,000+ SKU catalogs, improving product search 75% (2.5s → 0.6s).</li></ul>
+    <div class="tags"><span>React</span><span>MySQL</span><span>Stripe</span><span>E-commerce</span></div></div>`
+},
+contact: {
+  kicker: '05 · PRAYER FLAGS', title: "Let's build <span class=\"grad\">something.</span>",
+  html: `
+  <p>Available immediately · Remote across Canada or on-site in Ontario.</p>
+  <div class="contact-row">
+    <a href="mailto:bhrgavpatel04@gmail.com"><b>EMAIL</b>bhrgavpatel04@gmail.com</a>
+    <a href="tel:+16478579456"><b>PHONE</b>+1 (647) 857-9456</a>
+    <a href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener"><b>LINKEDIN</b>linkedin.com/in/bhrgavpatel</a>
+    <a href="https://github.com/BhargavA09" target="_blank" rel="noopener"><b>GITHUB</b>github.com/BhargavA09</a>
+  </div>
+  <p style="margin-top:12px"><a class="btn live" href="resume.pdf" download>↓ Download Resume</a></p>`
+},
+analytics: {
+  kicker: '06 · LOOKOUT', title: 'Traffic <span class="grad">dashboard.</span>',
+  html: `
+  <p>A live read on who's visiting this portfolio — powered by the traffic dashboard.</p>
+  <div class="card-stats">
+    <div><b data-a="visitors">—</b>Visitors</div><div><b data-a="pageViews">—</b>Page views</div>
+    <div><b data-a="topSource">—</b>Top source</div><div><b data-a="topPage">—</b>Top page</div>
+  </div>
+  <p style="margin-top:12px"><a class="btn live" href="dashboard.html">Open full dashboard →</a></p>`
+}
+};
+
+const CAMPS = [
+  { t: 0.10, num: '01', name: 'BASE CAMP',   card: 'about' },
+  { t: 0.30, num: '02', name: 'ASCENT',      card: 'skills' },
+  { t: 0.50, num: '03', name: 'SUMMIT',      card: 'projects' },
+  { t: 0.70, num: '04', name: 'THE RIDGE',   card: 'experience' },
+  { t: 0.88, num: '05', name: 'PRAYER FLAGS',card: 'contact' },
+  { t: 0.97, num: '06', name: 'ANALYTICS',   card: 'analytics' },
+];
+
+/* ═══════════════ MATH: noise + path + terrain ═══════════════ */
+function hash2(x, y){ const s = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return s - Math.floor(s); }
+function vnoise(x, y){
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  const a = hash2(xi, yi), b = hash2(xi + 1, yi), c = hash2(xi, yi + 1), d = hash2(xi + 1, yi + 1);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+}
+function fbm(x, y){ return vnoise(x, y) * 0.55 + vnoise(x * 2.13 + 5.2, y * 2.13 + 1.3) * 0.28 + vnoise(x * 4.41 + 9.1, y * 4.41 + 3.7) * 0.17; }
+function ridgeN(x, y){ const n = vnoise(x, y); return 1 - Math.abs(n * 2 - 1); }   // sharp crests at 1
+function ridgedFbm(x, y){ return ridgeN(x, y) * 0.5 + ridgeN(x * 2.31 + 4.7, y * 2.31 + 9.2) * 0.3 + ridgeN(x * 4.83 + 1.3, y * 4.83 + 7.7) * 0.2; }
+function sstep(a, b, x){ const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+
+const L = 700;                                  // trek length (world units)
+function pathX(t){ return 55 * Math.sin(t * 5.2) + 22 * Math.sin(t * 12.7 + 1.3); }
+function pathY(t){ return t * 115; }            // the climb
+function pathPoint(t, out){
+  t = Math.min(1, Math.max(0, t));
+  out.set(pathX(t), pathY(t), -t * L); return out;
+}
+// frozen alpine lake site (beside the path, between camps 02 and 03)
+const LAKE = { t: 0.40, r: 17 };
+LAKE.x = pathX(LAKE.t) - 19;
+LAKE.z = -LAKE.t * L;
+LAKE.baseY = LAKE.t * 115 + 2.0;
+function terrainH(x, z){
+  const t = Math.min(1, Math.max(0, -z / L));
+  const px = pathX(t), d = Math.abs(x - px);
+  const climb = t * 115;
+  const side = sstep(7, 95, d);
+  const m = fbm(x * 0.012 + 3.1, z * 0.012 + 7.7);
+  const rg = ridgedFbm(x * 0.012 + 3.1, z * 0.012 + 7.7);
+  let h = climb + Math.pow(side, 1.6) * (14 + 95 * (0.42 * m + 0.58 * rg)) + (fbm(x * 0.06, z * 0.06) - 0.5) * 7 * side;
+  h += sstep(110, 165, d) * (40 + 70 * (0.4 * fbm(x * 0.008 + 11, z * 0.008 + 4) + 0.6 * ridgedFbm(x * 0.008 + 11, z * 0.008 + 4)));   // far rim peaks
+  // carve a flat bowl for the frozen lake
+  const ldx = x - LAKE.x, ldz = z - LAKE.z;
+  const ldist = Math.sqrt(ldx * ldx + ldz * ldz);
+  if (ldist < LAKE.r * 1.8){
+    const bowl = sstep(LAKE.r * 1.8, LAKE.r * 0.55, ldist);
+    h = h * (1 - bowl) + (LAKE.baseY + (1 - bowl) * 2.0) * bowl;
+  }
+  return h;
+}
+
+/* ═══════════════ RENDERER / SCENE ═══════════════ */
+const canvas = document.getElementById('scene');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+} catch (e) { showFallback(); return; }
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, isMobile ? 1.5 : 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.12;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0xd8c2a0, 0.0032);
+const camera = new THREE.PerspectiveCamera(62, innerWidth / innerHeight, 0.1, 2200);
+
+// warm low sun + cool sky fill
+const sunDir = new THREE.Vector3(-0.45, 0.20, -0.87).normalize();
+const sun = new THREE.DirectionalLight(0xffd9a8, 1.9);
+sun.position.copy(sunDir).multiplyScalar(400); scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xbdd7ff, 0x5a4a3a, 0.95));
+
+// gradient sky dome with sun glow
+const skyMat = new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite: false, fog: false,
+  vertexShader: `varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: `
+    varying vec3 vP;
+    void main(){
+      vec3 d = normalize(vP);
+      float h = d.y;
+      vec3 zen = vec3(0.05, 0.13, 0.33);
+      vec3 upMid = vec3(0.20, 0.38, 0.66);
+      vec3 mid = vec3(0.52, 0.66, 0.85);
+      vec3 hor = vec3(0.98, 0.80, 0.60);
+      vec3 col = mix(hor, mid, smoothstep(-0.02, 0.22, h));
+      col = mix(col, upMid, smoothstep(0.18, 0.50, h));
+      col = mix(col, zen, smoothstep(0.45, 0.85, h));
+      col = mix(vec3(0.13, 0.11, 0.10), col, smoothstep(-0.25, 0.0, h));
+      vec3 sd = normalize(vec3(-0.45, 0.20, -0.87));
+      float s = max(dot(d, sd), 0.0);
+      // warm the horizon band near the sun's azimuth
+      float az = max(dot(normalize(vec3(d.x, 0.0, d.z) + vec3(1e-5)), normalize(vec3(sd.x, 0.0, sd.z))), 0.0);
+      col = mix(col, vec3(1.0, 0.62, 0.34), pow(az, 3.0) * (1.0 - smoothstep(0.0, 0.35, abs(h))) * 0.45);
+      col += vec3(1.0, 0.75, 0.45) * (pow(s, 350.0) * 2.2 + pow(s, 24.0) * 0.55 + pow(s, 6.0) * 0.28);
+      gl_FragColor = vec4(col, 1.0);
+    }`
+});
+const sky = new THREE.Mesh(new THREE.SphereGeometry(950, 24, 16), skyMat);
+sky.frustumCulled = false; scene.add(sky);
+
+// sun glow sprite (soft god-ray feel)
+{
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+  g.addColorStop(0, 'rgba(255,240,220,1)');
+  g.addColorStop(0.25, 'rgba(255,210,150,0.55)');
+  g.addColorStop(1, 'rgba(255,200,140,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 128, 128);
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: new THREE.CanvasTexture(c), blending: THREE.AdditiveBlending,
+    depthWrite: false, fog: false, transparent: true, opacity: 0.9 }));
+  spr.position.copy(sunDir).multiplyScalar(880);
+  spr.scale.set(220, 220, 1);
+  sky.add(spr);
+}
+
+/* ═══════════════ TERRAIN ═══════════════ */
+{
+  const W = 360, D = L + 160;
+  const segX = isMobile ? 110 : 190, segZ = isMobile ? 150 : 260;
+  const g = new THREE.PlaneGeometry(W, D, segX, segZ);
+  g.rotateX(-Math.PI / 2);
+  g.translate(0, 0, -L / 2 + 25);               // z ∈ [-L-55, 105]
+  const pos = g.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const rock = new THREE.Color(0x6b5a48), snowC = new THREE.Color(0xe9f1fb), tmp = new THREE.Color();
+  for (let i = 0; i < pos.count; i++){
+    const x = pos.getX(i), z = pos.getZ(i);
+    const h = terrainH(x, z);
+    pos.setY(i, h);
+    const f = sstep(36, 60, h);                  // snowline rises with altitude
+    tmp.copy(rock).lerp(snowC, f);
+    const v = (fbm(x * 0.05, z * 0.05) - 0.5) * 0.10;
+    tmp.offsetHSL(0, 0, v);
+    colors[i * 3] = tmp.r; colors[i * 3 + 1] = tmp.g; colors[i * 3 + 2] = tmp.b;
+  }
+  g.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  g.computeVertexNormals();
+  // snow realism: sparkle glints, blue crevice tint (fake SSS), cliff rock exposure
+  const terrainMat = new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.94, metalness: 0 });
+  terrainMat.onBeforeCompile = (sh) => {
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying vec3 vWPos;\nvarying vec3 vSnowCol;')
+      .replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\nvWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;\nvSnowCol = vColor;');
+    sh.fragmentShader = sh.fragmentShader
+      .replace('#include <common>', `#include <common>
+        varying vec3 vWPos; varying vec3 vSnowCol;
+        float th_hash(vec3 p){ p = fract(p * 0.3183099 + vec3(0.1, 0.2, 0.3)); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+        float th_noise(vec3 x){ vec3 i = floor(x); vec3 f = fract(x); f = f * f * (3.0 - 2.0 * f);
+          float n000 = th_hash(i); float n100 = th_hash(i + vec3(1.0, 0.0, 0.0));
+          float n010 = th_hash(i + vec3(0.0, 1.0, 0.0)); float n110 = th_hash(i + vec3(1.0, 1.0, 0.0));
+          float n001 = th_hash(i + vec3(0.0, 0.0, 1.0)); float n101 = th_hash(i + vec3(1.0, 0.0, 1.0));
+          float n011 = th_hash(i + vec3(0.0, 1.0, 1.0)); float n111 = th_hash(i + vec3(1.0, 1.0, 1.0));
+          return mix(mix(mix(n000, n100, f.x), mix(n010, n110, f.x), f.y), mix(mix(n001, n101, f.x), mix(n011, n111, f.x), f.y), f.z); }`)
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+        {
+          float snowM = smoothstep(0.60, 0.85, dot(vSnowCol, vec3(0.3333)));
+          vec3 nrm = normalize(normal);
+          float slope = 1.0 - nrm.y;
+          float cliff = smoothstep(0.42, 0.68, slope);
+          // steep cliffs: expose dark rock, no snow
+          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.30, 0.25, 0.20) * (0.85 + 0.3 * th_noise(vWPos * 0.35)), cliff * snowM);
+          // cool blue tint in snow crevices (fake subsurface scattering)
+          float crev = smoothstep(0.62, 0.28, th_noise(vWPos * 0.045));
+          diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.58, 0.70, 0.92), snowM * (1.0 - cliff) * crev * 0.45);
+          // view-dependent snow sparkle glints
+          vec3 Vv = normalize(vViewPosition);
+          vec3 Ld = normalize(vec3(-0.45, 0.20, -0.87));
+          float cell = th_hash(floor(vWPos * 23.0));
+          float glint = step(0.986, cell) * pow(max(dot(reflect(-Ld, nrm), Vv), 0.0), 2.0);
+          totalEmissiveRadiance += vec3(1.0, 0.97, 0.92) * (glint * snowM * (1.0 - cliff) * 1.7);
+        }`);
+  };
+  const terrain = new THREE.Mesh(g, terrainMat);
+  scene.add(terrain);
+}
+
+/* ═══════════════ PATH RIBBON ═══════════════ */
+{
+  const N = 260, hw = 1.9;
+  const verts = [], idx = [];
+  for (let i = 0; i <= N; i++){
+    const t = i / N, cx = pathX(t), z = -t * L;
+    const y = terrainH(cx, z);
+    verts.push(cx - hw, y + 0.14, z, cx + hw, y + 0.14, z);
+    if (i < N){ const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+  g.setIndex(idx); g.computeVertexNormals();
+  scene.add(new THREE.Mesh(g, new THREE.MeshStandardMaterial({ color: 0x9a8a70, roughness: 1, side: THREE.DoubleSide })));
+}
+
+/* ═══════════════ FROZEN ALPINE LAKE ═══════════════ */
+{
+  const R = LAKE.r;
+  const iceMat = new THREE.MeshPhysicalMaterial({
+    color: 0xc4e6f2, metalness: 0, roughness: 0.14,
+    transmission: 0.92, thickness: 2.0, ior: 1.31,
+    attenuationColor: new THREE.Color(0x5fb6d4), attenuationDistance: 10,
+    clearcoat: 0.5, clearcoatRoughness: 0.25
+  });
+  const ice = new THREE.Mesh(new THREE.CircleGeometry(R * 0.92, 48), iceMat);
+  ice.rotation.x = -Math.PI / 2;
+  ice.position.set(LAKE.x, LAKE.baseY + 0.06, LAKE.z);
+  scene.add(ice);
+
+  // procedural ice cracks + frost overlay
+  const c = document.createElement('canvas'); c.width = c.height = 512;
+  const cx2 = c.getContext('2d');
+  cx2.clearRect(0, 0, 512, 512);
+  function crack(px, py, ang, len, w){
+    cx2.strokeStyle = 'rgba(16, 40, 58, 0.85)'; cx2.lineWidth = w; cx2.lineCap = 'round';
+    cx2.beginPath(); cx2.moveTo(px, py);
+    let ox = px, oy = py, a = ang;
+    for (let i = 0; i < len; i++){
+      a += (Math.random() - 0.5) * 0.9;
+      ox += Math.cos(a) * 14; oy += Math.sin(a) * 14;
+      cx2.lineTo(ox, oy);
+      if (Math.random() < 0.16 && w > 0.8 && i < len - 3) crack(ox, oy, a + (Math.random() < 0.5 ? 0.9 : -0.9), Math.max(0, len - i - 3), w * 0.6);
+    }
+    cx2.stroke();
+  }
+  for (let i = 0; i < 9; i++) crack(256 + (Math.random() - 0.5) * 160, 256 + (Math.random() - 0.5) * 160, Math.random() * 6.28, 14, 2.2);
+  for (let i = 0; i < 26; i++){
+    const fx = Math.random() * 512, fy = Math.random() * 512, fr = 12 + Math.random() * 36;
+    const fg = cx2.createRadialGradient(fx, fy, 0, fx, fy, fr);
+    fg.addColorStop(0, 'rgba(235,244,252,0.5)'); fg.addColorStop(1, 'rgba(235,244,252,0)');
+    cx2.fillStyle = fg; cx2.beginPath(); cx2.arc(fx, fy, fr, 0, 6.29); cx2.fill();
+  }
+  const cracks = new THREE.Mesh(new THREE.CircleGeometry(R * 0.92, 48),
+    new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0.85, depthWrite: false }));
+  cracks.rotation.x = -Math.PI / 2;
+  cracks.position.set(LAKE.x, LAKE.baseY + 0.10, LAKE.z);
+  scene.add(cracks);
+
+  // bright frost rim at the shoreline
+  const rim = new THREE.Mesh(new THREE.RingGeometry(R * 0.92, R * 1.12, 48),
+    new THREE.MeshBasicMaterial({ color: 0xe8f3fb, transparent: true, opacity: 0.75, depthWrite: false }));
+  rim.rotation.x = -Math.PI / 2;
+  rim.position.set(LAKE.x, LAKE.baseY + 0.09, LAKE.z);
+  scene.add(rim);
+
+  // scattered translucent ice chunks along the shore
+  const chunkMat = new THREE.MeshPhysicalMaterial({ color: 0xd6ecf7, roughness: 0.2, transmission: 0.7, thickness: 0.6, ior: 1.31 });
+  for (let i = 0; i < 10; i++){
+    const a = Math.random() * 6.28, rr = R * (0.95 + Math.random() * 0.35);
+    const ix = LAKE.x + Math.cos(a) * rr, iz = LAKE.z + Math.sin(a) * rr;
+    const s = new THREE.Mesh(new THREE.DodecahedronGeometry(0.4 + Math.random() * 0.8, 0), chunkMat);
+    s.position.set(ix, terrainH(ix, iz) + 0.25, iz);
+    s.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+    scene.add(s);
+  }
+}
+
+/* ═══════════════ ICEFALL / ICICLES ═══════════════ */
+{
+  const t = 0.62, z = -t * L, px = pathX(t);
+  const bx = px + 7, bz = z - 3, by = terrainH(bx, bz);
+  const slab = new THREE.Mesh(new THREE.BoxGeometry(7, 1.4, 3.4),
+    new THREE.MeshStandardMaterial({ color: 0x5a4f42, roughness: 1, flatShading: true }));
+  slab.position.set(bx, by + 1.1, bz); slab.rotation.set(0.08, 0.5, 0.12);
+  scene.add(slab);
+  const iceMat2 = new THREE.MeshPhysicalMaterial({ color: 0xcfe9f6, roughness: 0.08, transmission: 0.85, thickness: 0.7, ior: 1.31, emissive: 0x16303e, emissiveIntensity: 0.9 });
+  for (let i = 0; i < 18; i++){
+    const len = 1.2 + Math.random() * 2.0, rad = 0.14 + Math.random() * 0.14;
+    const ic = new THREE.Mesh(new THREE.ConeGeometry(rad, len, 7), iceMat2);
+    const ox = (Math.random() - 0.5) * 6.0, oz = (Math.random() - 0.5) * 2.6;
+    const wx = bx + ox * Math.cos(0.5) - oz * Math.sin(0.5);
+    const wz = bz + ox * Math.sin(0.5) + oz * Math.cos(0.5);
+    ic.position.set(wx, by + 0.8 - len / 2, wz);
+    ic.rotation.x = Math.PI; ic.rotation.z = (Math.random() - 0.5) * 0.12;
+    scene.add(ic);
+  }
+  for (let i = 0; i < 7; i++){
+    const hgt = 0.7 + Math.random() * 1.6;
+    const sh = new THREE.Mesh(new THREE.ConeGeometry(0.22 + Math.random() * 0.2, hgt, 5), iceMat2);
+    const sx2 = bx + (Math.random() - 0.5) * 8, sz2 = bz + 2.5 + Math.random() * 2;
+    sh.position.set(sx2, terrainH(sx2, sz2) + hgt / 2 - 0.1, sz2);
+    sh.rotation.set((Math.random() - 0.5) * 0.35, 0, (Math.random() - 0.5) * 0.35);
+    scene.add(sh);
+  }
+}
+
+/* ═══════════════ MIDGROUND PINES (instanced) ═══════════════ */
+{
+  const N = isMobile ? 20 : 48;
+  const trunkG = new THREE.CylinderGeometry(0.14, 0.2, 1.2, 5);
+  const folG = new THREE.ConeGeometry(1.5, 3.4, 7);
+  const fol2G = new THREE.ConeGeometry(1.05, 2.4, 7);
+  const trunkM = new THREE.MeshStandardMaterial({ color: 0x4a3320, roughness: 1 });
+  const folM = new THREE.MeshStandardMaterial({ color: 0x1e3a2a, roughness: 1, flatShading: true });
+  const trunks = new THREE.InstancedMesh(trunkG, trunkM, N);
+  const fols = new THREE.InstancedMesh(folG, folM, N);
+  const fols2 = new THREE.InstancedMesh(fol2G, folM, N);
+  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), eu = new THREE.Euler(), vv = new THREE.Vector3(), sc = new THREE.Vector3();
+  let placed = 0, guard = 0;
+  while (placed < N && guard++ < 600){
+    const t = Math.random(), side = Math.random() < 0.5 ? -1 : 1;
+    const d = 20 + Math.random() * 55;
+    const x = pathX(t) + side * d, z = -t * L + (Math.random() - 0.5) * 40;
+    if (Math.abs(x) > 165) continue;
+    const y = terrainH(x, z);
+    if (y - t * 115 > 55) continue;
+    const ldx = x - LAKE.x, ldz = z - LAKE.z;
+    if (ldx * ldx + ldz * ldz < Math.pow(LAKE.r * 2.2, 2)) continue;
+    const s = 0.9 + Math.random() * 1.6;
+    eu.set(0, Math.random() * 6.28, 0); q.setFromEuler(eu);
+    vv.set(x, y + 0.6 * s - 0.1, z); sc.set(s, s, s); m4.compose(vv, q, sc); trunks.setMatrixAt(placed, m4);
+    vv.set(x, y + 2.3 * s - 0.1, z); m4.compose(vv, q, sc); fols.setMatrixAt(placed, m4);
+    vv.set(x, y + 3.7 * s - 0.1, z); m4.compose(vv, q, sc); fols2.setMatrixAt(placed, m4);
+    placed++;
+  }
+  trunks.count = fols.count = fols2.count = placed;
+  trunks.instanceMatrix.needsUpdate = true; fols.instanceMatrix.needsUpdate = true; fols2.instanceMatrix.needsUpdate = true;
+  scene.add(trunks, fols, fols2);
+}
+
+/* ═══════════════ DISTANT RIDGE SILHOUETTES ═══════════════ */
+function ridgeStrip(w, h, seed, color){
+  const shape = new THREE.Shape();
+  shape.moveTo(-w / 2, 0);
+  const n = 26;
+  for (let i = 0; i <= n; i++){
+    const jx = -w / 2 + (i / n) * w;
+    const jy = h * (0.35 + 0.65 * Math.abs(Math.sin(i * 2.3 + seed) * 0.6 + Math.sin(i * 0.7 + seed * 2.0) * 0.4));
+    shape.lineTo(jx, jy);
+  }
+  shape.lineTo(w / 2, 0); shape.closePath();
+  return new THREE.Mesh(new THREE.ShapeGeometry(shape), new THREE.MeshBasicMaterial({ color, fog: true, side: THREE.DoubleSide }));
+}
+{
+  const r1 = ridgeStrip(1500, 150, 3.1, 0x847ca0);
+  r1.position.set(-80, 105, -L - 70); scene.add(r1);
+  const r2 = ridgeStrip(1900, 210, 7.7, 0x6a6488);
+  r2.position.set(120, 95, -L - 220); scene.add(r2);
+}
+
+/* ═══════════════ PROPS ═══════════════ */
+const woodMat = new THREE.MeshStandardMaterial({ color: 0x6b4a2f, roughness: 0.9 });
+const tentMat = new THREE.MeshStandardMaterial({ color: 0xc65a1e, roughness: 0.85, flatShading: true });
+const poleMat = new THREE.MeshStandardMaterial({ color: 0x3a3f46, roughness: 0.6 });
+const flagColors = [0x2b6cb0, 0xf7fafc, 0xc53030, 0x2f855a, 0xd69e22];
+const waving = [];   // {mesh, phase}
+
+function makeSignTexture(num, name){
+  const c = document.createElement('canvas'); c.width = 512; c.height = 160;
+  const x = c.getContext('2d');
+  x.fillStyle = '#5a3d24'; x.fillRect(0, 0, 512, 160);
+  x.strokeStyle = '#8a6844'; x.lineWidth = 10; x.strokeRect(8, 8, 496, 144);
+  x.fillStyle = '#f5ead6'; x.textAlign = 'center'; x.textBaseline = 'middle';
+  x.font = '700 58px "JetBrains Mono", monospace';
+  x.fillText(num + ' · ' + name, 256, 82);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  return t;
+}
+
+function buildCamp(camp){
+  const t = camp.t, z = -t * L, px = pathX(t), gy = terrainH(px, z);
+  const grp = new THREE.Group();
+  const side = 1;
+
+  // tent (cone) + entrance shadow
+  const tent = new THREE.Mesh(new THREE.ConeGeometry(2.4, 3.0, 7), tentMat);
+  tent.position.set(px + 8 * side, terrainH(px + 8 * side, z) + 1.5, z - 4);
+  grp.add(tent);
+  const door = new THREE.Mesh(new THREE.ConeGeometry(1.0, 1.6, 4), new THREE.MeshStandardMaterial({ color: 0x1c130c, roughness: 1 }));
+  door.position.set(px + 8 * side, terrainH(px + 8 * side, z) + 0.8, z - 4 + 1.7);
+  door.rotation.y = Math.PI / 4; grp.add(door);
+
+  // wooden signpost with camp name
+  const post = new THREE.Mesh(new THREE.BoxGeometry(0.28, 3.2, 0.28), woodMat);
+  const sx = px - 5.5 * side, sz = z + 3;
+  post.position.set(sx, terrainH(sx, sz) + 1.6, sz); grp.add(post);
+  const board = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.8, 1.18),
+    new THREE.MeshStandardMaterial({ map: makeSignTexture(camp.num, camp.name), roughness: 0.9 })
+  );
+  board.position.set(sx, terrainH(sx, sz) + 2.75, sz);
+  board.rotation.y = 0.3 * side;   // angled toward the incoming walker
+  grp.add(board);
+
+  // flag pole with pennant
+  const fx = px + 4.5 * side, fz = z + 6;
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 5.2, 6), poleMat);
+  pole.position.set(fx, terrainH(fx, fz) + 2.6, fz); grp.add(pole);
+  const shape = new THREE.Shape(); shape.moveTo(0, 0); shape.lineTo(1.1, -0.22); shape.lineTo(0, -0.5); shape.closePath();
+  const penn = new THREE.Mesh(new THREE.ShapeGeometry(shape),
+    new THREE.MeshBasicMaterial({ color: 0x00e5a0, side: THREE.DoubleSide }));
+  penn.position.set(fx + 0.05, terrainH(fx, fz) + 5.0, fz);
+  grp.add(penn); waving.push({ mesh: penn, phase: Math.random() * 6.28, amp: 0.25 });
+
+  // small cairn (stacked stones) on the other side
+  for (let i = 0; i < 3; i++){
+    const s = new THREE.Mesh(new THREE.DodecahedronGeometry(0.55 - i * 0.12, 0),
+      new THREE.MeshStandardMaterial({ color: 0x7d7468, roughness: 1, flatShading: true }));
+    const cxp = px - 7.5 * side, czp = z - 5 - i * 0.2;
+    s.position.set(cxp, terrainH(cxp, czp) + 0.3 + i * 0.55, czp);
+    s.rotation.set(i, i * 2, i * 0.5); grp.add(s);
+  }
+  scene.add(grp);
+}
+CAMPS.forEach(buildCamp);
+
+/* ═══════════════ PRAYER-FLAG STRINGS across the path ═══════════════ */
+function flagString(t){
+  const z = -t * L, px = pathX(t);
+  const ax = px - 8.5, bx = px + 8.5;
+  const ay = terrainH(ax, z) + 4.6, by = terrainH(bx, z) + 4.6;
+  const grp = new THREE.Group();
+  [ [ax, ay], [bx, by] ].forEach(([x, y]) => {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 4.8, 6), poleMat);
+    p.position.set(x, y - 2.4, z); grp.add(p);
+  });
+  const a = new THREE.Vector3(ax, ay, z), b = new THREE.Vector3(bx, by, z);
+  const mid = a.clone().lerp(b, 0.5); mid.y -= 1.5;
+  const curve = new THREE.QuadraticBezierCurve3(a, mid, b);
+  const rope = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.02, 4),
+    new THREE.MeshBasicMaterial({ color: 0xd8cfc0 }));
+  grp.add(rope);
+  const tri = new THREE.Shape(); tri.moveTo(-0.28, 0); tri.lineTo(0.28, 0); tri.lineTo(0, -0.62); tri.closePath();
+  const triGeo = new THREE.ShapeGeometry(tri);
+  const NFLAGS = 15;
+  for (let i = 1; i < NFLAGS; i++){
+    const p = curve.getPoint(i / NFLAGS);
+    const f = new THREE.Mesh(triGeo, new THREE.MeshBasicMaterial({
+      color: flagColors[i % flagColors.length], side: THREE.DoubleSide }));
+    f.position.copy(p); f.position.y -= 0.03;
+    grp.add(f); waving.push({ mesh: f, phase: i * 0.7 + t * 20, amp: 0.35 });
+  }
+  scene.add(grp);
+}
+[0.03, 0.20, 0.40, 0.60, 0.79, 0.95].forEach(flagString);
+
+/* ═══════════════ SNOWFALL (two depth layers) ═══════════════ */
+const snowLayers = [];
+function makeSnowTexture(){
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d');
+  const g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  g.addColorStop(0, 'rgba(255,255,255,1)');
+  g.addColorStop(0.5, 'rgba(255,255,255,0.85)');
+  g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+  return new THREE.CanvasTexture(c);
+}
+function makeSnowLayer(N, spread, yMax, size, opacity){
+  const p = new Float32Array(N * 3), vel = new Float32Array(N * 2);
+  for (let i = 0; i < N; i++){
+    p[i * 3] = (Math.random() - 0.5) * spread;
+    p[i * 3 + 1] = Math.random() * yMax - 8;
+    p[i * 3 + 2] = (Math.random() - 0.5) * spread;
+    vel[i * 2] = 1.5 + Math.random() * 2.5;   // fall speed
+    vel[i * 2 + 1] = Math.random() * 6.28;     // drift phase
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const pts = new THREE.Points(g, new THREE.PointsMaterial({
+    map: makeSnowTexture(), color: 0xffffff, size, transparent: true, opacity,
+    sizeAttenuation: true, depthWrite: false }));
+  pts.frustumCulled = false; scene.add(pts);
+  snowLayers.push({ pts, vel, spread });
+}
+makeSnowLayer(isMobile ? 600 : 1500, 140, 50, 0.55, 0.9);   // ambient flakes
+makeSnowLayer(isMobile ? 150 : 380, 48, 30, 0.5, 0.7);      // large near-camera flakes
+
+/* ═══════════════ DRIFTING CLOUDS ═══════════════ */
+const clouds = [];
+{
+  const c = document.createElement('canvas'); c.width = 256; c.height = 128;
+  const x = c.getContext('2d');
+  for (let i = 0; i < 14; i++){
+    const gx = 40 + Math.random() * 176, gy = 40 + Math.random() * 48, r = 22 + Math.random() * 30;
+    const gr = x.createRadialGradient(gx, gy, 0, gx, gy, r);
+    gr.addColorStop(0, 'rgba(255,255,255,0.55)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = gr; x.fillRect(0, 0, 256, 128);
+  }
+  const tex = new THREE.CanvasTexture(c);
+  for (let i = 0; i < (isMobile ? 5 : 8); i++){
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(52, 22),
+      new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.5, depthWrite: false }));
+    m.position.set((Math.random() - 0.5) * 300, 100 + Math.random() * 80, -Math.random() * L);
+    m.userData.speed = 0.8 + Math.random() * 1.4;
+    clouds.push(m); scene.add(m);
+  }
+}
+
+/* ═══════════════ HUD: progress dots, card, hints ═══════════════ */
+const track = document.getElementById('progressTrack');
+const fill = document.getElementById('progressFill');
+const card = document.getElementById('campCard');
+const cardBody = document.getElementById('cardBody');
+const hint = document.getElementById('scrollHint');
+const dots = CAMPS.map(c => {
+  const d = document.createElement('div');
+  d.className = 'camp-dot'; d.style.left = (c.t * 100) + '%';
+  d.innerHTML = `<span class="tip">${c.num} · ${c.name}</span>`;
+  d.title = c.num + ' · ' + c.name;
+  d.addEventListener('click', () => {
+    const y = c.t * (document.body.scrollHeight - innerHeight);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+  track.appendChild(d); return d;
+});
+
+let targetT = 0, curT = 0, bobPhase = 0, dismissedCard = null, cardCamp = null;
+const mouse = { x: 0, y: 0 };
+addEventListener('mousemove', e => {
+  mouse.x = (e.clientX / innerWidth) * 2 - 1;
+  mouse.y = -((e.clientY / innerHeight) * 2 - 1);
+});
+addEventListener('scroll', () => {
+  const max = document.body.scrollHeight - innerHeight;
+  targetT = Math.min(1, Math.max(0, scrollY / Math.max(1, max)));
+  if (scrollY > 40) hint.classList.add('gone');
+}, { passive: true });
+
+function showCard(key, camp){
+  const c = CARDS[key];
+  cardBody.innerHTML = `<div class="kicker">${c.kicker}</div><h3>${c.title}</h3>${c.html}`;
+  card.classList.add('show'); cardCamp = camp;
+  if (key === 'analytics') fillAnalytics();
+}
+function hideCard(){ card.classList.remove('show'); cardCamp = null; }
+document.getElementById('cardClose').addEventListener('click', () => {
+  dismissedCard = cardCamp ? cardCamp.card : null; hideCard();
+});
+function updateCard(){
+  let near = null;
+  for (const c of CAMPS){ if (Math.abs(curT - c.t) < 0.032){ near = c; break; } }
+  if (near && dismissedCard === near.card) near = null;   // respect manual close
+  if (!near && dismissedCard){ /* keep dismissed until re-entering a camp */ }
+  if (near && !cardCamp){ showCard(near.card, near); }
+  else if (!near && cardCamp){ hideCard(); }
+  else if (near && cardCamp && near !== cardCamp){ showCard(near.card, near); }
+  dots.forEach((d, i) => d.classList.toggle('active', !!near && CAMPS[i] === near));
+}
+
+/* ── traffic data for the Analytics camp card ── */
+let trafficData = null;
+const fmtCompact = n => n >= 1e6 ? (n/1e6).toFixed(1)+'M' : n >= 1e3 ? (n/1e3).toFixed(1)+'k' : String(n);
+fetch('traffic-data.json', {cache:'no-store'})
+  .then(r => r.ok ? r.json() : null)
+  .then(d => { trafficData = d; if (cardCamp && cardCamp.card === 'analytics') fillAnalytics(); })
+  .catch(() => { /* offline / file:// — tiles stay "—" */ });
+function fillAnalytics(){
+  if (!trafficData) return;
+  const d = trafficData;
+  const set = (k, v) => { const el = cardBody.querySelector(`[data-a="${k}"]`); if (el) el.textContent = v; };
+  set('visitors', d.visitors > 0 ? fmtCompact(d.visitors) : '—');
+  set('pageViews', d.pageViews > 0 ? fmtCompact(d.pageViews) : '—');
+  const topS = (d.sources || []).slice().sort((a,b) => b.pct - a.pct)[0];
+  set('topSource', topS ? topS.label : '—');
+  const topP = (d.pages || []).slice().sort((a,b) => b.views - a.views)[0];
+  set('topPage', topP ? topP.path : '—');
+}
+
+// start overlay
+const overlay = document.getElementById('startOverlay');
+function beginTrek(){
+  overlay.classList.add('gone');
+  const y = 0.045 * (document.body.scrollHeight - innerHeight);
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+document.getElementById('beginBtn').addEventListener('click', beginTrek);
+
+// test hooks: ?t=0.45 scroll position, ?card=projects force card, ?nostart=1 skip overlay
+if (params.has('nostart')) overlay.classList.add('gone');
+{
+  const qt = parseFloat(params.get('t'));
+  if (!isNaN(qt)) setTimeout(() => window.scrollTo(0, Math.min(1, Math.max(0, qt)) * (document.body.scrollHeight - innerHeight)), 400);
+  const qc = params.get('card');
+  if (qc && CARDS[qc]) setTimeout(() => showCard(qc, { card: qc }), 600);
+}
+
+/* ═══════════════ MAIN LOOP ═══════════════ */
+const clock = new THREE.Clock();
+let running = true;
+document.addEventListener('visibilitychange', () => { running = !document.hidden; });
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+const _p = new THREE.Vector3(), _q = new THREE.Vector3();
+function animate(){
+  requestAnimationFrame(animate);
+  if (!running) return;
+  const dt = Math.min(0.05, clock.getDelta());
+  const time = clock.elapsedTime;
+
+  // smooth dolly toward scroll target
+  curT += (targetT - curT) * Math.min(1, dt * 3.2);
+  if (Math.abs(targetT - curT) < 0.0002) curT = targetT;
+  const moving = Math.abs(targetT - curT) > 0.0006;
+
+  bobPhase += dt * (moving ? 7.5 : 1.4);
+  const bob = Math.sin(bobPhase) * (moving ? 0.085 : 0.025);
+  const sway = Math.sin(bobPhase * 0.5) * (moving ? 0.14 : 0.04);
+
+  pathPoint(curT, _p); pathPoint(Math.min(1, curT + 0.022), _q);
+  camera.position.set(_p.x + sway, _p.y + 2.35 + bob, _p.z);
+  camera.lookAt(_q.x + mouse.x * 5, _q.y + 1.7 + mouse.y * 2.2, _q.z);
+  sky.position.set(camera.position.x, 0, camera.position.z);
+
+  // prayer flags wave
+  for (const w of waving) w.mesh.rotation.y = Math.sin(time * 2.1 + w.phase) * w.amp;
+
+  // snowfall follows camera (per-layer bounds)
+  for (const layer of snowLayers){
+    layer.pts.position.set(camera.position.x, camera.position.y - 12, camera.position.z);
+    const sp = layer.pts.geometry.attributes.position, half = layer.spread / 2;
+    for (let i = 0; i < sp.count; i++){
+      let y = sp.getY(i) - layer.vel[i * 2] * dt;
+      let x = sp.getX(i) + Math.sin(time * 0.8 + layer.vel[i * 2 + 1]) * dt * 1.2;
+      if (y < -8) y = 42;
+      if (x > half) x = -half; else if (x < -half) x = half;
+      sp.setY(i, y); sp.setX(i, x);
+    }
+    sp.needsUpdate = true;
+  }
+
+  // clouds drift
+  for (const cl of clouds){
+    cl.position.x += cl.userData.speed * dt;
+    if (cl.position.x > 170) cl.position.x = -170;
+    cl.lookAt(camera.position.x, cl.position.y, camera.position.z);
+  }
+
+  fill.style.width = (curT * 100) + '%';
+  updateCard();
+  renderer.render(scene, camera);
+}
+animate();
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
