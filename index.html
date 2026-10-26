@@ -295,16 +295,17 @@ nav.main a.hire{color:#fff}
 .marquee{display:none}
 .word{animation:none}
 .stage svg.hand{animation:handPull 4.8s ease-in-out infinite}
-@keyframes handPull{0%,100%{transform:translateX(-16px)}50%{transform:translateX(10px)}}
+@keyframes handPull{0%,100%{transform:translateX(-26px)}50%{transform:translateX(16px)}}
 .stage svg.strings{transform-origin:16% 50%;animation:stringPull 4.8s ease-in-out infinite}
-@keyframes stringPull{0%,100%{transform:scaleX(.982) rotate(-.35deg)}50%{transform:scaleX(1.025) rotate(.35deg)}}
+@keyframes stringPull{0%,100%{transform:scaleX(.968) rotate(-.45deg)}50%{transform:scaleX(1.042) rotate(.45deg)}}
 .stage.tug svg.strings{animation:tug .45s ease}
 .stage.dragging svg.strings{animation:none}
 .hire-btn{animation:buttonPull 4.8s ease-in-out infinite;cursor:grab;touch-action:none}
 @keyframes buttonPull{
   0%,100%{translate:0 0;box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red),14px 16px 0 rgba(22,20,16,.16),0 0 0 rgba(227,50,36,0)}
-  50%{translate:17px 0;box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--red),18px 16px 0 rgba(22,20,16,.14),0 0 38px rgba(227,50,36,.58)}
+  50%{translate:28px 0;box-shadow:0 0 0 3px var(--paper),0 0 0 6.5px var(--red),20px 16px 0 rgba(22,20,16,.14),0 0 52px rgba(227,50,36,.72)}
 }
+.pull-note{left:57%;top:11%;max-width:215px}
 .stage.dragging .hire-btn{animation:none}
 
 .dark-hero{
