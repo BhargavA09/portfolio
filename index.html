@@ -231,6 +231,39 @@ section{padding:84px 28px;border-bottom:2px solid var(--line)}
 .hire-actions .alt:hover{background:var(--yellow);color:#161410}
 footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid var(--red)}
 
+/* ---------- animation layer (reel-style motion) ---------- */
+.hero h1 .h-line{display:inline-block;animation:riseIn .85s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .script{animation:riseIn .85s cubic-bezier(.2,.8,.2,1) .18s both}
+@keyframes riseIn{from{opacity:0;transform:translateY(52px)}to{opacity:1;transform:translateY(0)}}
+.hero-kicker{animation:riseIn .7s ease both}
+.stage svg.hand{animation:handIn 1s cubic-bezier(.2,.8,.2,1) .35s both,tugLoop 3.2s ease-in-out 1.6s infinite}
+@keyframes handIn{from{opacity:0;transform:translateX(-70px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tugLoop{0%,100%{transform:translateX(0)}50%{transform:translateX(9px)}}
+.stage svg.strings{transform-origin:16% 50%;animation:sway 3.2s ease-in-out 1.6s infinite}
+@keyframes sway{0%,100%{transform:rotate(-.5deg) translateX(0)}50%{transform:rotate(.5deg) translateX(5px)}}
+.stage.tug svg.strings{animation:tug .45s ease}
+.stage.dragging svg.strings{animation:none}
+.word{animation:floaty 5.2s ease-in-out infinite}
+.w-ship{animation-duration:4.6s}.w-together{animation-duration:5.8s;animation-delay:.4s}
+.w-hello{animation-duration:5s;animation-delay:.8s}.w-lets{animation-duration:4.4s;animation-delay:.2s}
+.w-build{animation-duration:5.5s;animation-delay:1s}.w-talk{animation-duration:4.9s;animation-delay:.6s}
+@keyframes floaty{0%,100%{translate:0 0}50%{translate:0 -11px}}
+.hire-btn{animation:popIn .7s cubic-bezier(.2,1.6,.4,1) 1s both,bob 3.2s ease-in-out 1.9s infinite;cursor:grab;touch-action:none}
+.hire-btn:active{cursor:grabbing}
+@keyframes popIn{from{opacity:0;scale:.4}to{opacity:1;scale:1}}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:-8px 2px}}
+.stage.dragging .hire-btn{animation:none}
+.pull-note{animation:riseIn .8s ease .9s both}
+.marquee{background:#12100d;color:#f3eee1;overflow:hidden;border-bottom:2px solid var(--line);padding:12px 0}
+.marquee-track{display:flex;width:max-content;animation:marquee 26s linear infinite;gap:0}
+.marquee span{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;padding-right:14px}
+.marquee span i{font-style:normal;color:var(--red);padding-right:14px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  html{scroll-behavior:auto}
+}
+
 @media (max-width:900px){
   nav.main{display:none}
   .stage{height:380px}
@@ -276,10 +309,10 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
     <span>Est. Windsor, Ontario</span>
   </div>
 
-  <h1 class="display">Pull me into <span class="script">your team.</span></h1>
+  <h1 class="display"><span class="h-line">Pull me into</span> <span class="script">your team.</span></h1>
 
   <div class="stage" id="stage">
-    <svg class="strings" viewBox="0 0 1200 430" preserveAspectRatio="none" aria-hidden="true">
+    <svg class="strings" id="stringsSvg" viewBox="0 0 1200 430" preserveAspectRatio="none" aria-hidden="true">
       <g stroke="currentColor" stroke-width="1.6" fill="none" opacity="0.85">
         <path d="M330,120 C520,90 640,150 838,196"/>
         <path d="M345,160 C540,140 660,180 842,206"/>
@@ -328,6 +361,12 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
   <span>© 2026 Bhargav Patel</span>
   <span><span class="live-dot"></span>Available immediately</span>
   <span>Windsor, Ontario — Canada</span>
+</div>
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>React <i>✦</i> Node.js <i>✦</i> TypeScript <i>✦</i> .NET / C# <i>✦</i> Python <i>✦</i> SQL <i>✦</i> Docker <i>✦</i> Azure <i>✦</i> WebSockets <i>✦</i> AI / LLM <i>✦</i> Full-Stack <i>✦</i> Available Immediately <i>✦</i>&nbsp;</span>
+    <span>React <i>✦</i> Node.js <i>✦</i> TypeScript <i>✦</i> .NET / C# <i>✦</i> Python <i>✦</i> SQL <i>✦</i> Docker <i>✦</i> Azure <i>✦</i> WebSockets <i>✦</i> AI / LLM <i>✦</i> Full-Stack <i>✦</i> Available Immediately <i>✦</i>&nbsp;</span>
+  </div>
 </div>
 
 <!-- ============ 01 SUBJECT ============ -->
@@ -553,10 +592,52 @@ stage.addEventListener('mouseleave', () => words.forEach(w => w.style.transform 
 
 // the pull: tug the strings when the HIRE ME button is pressed
 const btn = document.getElementById('hireBtn');
+const stringsSvg = document.getElementById('stringsSvg');
 btn.addEventListener('pointerdown', () => {
   stage.classList.remove('tug');
   void stage.offsetWidth;
   stage.classList.add('tug');
+  setTimeout(() => stage.classList.remove('tug'), 480);
+});
+
+// drag-to-pull: grab the button, stretch the strings, release past the
+// threshold and it snaps you down to the hiring section
+let drag = null, suppressClick = false;
+btn.addEventListener('pointerdown', e => {
+  drag = { x0: e.clientX, dx: 0 };
+  btn.setPointerCapture(e.pointerId);
+});
+btn.addEventListener('pointermove', e => {
+  if (!drag) return;
+  drag.dx = Math.max(-12, Math.min(170, e.clientX - drag.x0));
+  if (Math.abs(drag.dx) > 6) {
+    stage.classList.add('dragging');
+    btn.style.translate = drag.dx + 'px 0px';
+    stringsSvg.style.transformOrigin = '16% 50%';
+    stringsSvg.style.transform = 'scaleX(' + (1 + drag.dx / 2600) + ')';
+  }
+});
+function endDrag() {
+  if (!drag) return;
+  const dx = drag.dx;
+  drag = null;
+  stage.classList.remove('dragging');
+  btn.style.transition = 'translate .45s cubic-bezier(.2,1.6,.4,1)';
+  stringsSvg.style.transition = 'transform .45s cubic-bezier(.2,1.6,.4,1)';
+  btn.style.translate = '';
+  stringsSvg.style.transform = '';
+  setTimeout(() => { btn.style.transition = ''; stringsSvg.style.transition = ''; }, 480);
+  if (dx > 90) {
+    suppressClick = true;
+    document.getElementById('hire').scrollIntoView({ behavior: 'smooth' });
+  } else if (Math.abs(dx) > 6) {
+    suppressClick = true;
+  }
+}
+btn.addEventListener('pointerup', endDrag);
+btn.addEventListener('pointercancel', endDrag);
+btn.addEventListener('click', e => {
+  if (suppressClick) { e.preventDefault(); suppressClick = false; }
 });
 </script>
 </body>
