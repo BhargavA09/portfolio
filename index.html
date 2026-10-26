@@ -282,6 +282,148 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
   .hero{padding:26px 20px 0}
   .hero-foot{margin:6px -20px 0;padding:13px 20px}
 }
+
+/* ---------- full-reel sequence ---------- */
+.topbar{background:#12100d;color:#f3eee1;border-bottom:1px solid #343126}
+.topbar .logo{color:#f3eee1}
+nav.main a{color:#d9d2bf}
+nav.main a:hover{color:#fff}
+nav.main a.hire{color:#fff}
+.top-right{color:#f3eee1}
+#themeBtn{border-color:#f3eee1;color:#f3eee1}
+#themeBtn:hover{background:#f3eee1;color:#12100d}
+.marquee{display:none}
+.word{animation:none}
+.stage svg.hand{animation:handPull 4.8s ease-in-out infinite}
+@keyframes handPull{0%,100%{transform:translateX(-16px)}50%{transform:translateX(10px)}}
+.stage svg.strings{transform-origin:16% 50%;animation:stringPull 4.8s ease-in-out infinite}
+@keyframes stringPull{0%,100%{transform:scaleX(.982) rotate(-.35deg)}50%{transform:scaleX(1.025) rotate(.35deg)}}
+.stage.tug svg.strings{animation:tug .45s ease}
+.stage.dragging svg.strings{animation:none}
+.hire-btn{animation:buttonPull 4.8s ease-in-out infinite;cursor:grab;touch-action:none}
+@keyframes buttonPull{
+  0%,100%{translate:0 0;box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red),14px 16px 0 rgba(22,20,16,.16),0 0 0 rgba(227,50,36,0)}
+  50%{translate:17px 0;box-shadow:0 0 0 3px var(--paper),0 0 0 6px var(--red),18px 16px 0 rgba(22,20,16,.14),0 0 38px rgba(227,50,36,.58)}
+}
+.stage.dragging .hire-btn{animation:none}
+
+.dark-hero{
+  min-height:calc(100vh - 64px);background:#12100d;color:#f3eee1;position:relative;overflow:hidden;
+  padding:54px 28px 64px;border-bottom:2px solid #12100d;
+}
+.dark-hero .tag{
+  display:inline-block;background:var(--yellow);color:#12100d;padding:7px 11px;
+  font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+}
+.dark-hero .intro-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:5vw;align-items:end;margin-top:5vh}
+.dark-surname{
+  font-size:clamp(74px,14vw,205px);color:transparent;-webkit-text-stroke:2px #f3eee1;line-height:.82;
+}
+.dark-firstname{font-size:clamp(88px,17vw,248px);color:#f3eee1;line-height:.86;margin-top:2px}
+.dark-descriptor{font-family:Georgia,serif;font-style:italic;font-size:clamp(21px,2.6vw,36px);color:#d9d2bf;margin-top:26px}
+.dark-meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#d9d2bf}
+.dark-meta b{color:var(--yellow)}
+.portrait-wrap{position:relative;justify-self:end;width:min(390px,34vw);aspect-ratio:4/5}
+.portrait-wrap::before{content:"";position:absolute;inset:0;transform:translate(22px,22px);background:var(--yellow)}
+.portrait-wrap img{position:relative;width:100%;height:100%;object-fit:cover;object-position:72% 50%;display:block;filter:saturate(.92) contrast(1.03)}
+.portrait-badge{
+  position:absolute;z-index:2;left:-54px;bottom:34px;width:118px;height:118px;animation:spinBadge 14s linear infinite;
+}
+.portrait-badge text{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:2.6px;fill:#f3eee1;text-transform:uppercase}
+.portrait-badge circle{fill:#12100d;stroke:var(--yellow);stroke-width:1.5}
+@keyframes spinBadge{to{transform:rotate(360deg)}}
+.dark-scroll{position:absolute;left:28px;bottom:20px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#d9d2bf}
+
+.statement-section{padding-bottom:0}
+.statement-title{font-size:clamp(52px,8.3vw,118px);max-width:1100px}
+.serif-line{display:block;font-family:Georgia,serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;font-size:.72em;line-height:1.05;margin-top:12px}
+.subject-transition{
+  margin:64px -28px 0;background:var(--yellow);color:#161410;display:grid;grid-template-columns:minmax(260px,.85fr) 1.15fr;
+  min-height:340px;border-top:2px solid #161410;
+}
+.subject-transition img{width:100%;height:100%;object-fit:cover;object-position:72% 50%;display:block}
+.subject-transition .copy{padding:42px 44px;display:flex;flex-direction:column;justify-content:center}
+.subject-transition .k{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.subject-transition h3{font-family:'Anton',sans-serif;font-size:clamp(34px,4.6vw,62px);line-height:.95;text-transform:uppercase;margin:14px 0}
+.subject-transition p{font-size:17px;line-height:1.65;max-width:640px}
+.subject-transition a{align-self:flex-start;margin-top:22px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-bottom:3px solid var(--red)}
+
+.yellow-section{background:var(--yellow);color:#161410;border-bottom:2px solid #161410}
+.yellow-section .sec-kicker{color:#161410}
+.yellow-section .sec-title .script{color:var(--red)}
+.case-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.file-card{
+  background:#141310;color:#f3eee1;min-height:196px;padding:22px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  transition:transform .22s ease,background .22s ease;
+}
+.file-card:hover{transform:translateY(-6px);background:#211d16}
+.file-card .no{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--yellow);text-transform:uppercase}
+.file-card h3{font-family:'Anton',sans-serif;font-size:27px;line-height:1;text-transform:uppercase;margin:16px 0 10px}
+.file-card p{font-size:14px;line-height:1.55;color:#d9d2bf}
+.file-card .stack{margin-top:auto;padding-top:16px;font-family:'Space Mono',monospace;font-size:10.5px;line-height:1.7;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.file-card .links{margin-top:14px;display:flex;gap:16px;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase}
+.file-card .links a{color:#fff;text-decoration:none;border-bottom:2px solid var(--red)}
+.file-card.featured{grid-column:span 2;background:#0d0c0a}
+.file-card.featured h3{font-size:clamp(34px,4vw,54px)}
+.file-card.featured p{font-size:15.5px;max-width:620px}
+.file-card .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3ddc5a;margin-right:7px}
+
+.toolkit-section{background:var(--paper)}
+.toolkit-list{border-top:2px solid var(--line)}
+.tool-row{
+  display:grid;grid-template-columns:90px 250px 1fr;gap:26px;align-items:center;
+  padding:24px 0;border-bottom:1.5px solid var(--line);
+}
+.tool-row .idx{font-family:'Space Mono',monospace;font-size:12px;color:var(--red);font-weight:700}
+.tool-row h3{font-family:'Anton',sans-serif;font-size:25px;text-transform:uppercase}
+.tool-row p{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.05em;line-height:2;text-transform:uppercase;color:var(--ink-soft)}
+
+.evidence-section{background:var(--yellow);color:#161410}
+.evidence-section .sec-kicker{color:#161410}
+.evidence-section .sec-title .script{color:var(--red)}
+.evidence-section .record-row{border-color:#161410}
+.evidence-section .record-row .when{color:#161410}
+.evidence-section .record-row .where,.evidence-section .record-row p{color:#3c382e}
+.evidence-section .article{background:#141310;color:#f3eee1;border-color:#141310}
+.evidence-section .article p,.evidence-section .article .meta{color:#d9d2bf}
+.evidence-section .article .k{color:var(--yellow)}
+
+.closing-section{background:#12100d;color:#f3eee1;border-bottom:none;padding-bottom:110px;overflow:hidden}
+.closing-section .sec-kicker{color:var(--yellow)}
+.closing-title{font-family:'Anton',sans-serif;font-size:clamp(68px,12.5vw,178px);line-height:.9;text-transform:uppercase}
+.closing-sub{font-family:Georgia,serif;font-style:italic;font-size:clamp(22px,3vw,40px);color:#d9d2bf;margin-top:24px}
+.arch-name{width:min(1050px,100%);height:auto;display:block;margin:34px auto 6px;overflow:visible}
+.arch-name text{font-family:'Anton',sans-serif;font-size:34px;letter-spacing:8px;fill:#f3eee1;text-transform:uppercase}
+.contact-panel{
+  background:var(--paper);color:var(--ink);max-width:980px;margin:26px auto 0;padding:46px;
+  box-shadow:16px 16px 0 var(--yellow);
+}
+.contact-panel .k{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
+.contact-panel h3{font-family:'Anton',sans-serif;font-size:clamp(40px,6vw,76px);line-height:.95;text-transform:uppercase;margin:16px 0}
+.contact-panel h3 .script{color:var(--red);font-size:.72em}
+.contact-panel p{font-size:17px;line-height:1.65;color:var(--ink-soft);max-width:680px}
+.contact-panel .hire-actions{margin-top:30px}
+.contact-panel .mail-btn{box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red)}
+
+@media (max-width:1000px){
+  .case-grid{grid-template-columns:repeat(2,1fr)}
+  .tool-row{grid-template-columns:55px 190px 1fr}
+}
+@media (max-width:760px){
+  .dark-hero .intro-grid{grid-template-columns:1fr}
+  .portrait-wrap{justify-self:start;width:min(330px,82vw);margin-top:26px}
+  .portrait-badge{left:auto;right:-18px}
+  .subject-transition{grid-template-columns:1fr;margin-left:-20px;margin-right:-20px}
+  .subject-transition img{height:280px}
+  .tool-row{grid-template-columns:1fr;gap:5px}
+  .contact-panel{padding:32px 24px;box-shadow:9px 9px 0 var(--yellow)}
+}
+@media (max-width:560px){
+  .case-grid{grid-template-columns:1fr}
+  .file-card.featured{grid-column:span 1}
+  .dark-hero{padding:38px 20px 70px}
+  .dark-scroll{left:20px}
+}
 </style>
 </head>
 <body>
@@ -300,6 +442,33 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
     <button id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
   </div>
 </header>
+
+<!-- ============ 01 SUBJECT — DARK OPENING ============ -->
+<div class="dark-hero" id="subject">
+  <span class="tag">The Subject · Dossier Nº 001</span>
+  <div class="intro-grid">
+    <div>
+      <div class="display dark-surname">Patel</div>
+      <div class="display dark-firstname">Bhargav</div>
+      <p class="dark-descriptor">Full-stack software engineer — React, Node.js, TypeScript &amp; .NET.</p>
+      <div class="dark-meta">
+        <span><b>Base</b> · Windsor, Ontario</span>
+        <span><b>Range</b> · Remote Canada</span>
+        <span><b>Status</b> · Available now</span>
+      </div>
+    </div>
+    <div class="portrait-wrap" aria-label="Animated portrait of Bhargav at his development desk">
+      <img src="assets/hero-poster.jpg" alt="Animated portrait of Bhargav at his development desk">
+      <svg class="portrait-badge" viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="badgeCircle" d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"/></defs>
+        <circle cx="60" cy="60" r="57"/>
+        <text><textPath href="#badgeCircle">Open to work · Remote Canada · Open to work ·</textPath></text>
+        <circle cx="60" cy="60" r="5" fill="#e33224" stroke="none"/>
+      </svg>
+    </div>
+  </div>
+  <span class="dark-scroll">Scroll — the evidence follows ↓</span>
+</div>
 
 <!-- ============ HERO ============ -->
 <div class="hero" id="top">
@@ -362,21 +531,12 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
   <span><span class="live-dot"></span>Available immediately</span>
   <span>Windsor, Ontario — Canada</span>
 </div>
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>React <i>✦</i> Node.js <i>✦</i> TypeScript <i>✦</i> .NET / C# <i>✦</i> Python <i>✦</i> SQL <i>✦</i> Docker <i>✦</i> Azure <i>✦</i> WebSockets <i>✦</i> AI / LLM <i>✦</i> Full-Stack <i>✦</i> Available Immediately <i>✦</i>&nbsp;</span>
-    <span>React <i>✦</i> Node.js <i>✦</i> TypeScript <i>✦</i> .NET / C# <i>✦</i> Python <i>✦</i> SQL <i>✦</i> Docker <i>✦</i> Azure <i>✦</i> WebSockets <i>✦</i> AI / LLM <i>✦</i> Full-Stack <i>✦</i> Available Immediately <i>✦</i>&nbsp;</span>
-  </div>
-</div>
-
-<!-- ============ 01 SUBJECT ============ -->
-<section id="subject">
+<!-- ============ SUBJECT STATEMENT ============ -->
+<section class="statement-section" id="statement">
   <div class="sec-head reveal">
     <span class="sec-kicker">01 — The Subject</span>
-    <h2 class="sec-title">Engineer first. <span class="script">Everything else second.</span></h2>
+    <h2 class="sec-title statement-title">Building systems that stay up.<span class="serif-line">And the software they run on.</span></h2>
   </div>
-
-  <div class="display subject-name reveal">Bhargav<span class="script">patel.</span></div>
 
   <div class="dossier reveal">
     <div><span class="k">Role</span><span class="v">Full-Stack Software Engineer</span></div>
@@ -398,75 +558,130 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
     <div class="stat"><div class="n">40<em>%</em></div><div class="l">Less tech downtime</div></div>
     <div class="stat"><div class="n">68<em>%</em></div><div class="l">Faster APIs (800→250ms)</div></div>
   </div>
+
+  <div class="subject-transition reveal">
+    <img src="assets/hero-poster.jpg" alt="Bhargav at his development desk">
+    <div class="copy">
+      <span class="k">Currently on duty</span>
+      <h3>Operations brain.<br>Builder&rsquo;s hands.</h3>
+      <p>As IT Systems Manager &amp; Operations Lead, I keep production technology running across POS platforms, databases and kitchen display systems — then carry that same reliability mindset into every application I build.</p>
+      <a href="#cases">Open the case files ↓</a>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 02 CASE FILES ============ -->
-<section id="cases">
+<section id="cases" class="yellow-section">
   <div class="sec-head reveal">
     <span class="sec-kicker">02 — Case Files</span>
-    <h2 class="sec-title">Systems built <span class="script">in 2026 &amp; before.</span></h2>
+    <h2 class="sec-title">Selected systems <span class="script">under investigation.</span></h2>
   </div>
 
-  <div class="cases">
-    <article class="case reveal">
-      <span class="no">Case Nº 001</span>
+  <div class="case-grid">
+    <article class="file-card featured reveal">
+      <span class="no">Case Nº 001 · Flagship</span>
       <h3>QuantLab / QuantTrade</h3>
-      <span class="live"><i></i>Live in production</span>
-      <p>An AI-driven trading intelligence platform I architected end to end — database, API and UI. Google Gemini 1.5 Pro drives real-time predictive analytics and risk modeling, alongside a custom neural intelligence core, a Monte Carlo engine running thousands of stochastic paths, and a multi-source WebSocket data pipeline. Ships as a web + Android app.</p>
-      <div class="chips"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
-      <div class="links">
-        <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live app</a>
-        <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">GitHub repo</a>
-      </div>
+      <p><span class="live-dot"></span>Live AI trading intelligence, architected end to end — database, API and UI. Gemini-powered predictive analytics, a neural intelligence core, Monte Carlo forecasting and a real-time WebSocket pipeline, shipped for web and Android.</p>
+      <div class="stack">React 19 · TypeScript · Node.js · Gemini 1.5 Pro · WebSockets · SQLite · Capacitor</div>
+      <div class="links"><a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">Live app ↗</a><a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">GitHub ↗</a></div>
     </article>
 
-    <article class="case reveal">
-      <span class="no">Case Nº 002</span>
+    <article class="file-card reveal">
+      <span class="no">Case Nº 002 · Live</span>
       <h3>Netscanpro</h3>
-      <span class="live"><i></i>Live in production</span>
-      <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
-      <div class="chips"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
-      <div class="links">
-        <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">↗ Live app</a>
-        <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener">GitHub repo</a>
-      </div>
+      <p>Threat-intelligence dashboard with interactive visualizations and scan workflows for analysts.</p>
+      <div class="stack">Vite · React · Tailwind · Data Viz</div>
+      <div class="links"><a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">Live app ↗</a><a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener">GitHub ↗</a></div>
     </article>
 
-    <article class="case reveal">
-      <span class="no">Case Nº 003</span>
+    <article class="file-card reveal">
+      <span class="no">Case Nº 003 · E-learning</span>
       <h3>Edukite LMS</h3>
-      <span class="live">E-learning systems</span>
-      <p>Custom Moodle LMS plugins and high-performance RESTful APIs for an e-learning platform — work that lifted learner engagement 25%. Redis caching and SQL tuning cut API response times 68%, and a microservices migration halved page loads.</p>
-      <div class="chips"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Moodle</span><span>Microservices</span></div>
-      <div class="links">
-        <a href="#record">See the record ↓</a>
-      </div>
+      <p>Custom Moodle plugins and REST APIs that lifted learner engagement by 25%.</p>
+      <div class="stack">Node.js · MySQL · Redis · Moodle</div>
+      <div class="links"><a href="#record">Evidence ↓</a></div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Subsystem · Forecasting</span>
+      <h3>Monte Carlo Engine</h3>
+      <p>Thousands of stochastic paths with dynamic confidence intervals, built in TypeScript.</p>
+      <div class="stack">TypeScript · Simulation · Risk Models</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Subsystem · Intelligence</span>
+      <h3>Neural Core</h3>
+      <p>Autonomous analysis cycles that identify market regimes and alpha opportunities.</p>
+      <div class="stack">AI · Gemini · Predictive Analytics</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Subsystem · Real-time</span>
+      <h3>Data Pipeline</h3>
+      <p>Multi-source streaming with custom caching and memory-safe SQLite persistence.</p>
+      <div class="stack">WebSockets · Caching · SQLite</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Operations · Retail Tech</span>
+      <h3>POS Integrations</h3>
+      <p>Production integrations connecting POS platforms, databases and kitchen display systems.</p>
+      <div class="stack">SQL Server · Systems Integration</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Operations · Automation</span>
+      <h3>SQL Automation</h3>
+      <p>Automation and tuned data flows that cut technology-related downtime by 40%.</p>
+      <div class="stack">SQL · Automation · Root-cause Triage</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Commerce · Full-stack</span>
+      <h3>E-commerce Builds</h3>
+      <p>12+ applications from database to UI, generating $500K+ in client revenue.</p>
+      <div class="stack">React · MySQL · REST APIs</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Commerce · Payments</span>
+      <h3>Payment Systems</h3>
+      <p>10+ payment and shipping integrations processing $2M+ in secure transactions.</p>
+      <div class="stack">Stripe · PayPal · SDK Integrations</div>
+    </article>
+
+    <article class="file-card reveal">
+      <span class="no">Performance · APIs</span>
+      <h3>250ms Response</h3>
+      <p>SQL tuning and Redis caching cut high-traffic API responses from 800ms to 250ms.</p>
+      <div class="stack">Redis · Query Tuning · Microservices</div>
     </article>
   </div>
 </section>
 
 <!-- ============ 03 TOOLKIT ============ -->
-<section id="toolkit">
+<section id="toolkit" class="toolkit-section">
   <div class="sec-head reveal">
     <span class="sec-kicker">03 — The Toolkit</span>
-    <h2 class="sec-title">What&rsquo;s in <span class="script">the bag.</span></h2>
+    <h2 class="sec-title">Capabilities <span class="script">in plain sight.</span></h2>
   </div>
 
-  <div class="toolkit reveal">
-    <div class="group"><h3><span>§</span>Languages</h3><ul><li>TypeScript</li><li>JavaScript</li><li>C#</li><li>Python</li><li>SQL</li></ul></div>
-    <div class="group"><h3><span>§</span>Backend</h3><ul><li>Node.js</li><li>.NET / ASP.NET Core</li><li>RESTful APIs</li><li>WebSockets</li><li>Microservices</li></ul></div>
-    <div class="group"><h3><span>§</span>Frontend</h3><ul><li>React</li><li>Redux</li><li>Tailwind CSS</li><li>Vite</li><li>Capacitor</li></ul></div>
-    <div class="group"><h3><span>§</span>Data</h3><ul><li>SQL Server</li><li>MySQL</li><li>MongoDB</li><li>Redis</li><li>SQLite</li><li>Query tuning &amp; pipelines</li></ul></div>
-    <div class="group"><h3><span>§</span>Cloud &amp; DevOps</h3><ul><li>Microsoft Azure</li><li>AWS</li><li>Docker</li><li>CI/CD — GitHub Actions</li><li>Git · Vercel</li></ul></div>
-    <div class="group"><h3><span>§</span>AI / LLM</h3><ul><li>Google Gemini 1.5 Pro</li><li>RAG</li><li>Prompt engineering</li><li>Predictive analytics</li></ul></div>
+  <div class="toolkit-list">
+    <div class="tool-row reveal"><span class="idx">03.01</span><h3>Languages</h3><p>TypeScript / JavaScript / C# / Python / SQL</p></div>
+    <div class="tool-row reveal"><span class="idx">03.02</span><h3>Backend</h3><p>Node.js / .NET &amp; ASP.NET Core / REST APIs / WebSockets / Microservices</p></div>
+    <div class="tool-row reveal"><span class="idx">03.03</span><h3>Frontend</h3><p>React / Redux / Tailwind CSS / Responsive Design / Vite / Capacitor</p></div>
+    <div class="tool-row reveal"><span class="idx">03.04</span><h3>Data</h3><p>SQL Server / MySQL / MongoDB / Redis / SQLite / Query Tuning / Data Pipelines</p></div>
+    <div class="tool-row reveal"><span class="idx">03.05</span><h3>Cloud &amp; DevOps</h3><p>Microsoft Azure / AWS / Docker / CI-CD · GitHub Actions / Git / Vercel</p></div>
+    <div class="tool-row reveal"><span class="idx">03.06</span><h3>AI / LLM</h3><p>Google Gemini 1.5 Pro / RAG / Prompt Engineering / Predictive Analytics</p></div>
   </div>
 </section>
 
 <!-- ============ 04 RECORD ============ -->
-<section id="record">
+<section id="record" class="evidence-section">
   <div class="sec-head reveal">
     <span class="sec-kicker">04 — The Record</span>
-    <h2 class="sec-title">Experience, <span class="script">on the record.</span></h2>
+    <h2 class="sec-title">The Evidence.<span class="script" style="display:block;font-size:.62em;margin-top:10px">on the record.</span></h2>
   </div>
 
   <div class="record-row reveal">
@@ -535,17 +750,29 @@ footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid va
 </section>
 
 <!-- ============ 05 HIRE ME ============ -->
-<section id="hire" class="hire-sec">
+<section id="hire" class="closing-section">
   <div class="sec-head reveal">
     <span class="sec-kicker">05 — Hire Me</span>
   </div>
-  <div class="display hire-big reveal">Let&rsquo;s talk<span class="script">shall we?</span></div>
-  <p class="hire-copy reveal">I&rsquo;m available immediately for remote roles across Canada — full-stack, frontend, backend, .NET, IT systems. One email is all it takes. No forms, no portals, no 6-digit codes.</p>
-  <div class="hire-actions reveal">
-    <a class="mail-btn" href="mailto:bhrgavpatel04@gmail.com">Email me</a>
-    <a class="alt" href="resume.pdf">↓ Resume (PDF)</a>
-    <a class="alt" href="https://github.com/BhargavA09" target="_blank" rel="noopener">GitHub</a>
-    <a class="alt" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">LinkedIn</a>
+
+  <h2 class="closing-title reveal">One last thing.</h2>
+  <p class="closing-sub reveal">Your next full-stack developer might be right here.</p>
+
+  <svg class="arch-name reveal" viewBox="0 0 1100 190" role="img" aria-label="Bhargav Patel">
+    <defs><path id="nameArc" d="M40,172 C300,28 800,28 1060,172"/></defs>
+    <text><textPath href="#nameArc" startOffset="50%" text-anchor="middle">Bhargav Patel · Full-Stack Engineer</textPath></text>
+  </svg>
+
+  <div class="contact-panel reveal">
+    <span class="k">The direct route</span>
+    <h3>Pull me into <span class="script">your team.</span></h3>
+    <p>I&rsquo;m available immediately for remote roles across Canada — full-stack, frontend, backend, .NET and IT systems. One email is all it takes. No forms, no portals, no six-digit codes.</p>
+    <div class="hire-actions">
+      <a class="mail-btn" href="mailto:bhrgavpatel04@gmail.com">Email me</a>
+      <a class="alt" href="resume.pdf">&darr; Resume (PDF)</a>
+      <a class="alt" href="https://github.com/BhargavA09" target="_blank" rel="noopener">GitHub</a>
+      <a class="alt" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
   </div>
 </section>
 
