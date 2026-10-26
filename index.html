@@ -1,334 +1,563 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bhargav Patel — Full-Stack Software Engineer</title>
-<meta name="description" content="Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#) based in Windsor, Ontario. 3+ years shipping production systems. Available immediately.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b45f36'/%3E%3Ctext x='14' y='44' font-family='Georgia,serif' font-size='34' font-weight='bold' fill='%23fdf6ec'%3EB%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Bhargav Patel — full-stack software engineer (React, Node.js, TypeScript, .NET/C#) based in Windsor, Ontario. 3+ years shipping production systems. Available immediately. Pull me into your team.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23141310'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23e33224'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bhargav Patel — Full-Stack Software Engineer">
-<meta property="og:description" content="Building full-stack applications and the systems that power them. React, Node.js, TypeScript, .NET/C#. Windsor, Canada — available immediately.">
+<meta property="og:description" content="Pull me into your team. React, Node.js, TypeScript, .NET/C#. Windsor, Canada — available immediately.">
 <meta property="og:url" content="https://bharg-patel.vercel.app/">
 <meta property="og:image" content="https://bharg-patel.vercel.app/assets/hero-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Pinyon+Script&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --terra:#b45f36; --terra-deep:#8a3f22; --terra-dark:#5e2a16;
-  --cream:#fdf6ec; --cream-dim:rgba(253,246,236,.78); --cream-faint:rgba(253,246,236,.55);
-  --paper:#f8f0e1; --cocoa:#2b1a12; --cocoa-soft:#5a4030;
-  --serif:'Fraunces',Georgia,serif; --sans:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  --paper:#f3eee1;
+  --paper2:#eae3cf;
+  --ink:#161410;
+  --ink-soft:#3c382e;
+  --red:#e33224;
+  --yellow:#ffd21f;
+  --line:#161410;
+  --card:#faf6ea;
+}
+[data-theme="dark"]{
+  --paper:#131210;
+  --paper2:#1b1a17;
+  --ink:#f3eee1;
+  --ink-soft:#c9c2ae;
+  --line:#f3eee1;
+  --card:#1b1a17;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--terra-dark);color:var(--cream);overflow-x:hidden}
-::selection{background:var(--terra);color:var(--cream)}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Archivo',sans-serif;
+  overflow-x:hidden;
+  transition:background .4s ease,color .4s ease;
+}
+::selection{background:var(--red);color:#fff}
+a{color:inherit}
+.display{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
+.script{font-family:'Pinyon Script',cursive;text-transform:none}
+.mono{font-family:'Space Mono',monospace}
 
-/* ── HERO ── */
-#hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(135deg,var(--terra) 0%,var(--terra-deep) 60%,var(--terra-dark) 100%)}
-#heroVideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-#heroScrim{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(46,20,8,.82) 0%,rgba(46,20,8,.55) 34%,rgba(46,20,8,.12) 62%,rgba(46,20,8,0) 80%)}
-#heroScrim::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(46,20,8,.55),transparent 32%)}
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px 28px;
+  background:var(--paper);
+  border-bottom:2px solid var(--line);
+  transition:background .4s ease;
+}
+.logo{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:.04em;text-decoration:none}
+.logo .dot{color:var(--red)}
+nav.main{display:flex;gap:26px;align-items:center}
+nav.main a{
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;
+  text-decoration:none;text-transform:uppercase;color:var(--ink-soft);
+}
+nav.main a b{color:var(--red);font-weight:700;margin-right:5px}
+nav.main a:hover{color:var(--ink)}
+nav.main a.hire{
+  color:var(--ink);font-weight:700;
+  background:linear-gradient(transparent 55%,var(--yellow) 55%,var(--yellow) 92%,transparent 92%);
+  padding:2px 4px;
+}
+.top-right{display:flex;align-items:center;gap:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em}
+#themeBtn{
+  width:34px;height:34px;border-radius:50%;border:2px solid var(--line);
+  background:transparent;color:var(--ink);cursor:pointer;font-size:15px;line-height:1;
+}
+#themeBtn:hover{background:var(--ink);color:var(--paper)}
 
-nav{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:22px clamp(20px,4vw,54px)}
-.wordmark{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--cream);text-decoration:none}
-.wordmark b{color:var(--cream);font-weight:700}
-.wordmark .dot{color:#ffd9a8}
-.nav-links{display:flex;gap:clamp(14px,2.4vw,34px);align-items:center}
-.nav-links a{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--cream-dim);text-decoration:none;transition:color .2s}
-.nav-links a:hover{color:var(--cream)}
-.menu-btn{display:none;background:none;border:1px solid var(--cream-faint);border-radius:8px;padding:9px 11px;cursor:pointer}
-.menu-btn span{display:block;width:20px;height:2px;background:var(--cream);margin:4px 0;border-radius:2px}
+/* ---------- hero ---------- */
+.hero{position:relative;border-bottom:2px solid var(--line);padding:34px 28px 0;overflow:hidden}
+.hero-kicker{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+}
+.hero-kicker .red{color:var(--red);font-weight:700}
+.hero h1{font-size:clamp(64px,11.5vw,168px);margin-top:18px;position:relative;z-index:3}
+.hero h1 .script{
+  display:block;font-size:clamp(52px,8.5vw,124px);line-height:.6;margin-left:.35em;color:var(--ink);
+}
+.stage{
+  position:relative;height:430px;margin-top:6px;
+}
+.stage svg.strings{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.stage svg.hand{position:absolute;left:-28px;bottom:6px;width:min(430px,44vw);z-index:2}
+.word{
+  position:absolute;z-index:2;font-family:'Anton',sans-serif;text-transform:uppercase;
+  font-size:clamp(22px,3.4vw,46px);color:var(--ink);will-change:transform;
+}
+.word.red{color:var(--red)}
+.w-ship{left:31%;top:16%}
+.w-together{left:56%;top:2%}
+.w-hello{right:9%;top:9%}
+.w-lets{right:5%;top:38%}
+.w-build{left:47%;top:56%}
+.w-talk{right:11%;top:64%}
+.pull-note{
+  position:absolute;z-index:2;left:60%;top:24%;
+  font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+  max-width:230px;line-height:1.9;
+}
+.pull-note .red{color:var(--red);font-weight:700}
+.hire-btn{
+  position:absolute;z-index:4;left:71%;top:47%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  background:var(--ink);color:var(--paper);text-decoration:none;
+  border-radius:999px;padding:26px 58px 22px;
+  box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red),14px 16px 0 rgba(22,20,16,.16);
+  transition:transform .18s ease;
+}
+[data-theme="dark"] .hire-btn{box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red),14px 16px 0 rgba(0,0,0,.5)}
+.hire-btn .big{font-family:'Anton',sans-serif;font-size:clamp(30px,3.6vw,46px);letter-spacing:.03em;line-height:1}
+.hire-btn .small{font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.75}
+.hire-btn:hover{transform:translate(-50%,-50%) scale(1.045) rotate(-1deg)}
+.stage.tug svg.strings{animation:tug .45s ease}
+@keyframes tug{0%{transform:translateX(0)}30%{transform:translateX(-9px)}60%{transform:translateX(4px)}100%{transform:translateX(0)}}
+.hero-foot{
+  position:relative;z-index:3;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  border-top:1.5px solid var(--line);margin:6px -28px 0;padding:13px 28px;
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+}
+.hero-foot a{text-decoration:none;border-bottom:1.5px solid var(--red);padding-bottom:1px}
+.hero-foot a:hover{background:var(--yellow);color:#161410}
+.hero-foot .sep{opacity:.4;margin:0 8px}
+.blackbar{
+  background:#12100d;color:#f3eee1;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:11px 28px;font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+}
+.blackbar .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3ddc5a;margin-right:8px;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
-.hero-body{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,4vw,54px);max-width:900px}
-.eyebrow{font-family:var(--mono);font-size:clamp(11px,1.4vw,14px);letter-spacing:.22em;color:var(--cream-dim);margin-bottom:18px}
-.hero-name{font-family:var(--serif);font-weight:600;font-size:clamp(64px,11vw,164px);line-height:.95;letter-spacing:-.015em;color:var(--cream);text-shadow:0 4px 40px rgba(46,20,8,.45)}
-.hero-tag{font-family:var(--serif);font-size:clamp(22px,3.2vw,38px);line-height:1.25;margin-top:20px;max-width:560px;color:var(--cream)}
-.hero-tag em{font-style:italic;color:#ffd9a8}
-.hero-bio{margin-top:16px;max-width:520px;font-size:clamp(14px,1.6vw,16.5px);line-height:1.65;color:var(--cream-dim)}
-.hero-badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.pill{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--cream);border:1px solid rgba(253,246,236,.4);background:rgba(46,20,8,.32);backdrop-filter:blur(6px);padding:10px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:9px}
-.pill .live-dot{width:8px;height:8px;border-radius:50%;background:#7ee2a8;box-shadow:0 0 10px #7ee2a8;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
-.hero-meta{display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2;padding:26px clamp(20px,4vw,54px)}
-.hero-loc{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--cream-dim)}
-.scroll-cue{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--cream-faint);display:flex;flex-direction:column;align-items:center;gap:8px;animation:bob 2s ease-in-out infinite}
-.scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--cream-faint),transparent)}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
-
-/* ── SECTIONS ── */
-section.block{background:var(--paper);color:var(--cocoa);padding:clamp(70px,9vw,120px) clamp(20px,4vw,54px)}
-.wrap{max-width:1120px;margin:0 auto}
-.sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--terra);margin-bottom:14px}
-.sec-title{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,58px);line-height:1.05;letter-spacing:-.01em;margin-bottom:22px}
-.sec-title .accent{font-style:italic;color:var(--terra-deep)}
-.sec-sub{color:var(--cocoa-soft);font-size:16px;line-height:1.6;max-width:640px}
-.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;margin-top:36px;align-items:start}
-.about-text p{font-size:16.5px;line-height:1.75;color:var(--cocoa-soft);margin-bottom:18px}
-.about-text strong{color:var(--cocoa)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stat{background:#fff;border:1px solid rgba(180,95,54,.25);border-radius:16px;padding:22px 20px;box-shadow:0 6px 24px rgba(94,42,22,.07)}
-.stat-num{font-family:var(--serif);font-size:38px;font-weight:700;color:var(--terra-deep);display:block}
-.stat-label{font-size:13px;color:var(--cocoa-soft);margin-top:6px;display:block;line-height:1.45}
-
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:36px}
-.skill-card{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:16px;padding:22px;box-shadow:0 6px 24px rgba(94,42,22,.06)}
-.skill-card h3{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--terra-deep);margin-bottom:14px}
-.tags{display:flex;flex-wrap:wrap;gap:8px}
-.tags span{font-size:13px;background:rgba(180,95,54,.1);color:var(--cocoa);border:1px solid rgba(180,95,54,.2);padding:6px 12px;border-radius:999px}
-
-.timeline{margin-top:40px;position:relative;padding-left:28px}
-.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--terra),rgba(180,95,54,.15))}
-.t-item{position:relative;margin-bottom:30px}
-.t-item::before{content:"";position:absolute;left:-27px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--terra)}
-.t-card{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:18px;padding:26px;box-shadow:0 8px 28px rgba(94,42,22,.07)}
-.t-date{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--terra);margin-bottom:8px}
-.t-card h3{font-family:var(--serif);font-size:23px;font-weight:600;margin-bottom:4px}
-.t-org{font-size:14px;color:var(--cocoa-soft);margin-bottom:14px}
-.t-card ul{margin:0 0 14px 18px;color:var(--cocoa-soft);font-size:14.5px;line-height:1.7}
-.t-card li{margin-bottom:7px}
-
-.proj{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:20px;overflow:hidden;margin-top:26px;box-shadow:0 10px 34px rgba(94,42,22,.08);display:grid;grid-template-columns:1fr 1.4fr}
-.proj-visual{min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.proj-visual.quantlab{background:linear-gradient(135deg,#12312b,#0d5c46)}
-.proj-visual.netscan{background:linear-gradient(135deg,#1c2340,#3b2f63)}
-.proj-badge{position:absolute;top:16px;left:16px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#7ee2a8;background:rgba(0,0,0,.4);padding:6px 12px;border-radius:999px}
-.proj-glyph{font-size:64px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.4))}
-.proj-body{padding:30px}
-.proj-kind{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--terra);margin-bottom:8px}
-.proj-body h3{font-family:var(--serif);font-size:28px;font-weight:600;margin-bottom:10px}
-.proj-body p{font-size:14.5px;line-height:1.7;color:var(--cocoa-soft);margin-bottom:16px}
-.proj-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:12px;transition:transform .15s,box-shadow .15s}
-.btn-primary{background:var(--terra-deep);color:var(--cream)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(138,63,34,.4)}
-.btn-ghost{border:1.5px solid rgba(138,63,34,.45);color:var(--terra-deep)}
-.btn-ghost:hover{background:rgba(180,95,54,.1)}
-
-#contact{background:linear-gradient(150deg,var(--terra-deep),var(--terra-dark));color:var(--cream);text-align:center}
-#contact .sec-eyebrow{color:#ffd9a8}
-#contact .sec-title{color:var(--cream)}
-#contact .sec-sub{color:var(--cream-dim);margin:0 auto}
-.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
-.contact-btns .btn-primary{background:var(--cream);color:var(--terra-dark)}
-.contact-btns .btn-ghost{border-color:rgba(253,246,236,.5);color:var(--cream)}
-.contact-btns .btn-ghost:hover{background:rgba(253,246,236,.12)}
-footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,54px);font-family:var(--mono);font-size:12px;letter-spacing:.06em}
-.foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
-.foot-inner a{color:var(--cream-dim);text-decoration:none;margin-left:18px}
-.foot-inner a:hover{color:var(--cream)}
-
+/* ---------- sections ---------- */
+section{padding:84px 28px;border-bottom:2px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:38px}
+.sec-kicker{font-family:'Space Mono',monospace;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:700}
+.sec-title{font-family:'Anton',sans-serif;font-size:clamp(38px,5.6vw,72px);text-transform:uppercase;line-height:.95}
+.sec-title .script{font-size:1.05em}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
-@media(max-width:860px){
-  .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(300px,78vw);background:rgba(46,20,8,.97);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;gap:26px;z-index:20;transform:translateX(100%);transition:transform .3s ease}
-  .nav-links.open{transform:none}
-  .nav-links a{font-size:15px}
-  .menu-btn{display:block;position:relative;z-index:21}
-  .about-grid{grid-template-columns:1fr}
-  .proj{grid-template-columns:1fr}
-  .proj-visual{min-height:170px}
-  #heroScrim{background:linear-gradient(100deg,rgba(46,20,8,.88) 0%,rgba(46,20,8,.62) 45%,rgba(46,20,8,.25) 75%,rgba(46,20,8,.1) 100%)}
+/* subject */
+.subject-name{font-size:clamp(76px,15.5vw,228px);letter-spacing:.01em}
+.subject-name .script{font-size:.52em;color:var(--red);margin-left:.12em;vertical-align:.18em}
+.dossier{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  border:2px solid var(--line);margin-top:34px;background:var(--card);
+}
+.dossier div{padding:18px 20px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+.dossier .k{font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:7px}
+.dossier .v{font-weight:700;font-size:16.5px;line-height:1.35}
+.subject-copy{max-width:820px;font-size:18px;line-height:1.65;color:var(--ink-soft);margin-top:30px}
+.subject-copy b{color:var(--ink)}
+.stats{display:flex;flex-wrap:wrap;margin-top:36px;border-top:2px solid var(--line)}
+.stat{padding:20px 26px 4px 0;margin-right:26px}
+.stat .n{font-family:'Anton',sans-serif;font-size:clamp(34px,4.4vw,54px)}
+.stat .n em{font-style:normal;color:var(--red)}
+.stat .l{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+
+/* case files */
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:26px}
+.case{
+  background:var(--card);border:2px solid var(--line);padding:28px 26px 24px;position:relative;
+  box-shadow:8px 8px 0 rgba(22,20,16,.9);transition:transform .18s ease;
+}
+[data-theme="dark"] .case{box-shadow:8px 8px 0 rgba(243,238,225,.85)}
+.case:hover{transform:translate(-3px,-3px)}
+.case::before{
+  content:"";position:absolute;top:-14px;left:22px;width:110px;height:14px;
+  background:var(--paper2);border:2px solid var(--line);border-bottom:none;
+}
+.case .no{font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.18em;color:var(--red);font-weight:700;text-transform:uppercase}
+.case h3{font-family:'Anton',sans-serif;font-size:31px;text-transform:uppercase;margin:12px 0 4px;line-height:1}
+.case .live{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.case .live i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3ddc5a;margin-right:6px}
+.case p{color:var(--ink-soft);line-height:1.6;font-size:15.5px;margin:14px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.chips span{font-family:'Space Mono',monospace;font-size:11px;border:1.5px solid var(--line);padding:4px 9px;border-radius:999px}
+.case .links{display:flex;gap:18px;font-family:'Space Mono',monospace;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.case .links a{text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:2px;font-weight:700}
+.case .links a:hover{background:var(--yellow);color:#161410}
+
+/* toolkit */
+.toolkit{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));border:2px solid var(--line);background:var(--card)}
+.toolkit .group{padding:24px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+.toolkit h3{font-family:'Anton',sans-serif;font-size:19px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:14px}
+.toolkit h3 span{color:var(--red);margin-right:8px}
+.toolkit ul{list-style:none}
+.toolkit li{padding:6px 0;border-bottom:1px dashed rgba(120,112,90,.45);font-size:15px;color:var(--ink-soft)}
+.toolkit li:last-child{border-bottom:none}
+
+/* record */
+.record-row{
+  display:grid;grid-template-columns:190px 1fr;gap:24px;padding:26px 0;border-top:1.5px solid var(--line);
+}
+.record-row .when{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;padding-top:6px}
+.record-row h3{font-family:'Anton',sans-serif;font-size:25px;text-transform:uppercase;line-height:1.05}
+.record-row .where{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:5px 0 10px}
+.record-row p{color:var(--ink-soft);line-height:1.6;max-width:760px;font-size:15.5px}
+.articles{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:14px}
+.article{border:2px solid var(--line);background:var(--card);padding:24px;text-decoration:none;display:block;transition:transform .18s ease}
+.article:hover{transform:translate(-3px,-3px)}
+.article .k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--red);font-weight:700;text-transform:uppercase}
+.article h3{font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;line-height:1.05;margin:10px 0 8px}
+.article p{color:var(--ink-soft);font-size:14.5px;line-height:1.55}
+.article .meta{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-top:14px;color:var(--ink-soft)}
+
+/* hire */
+.hire-big{font-size:clamp(70px,13vw,190px)}
+.hire-big .script{color:var(--red);font-size:.6em;margin-left:.15em}
+.hire-copy{max-width:640px;font-size:18px;line-height:1.65;color:var(--ink-soft);margin:22px 0 32px}
+.hire-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.mail-btn{
+  background:var(--ink);color:var(--paper);text-decoration:none;border-radius:999px;
+  padding:20px 38px;font-family:'Anton',sans-serif;font-size:21px;letter-spacing:.03em;text-transform:uppercase;
+  box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red);transition:transform .18s ease;
+}
+.mail-btn:hover{transform:rotate(-1deg) scale(1.03)}
+.hire-actions .alt{font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;letter-spacing:.06em;text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:2px;font-weight:700}
+.hire-actions .alt:hover{background:var(--yellow);color:#161410}
+footer .blackbar a{color:#f3eee1;text-decoration:none;border-bottom:1px solid var(--red)}
+
+@media (max-width:900px){
+  nav.main{display:none}
+  .stage{height:380px}
+  .pull-note{display:none}
+  .hire-btn{left:64%;top:52%;padding:20px 40px 17px}
+  .w-together{left:48%}
+  .w-build{left:38%}
+  .record-row{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:560px){
+  .stage{height:330px}
+  .stage svg.hand{width:250px;left:-70px}
+  .hire-btn{left:60%;padding:16px 30px 13px}
+  .w-hello,.w-lets{display:none}
+  section{padding:60px 20px}
+  .hero{padding:26px 20px 0}
+  .hero-foot{margin:6px -20px 0;padding:13px 20px}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════ HERO ══════════ -->
-<header id="hero">
-  <video id="heroVideo" autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-hidden="true">
-    <source src="assets/hero-character.mp4" type="video/mp4">
-  </video>
-  <div id="heroScrim" aria-hidden="true"></div>
-
-  <nav>
-    <a class="wordmark" href="#hero"><b>▪</b> Bhargav Patel<span class="dot">.</span></a>
-    <div class="nav-links" id="navLinks">
-      <a href="#about">ABOUT</a>
-      <a href="#experience">EXPERIENCE</a>
-      <a href="#projects">PROJECTS</a>
-      <a href="#contact">CONTACT</a>
-    </div>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+<header class="topbar">
+  <a class="logo" href="#top">B<span class="dot">●</span>P</a>
+  <nav class="main">
+    <a href="#subject"><b>01</b>Subject</a>
+    <a href="#cases"><b>02</b>Case files</a>
+    <a href="#toolkit"><b>03</b>Toolkit</a>
+    <a href="#record"><b>04</b>Record</a>
+    <a href="#hire" class="hire"><b>05</b>Hire me</a>
   </nav>
-
-  <div class="hero-body">
-    <p class="eyebrow">// FULL-STACK DEVELOPER</p>
-    <h1 class="hero-name">Bhargav</h1>
-    <p class="hero-tag">Building <em>full-stack applications</em> and the systems that power them.</p>
-    <p class="hero-bio">Full-stack software engineer with 3+ years across React, Node.js, TypeScript, and .NET — M.Eng, University of Windsor. I keep production systems running by day and build AI-driven platforms by night.</p>
-    <div class="hero-badges">
-      <span class="pill"><span class="live-dot"></span>AVAILABLE FOR WORK</span>
-      <span class="pill">3+ YEARS</span>
-    </div>
-  </div>
-
-  <div class="hero-meta">
-    <span class="hero-loc">WINDSOR, CANADA</span>
-    <span class="scroll-cue">SCROLL</span>
+  <div class="top-right">
+    <span>INDEX</span>
+    <button id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">◐</button>
   </div>
 </header>
 
-<!-- ══════════ ABOUT ══════════ -->
-<section class="block" id="about">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">// ABOUT</p>
-    <h2 class="sec-title reveal">Engineer first. <span class="accent">Operator always.</span></h2>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <p>I'm a full-stack software engineer with <strong>3+ years</strong> of experience shipping across React, Node.js, TypeScript, and .NET/C#. I hold an <strong>M.Eng in Electrical and Computer Engineering</strong> from the University of Windsor and I'm based in <strong>Windsor, Ontario</strong> — open to remote roles across Canada.</p>
-        <p>By day I keep production technology running at McDonald's Windsor as an <strong>IT Systems Manager</strong> — 99.9% uptime across 1,000+ daily transactions. By night I build <strong>QuantLab</strong>, an AI-driven trading intelligence platform with real-time data pipelines, a Monte Carlo simulation engine, and Google Gemini-powered analytics.</p>
-        <p>I care about systems that are measurable: latency cut, uptime sustained, revenue shipped. If it can't be measured, it can't be improved.</p>
-      </div>
-      <div class="stats reveal">
-        <div class="stat"><span class="stat-num">3+</span><span class="stat-label">Years engineering</span></div>
-        <div class="stat"><span class="stat-num">12+</span><span class="stat-label">Apps shipped to production</span></div>
-        <div class="stat"><span class="stat-num">99.9%</span><span class="stat-label">Production uptime sustained</span></div>
-        <div class="stat"><span class="stat-num">68%</span><span class="stat-label">API latency cut (best)</span></div>
-      </div>
-    </div>
+<!-- ============ HERO ============ -->
+<div class="hero" id="top">
+  <div class="hero-kicker">
+    <span><span class="red">Portfolio</span> — Vol. 2026</span>
+    <span>Dossier Nº 001 · Full-Stack Software Engineer</span>
+    <span>Est. Windsor, Ontario</span>
+  </div>
 
-    <div class="skills-grid">
-      <div class="skill-card reveal"><h3>LANGUAGES</h3><div class="tags"><span>C#</span><span>TypeScript</span><span>JavaScript (ES6+)</span><span>Python</span><span>SQL (T-SQL)</span><span>HTML5</span><span>CSS3</span></div></div>
-      <div class="skill-card reveal"><h3>BACKEND</h3><div class="tags"><span>ASP.NET Core</span><span>Node.js</span><span>Express</span><span>NestJS</span><span>RESTful APIs</span><span>Microservices</span><span>WebSockets</span></div></div>
-      <div class="skill-card reveal"><h3>FRONTEND</h3><div class="tags"><span>React 19</span><span>Redux</span><span>Tailwind CSS</span><span>Responsive Design</span><span>Vite</span><span>Capacitor</span></div></div>
-      <div class="skill-card reveal"><h3>DATA</h3><div class="tags"><span>SQL Server</span><span>MySQL</span><span>MongoDB</span><span>Redis</span><span>SQLite</span><span>Query Tuning</span><span>Data Pipelines</span></div></div>
-      <div class="skill-card reveal"><h3>CLOUD &amp; DEVOPS</h3><div class="tags"><span>Microsoft Azure</span><span>AWS</span><span>Docker</span><span>CI/CD (GitHub Actions)</span><span>Git</span><span>Vercel</span></div></div>
-      <div class="skill-card reveal"><h3>AI / LLM</h3><div class="tags"><span>Google Gemini 1.5 Pro</span><span>RAG</span><span>Prompt Engineering</span><span>Predictive Analytics</span></div></div>
-    </div>
+  <h1 class="display">Pull me into <span class="script">your team.</span></h1>
+
+  <div class="stage" id="stage">
+    <svg class="strings" viewBox="0 0 1200 430" preserveAspectRatio="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="1.6" fill="none" opacity="0.85">
+        <path d="M330,120 C520,90 640,150 838,196"/>
+        <path d="M345,160 C540,140 660,180 842,206"/>
+        <path d="M340,205 C520,205 680,215 844,216"/>
+        <path d="M318,248 C500,262 660,238 840,226"/>
+      </g>
+    </svg>
+
+    <svg class="hand" viewBox="0 0 360 260" aria-hidden="true">
+      <g stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round">
+        <path d="M-6,74 L104,84 L104,196 L-6,208 Z" fill="var(--ink)" stroke="none"/>
+        <path d="M96,80 L126,84 L126,198 L96,200 Z" fill="#fff"/>
+        <circle cx="112" cy="140" r="4.5" fill="var(--ink)" stroke="none"/>
+        <path d="M124,88 C168,70 214,64 246,72 C272,78 282,94 276,112 C270,130 250,138 220,140 L168,146 C142,148 126,136 124,116 Z" fill="var(--paper)"/>
+        <path d="M262,84 C296,74 330,74 350,84"/>
+        <path d="M272,104 C306,96 338,98 354,108"/>
+        <path d="M266,126 C296,122 324,126 338,136"/>
+        <path d="M248,146 C272,148 292,154 302,164"/>
+        <path d="M168,144 C184,166 206,178 228,180"/>
+      </g>
+    </svg>
+
+    <span class="word w-ship" data-depth="14" style="transform:rotate(-7deg)">Ship</span>
+    <span class="word w-together" data-depth="22" style="transform:rotate(5deg)">Together</span>
+    <span class="word w-hello" data-depth="10" style="transform:rotate(-4deg)">Hello</span>
+    <span class="word w-lets" data-depth="18" style="transform:rotate(7deg)">Let&rsquo;s</span>
+    <span class="word w-build" data-depth="12" style="transform:rotate(-6deg)">Build</span>
+    <span class="word w-talk red" data-depth="26" style="transform:rotate(3deg)">Talk</span>
+
+    <p class="pull-note">— So go on, <span class="red">give it a pull</span> —<br>the button actually works.<br>It takes you straight to the hiring bit.</p>
+
+    <a class="hire-btn" id="hireBtn" href="#hire">
+      <span class="big">Hire me</span>
+      <span class="small">Let&rsquo;s build something unforgettable</span>
+    </a>
+  </div>
+
+  <div class="hero-foot">
+    <span>Prefer it plain?
+      <a href="mailto:bhrgavpatel04@gmail.com">bhrgavpatel04@gmail.com</a><span class="sep">·</span><a href="resume.pdf">Resume (PDF)</a><span class="sep">·</span><a href="https://github.com/BhargavA09" target="_blank" rel="noopener">GitHub</a><span class="sep">·</span><a href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+    <span><a href="#record" style="border-bottom:none">Back to the record ↓</a></span>
+  </div>
+</div>
+<div class="blackbar">
+  <span>© 2026 Bhargav Patel</span>
+  <span><span class="live-dot"></span>Available immediately</span>
+  <span>Windsor, Ontario — Canada</span>
+</div>
+
+<!-- ============ 01 SUBJECT ============ -->
+<section id="subject">
+  <div class="sec-head reveal">
+    <span class="sec-kicker">01 — The Subject</span>
+    <h2 class="sec-title">Engineer first. <span class="script">Everything else second.</span></h2>
+  </div>
+
+  <div class="display subject-name reveal">Bhargav<span class="script">patel.</span></div>
+
+  <div class="dossier reveal">
+    <div><span class="k">Role</span><span class="v">Full-Stack Software Engineer</span></div>
+    <div><span class="k">Primary stack</span><span class="v">React · Node.js · TypeScript · .NET / C#</span></div>
+    <div><span class="k">Base</span><span class="v">Windsor, Ontario, Canada</span></div>
+    <div><span class="k">Range</span><span class="v">Remote — anywhere in Canada</span></div>
+    <div><span class="k">Status</span><span class="v">Available immediately</span></div>
+    <div><span class="k">Education</span><span class="v">M.Eng — University of Windsor</span></div>
+    <div><span class="k">Currently</span><span class="v">IT Systems Manager &amp; Operations Lead</span></div>
+    <div><span class="k">Side mission</span><span class="v">QuantLab — AI trading intelligence</span></div>
+  </div>
+
+  <p class="subject-copy reveal">I&rsquo;m a full-stack engineer with <b>3+ years shipping production systems</b> — React and TypeScript on the front, Node.js and .NET on the back, SQL underneath everything. I architected an AI trading platform end to end, run production technology operations at <b>99.9% uptime</b> by day, and I sweat the details most people scroll past: the query plan, the error state, the last 40 milliseconds.</p>
+
+  <div class="stats reveal">
+    <div class="stat"><div class="n">3<em>+</em></div><div class="l">Years shipping</div></div>
+    <div class="stat"><div class="n">99.9<em>%</em></div><div class="l">Uptime owned</div></div>
+    <div class="stat"><div class="n">12<em>+</em></div><div class="l">Apps built end to end</div></div>
+    <div class="stat"><div class="n">40<em>%</em></div><div class="l">Less tech downtime</div></div>
+    <div class="stat"><div class="n">68<em>%</em></div><div class="l">Faster APIs (800→250ms)</div></div>
   </div>
 </section>
 
-<!-- ══════════ EXPERIENCE ══════════ -->
-<section class="block" id="experience">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">// EXPERIENCE</p>
-    <h2 class="sec-title reveal">Experience <span class="accent">timeline.</span></h2>
-    <div class="timeline">
-      <div class="t-item reveal"><div class="t-card">
-        <p class="t-date">2023 — PRESENT</p>
-        <h3>Independent Full-Stack Software Engineer</h3>
-        <p class="t-org">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</p>
-        <ul>
-          <li>Architected an AI platform end to end (database, API, UI), integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling.</li>
-          <li>Built a custom neural intelligence core running autonomous analysis cycles to identify market regimes and alpha opportunities.</li>
-          <li>Engineered a Monte Carlo simulation engine in TypeScript forecasting outcomes with dynamic confidence intervals.</li>
-          <li>Built a multi-source real-time data pipeline using WebSockets with custom caching and memory-safe SQLite persistence.</li>
-        </ul>
-        <div class="tags"><span>TypeScript</span><span>React 19</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span></div>
-      </div></div>
-      <div class="t-item reveal"><div class="t-card">
-        <p class="t-date">MAY 2023 — PRESENT</p>
-        <h3>IT Systems Manager &amp; Operations Lead</h3>
-        <p class="t-org">McDonald's · Windsor, ON</p>
-        <ul>
-          <li>Own production technology operations across POS platforms, databases, and kitchen display systems — 99.9% uptime across 1,000+ daily transactions.</li>
-          <li>Architect SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%.</li>
-          <li>Design and tune SQL Server queries and database integrations supporting reporting, inventory, and operational data flows.</li>
-          <li>Triage production faults with root-cause analysis in a high-volume 24/7 environment, including after-hours response.</li>
-        </ul>
-        <div class="tags"><span>SQL Server</span><span>System Integrations</span><span>Production Triage</span><span>Automation</span></div>
-      </div></div>
-      <div class="t-item reveal"><div class="t-card">
-        <p class="t-date">NOV 2020 — NOV 2021</p>
-        <h3>Full-Stack Software Engineer</h3>
-        <p class="t-org">Edukite Learning · Vadodara, India</p>
-        <ul>
-          <li>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%.</li>
-          <li>Tuned SQL queries and added Redis caching, cutting API response times 68% (800ms → 250ms) on high-traffic endpoints.</li>
-          <li>Led migration to microservices, improving scalability 50% and halving page load times (2.4s → 1.2s).</li>
-        </ul>
-        <div class="tags"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Microservices</span></div>
-      </div></div>
-      <div class="t-item reveal"><div class="t-card">
-        <p class="t-date">MAY 2019 — JUN 2020</p>
-        <h3>Full-Stack Software Engineer</h3>
-        <p class="t-org">Techie Computer · Anand, India</p>
-        <ul>
-          <li>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions.</li>
-          <li>Integrated 10+ third-party payment APIs (Stripe, PayPal) and shipping SDKs with robust error handling at 99.8% uptime.</li>
-          <li>Optimized MySQL schemas and indexing for 5,000+ SKU catalogs, improving product search 75% (2.5s → 0.6s).</li>
-        </ul>
-        <div class="tags"><span>React</span><span>MySQL</span><span>Stripe</span><span>E-commerce</span></div>
-      </div></div>
-    </div>
+<!-- ============ 02 CASE FILES ============ -->
+<section id="cases">
+  <div class="sec-head reveal">
+    <span class="sec-kicker">02 — Case Files</span>
+    <h2 class="sec-title">Systems built <span class="script">in 2026 &amp; before.</span></h2>
   </div>
-</section>
 
-<!-- ══════════ PROJECTS ══════════ -->
-<section class="block" id="projects">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">// PROJECTS</p>
-    <h2 class="sec-title reveal">Featured <span class="accent">projects.</span></h2>
-    <p class="sec-sub reveal">Live in production, not screenshots. Click through and use them.</p>
-
-    <article class="proj reveal">
-      <div class="proj-visual quantlab"><span class="proj-badge">● LIVE</span><span class="proj-glyph">📈</span></div>
-      <div class="proj-body">
-        <p class="proj-kind">AI TRADING INTELLIGENCE · 2023 — PRESENT</p>
-        <h3>QuantLab / QuantTrade</h3>
-        <p>An AI-driven trading intelligence platform I architected end to end — database, API, and UI. Integrates Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling, with a custom neural intelligence core, a Monte Carlo simulation engine running thousands of stochastic paths, and a multi-source real-time data pipeline over WebSockets. Ships as a cross-platform web + Android app.</p>
-        <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
-        <div class="proj-links">
-          <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Live App</a>
-          <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost">⌨ GitHub Repo</a>
-        </div>
+  <div class="cases">
+    <article class="case reveal">
+      <span class="no">Case Nº 001</span>
+      <h3>QuantLab / QuantTrade</h3>
+      <span class="live"><i></i>Live in production</span>
+      <p>An AI-driven trading intelligence platform I architected end to end — database, API and UI. Google Gemini 1.5 Pro drives real-time predictive analytics and risk modeling, alongside a custom neural intelligence core, a Monte Carlo engine running thousands of stochastic paths, and a multi-source WebSocket data pipeline. Ships as a web + Android app.</p>
+      <div class="chips"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
+      <div class="links">
+        <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live app</a>
+        <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">GitHub repo</a>
       </div>
     </article>
 
-    <article class="proj reveal">
-      <div class="proj-visual netscan"><span class="proj-badge">● LIVE</span><span class="proj-glyph">🛡️</span></div>
-      <div class="proj-body">
-        <p class="proj-kind">THREAT INTELLIGENCE DASHBOARD</p>
-        <h3>Netscanpro</h3>
-        <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
-        <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
-        <div class="proj-links">
-          <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Live App</a>
-          <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost">⌨ GitHub Repo</a>
-        </div>
+    <article class="case reveal">
+      <span class="no">Case Nº 002</span>
+      <h3>Netscanpro</h3>
+      <span class="live"><i></i>Live in production</span>
+      <p>A threat-intelligence dashboard for exploring network security data — interactive visualizations, scan workflows, and a modern UI built for analysts who live in dashboards. Deployed live with GitHub auto-deploy.</p>
+      <div class="chips"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
+      <div class="links">
+        <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener">↗ Live app</a>
+        <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener">GitHub repo</a>
+      </div>
+    </article>
+
+    <article class="case reveal">
+      <span class="no">Case Nº 003</span>
+      <h3>Edukite LMS</h3>
+      <span class="live">E-learning systems</span>
+      <p>Custom Moodle LMS plugins and high-performance RESTful APIs for an e-learning platform — work that lifted learner engagement 25%. Redis caching and SQL tuning cut API response times 68%, and a microservices migration halved page loads.</p>
+      <div class="chips"><span>Node.js</span><span>MySQL</span><span>Redis</span><span>Moodle</span><span>Microservices</span></div>
+      <div class="links">
+        <a href="#record">See the record ↓</a>
       </div>
     </article>
   </div>
 </section>
 
-<!-- ══════════ CONTACT ══════════ -->
-<section class="block" id="contact">
-  <div class="wrap">
-    <p class="sec-eyebrow reveal">// CONTACT</p>
-    <h2 class="sec-title reveal">Let's build something.</h2>
-    <p class="sec-sub reveal">I'm available immediately for remote roles across Canada — or let's just talk shop.</p>
-    <div class="contact-btns reveal">
-      <a class="btn btn-primary" href="mailto:bhrgavpatel04@gmail.com">✉ Email me</a>
-      <a class="btn btn-ghost" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">in LinkedIn</a>
-      <a class="btn btn-ghost" href="https://github.com/BhargavA09" target="_blank" rel="noopener">⌨ GitHub</a>
-      <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">↓ Resume</a>
+<!-- ============ 03 TOOLKIT ============ -->
+<section id="toolkit">
+  <div class="sec-head reveal">
+    <span class="sec-kicker">03 — The Toolkit</span>
+    <h2 class="sec-title">What&rsquo;s in <span class="script">the bag.</span></h2>
+  </div>
+
+  <div class="toolkit reveal">
+    <div class="group"><h3><span>§</span>Languages</h3><ul><li>TypeScript</li><li>JavaScript</li><li>C#</li><li>Python</li><li>SQL</li></ul></div>
+    <div class="group"><h3><span>§</span>Backend</h3><ul><li>Node.js</li><li>.NET / ASP.NET Core</li><li>RESTful APIs</li><li>WebSockets</li><li>Microservices</li></ul></div>
+    <div class="group"><h3><span>§</span>Frontend</h3><ul><li>React</li><li>Redux</li><li>Tailwind CSS</li><li>Vite</li><li>Capacitor</li></ul></div>
+    <div class="group"><h3><span>§</span>Data</h3><ul><li>SQL Server</li><li>MySQL</li><li>MongoDB</li><li>Redis</li><li>SQLite</li><li>Query tuning &amp; pipelines</li></ul></div>
+    <div class="group"><h3><span>§</span>Cloud &amp; DevOps</h3><ul><li>Microsoft Azure</li><li>AWS</li><li>Docker</li><li>CI/CD — GitHub Actions</li><li>Git · Vercel</li></ul></div>
+    <div class="group"><h3><span>§</span>AI / LLM</h3><ul><li>Google Gemini 1.5 Pro</li><li>RAG</li><li>Prompt engineering</li><li>Predictive analytics</li></ul></div>
+  </div>
+</section>
+
+<!-- ============ 04 RECORD ============ -->
+<section id="record">
+  <div class="sec-head reveal">
+    <span class="sec-kicker">04 — The Record</span>
+    <h2 class="sec-title">Experience, <span class="script">on the record.</span></h2>
+  </div>
+
+  <div class="record-row reveal">
+    <div class="when">2023 — Present</div>
+    <div>
+      <h3>Independent Full-Stack Software Engineer</h3>
+      <div class="where">QuantLab Trading Intelligence Platform · Windsor, ON (Remote)</div>
+      <p>Architected an AI platform end to end, integrating Google Gemini 1.5 Pro for real-time predictive analytics and risk modeling. Built a neural intelligence core running autonomous analysis cycles, a Monte Carlo simulation engine in TypeScript, and a multi-source real-time data pipeline over WebSockets with memory-safe SQLite persistence.</p>
     </div>
+  </div>
+
+  <div class="record-row reveal">
+    <div class="when">May 2023 — Present</div>
+    <div>
+      <h3>IT Systems Manager &amp; Operations Lead</h3>
+      <div class="where">McDonald&rsquo;s · Windsor, ON</div>
+      <p>Own production technology operations across POS platforms, databases and kitchen display systems — 99.9% uptime across 1,000+ daily transactions. Architected SQL automation and integrations between POS platforms and corporate databases, cutting technology-related downtime by 40%, with root-cause triage in a high-volume 24/7 environment.</p>
+    </div>
+  </div>
+
+  <div class="record-row reveal">
+    <div class="when">Nov 2020 — Nov 2021</div>
+    <div>
+      <h3>Full-Stack Software Engineer</h3>
+      <div class="where">Edukite Learning · Vadodara, India</div>
+      <p>Built and shipped user-facing features end to end — custom Moodle LMS plugins and high-performance RESTful APIs with Node.js and MySQL, lifting learner engagement 25%. Tuned SQL and added Redis caching, cutting API response times 68% (800ms → 250ms); led a microservices migration that halved page load times.</p>
+    </div>
+  </div>
+
+  <div class="record-row reveal">
+    <div class="when">May 2019 — Jun 2020</div>
+    <div>
+      <h3>Full-Stack Software Engineer</h3>
+      <div class="where">Techie Computer · Anand, India</div>
+      <p>Developed 12+ full-stack e-commerce applications with React from database to UI, generating $500K+ in client revenue and processing $2M+ in secure transactions. Integrated 10+ payment APIs (Stripe, PayPal) and shipping SDKs at 99.8% uptime, and optimized MySQL schemas for 5,000+ SKU catalogs.</p>
+    </div>
+  </div>
+
+  <div class="record-row reveal">
+    <div class="when">Education</div>
+    <div>
+      <h3>M.Eng — University of Windsor</h3>
+      <div class="where">Electrical &amp; Computer Engineering · Completed Apr 2023</div>
+      <p>B.Eng, Computer Engineering — Gujarat Technological University (2016 — 2020).</p>
+    </div>
+  </div>
+
+  <div class="sec-head reveal" style="margin-top:64px">
+    <span class="sec-kicker">Off the record</span>
+    <h2 class="sec-title" style="font-size:clamp(30px,4.4vw,54px)">Writing, <span class="script">occasionally.</span></h2>
+  </div>
+  <div class="articles">
+    <a class="article reveal" href="articles/when-wars-move-markets.html">
+      <span class="k">Insights · Geopolitics × Finance</span>
+      <h3>When Wars Move Markets</h3>
+      <p>How the 2026 US–Iran war, Red Sea attacks and a sanctions war on Russian energy travelled through the world&rsquo;s shipping chokepoints into oil, inflation and interest rates.</p>
+      <div class="meta">12 Oct 2026 · ~8 min read</div>
+    </a>
+    <a class="article reveal" href="articles/the-diversification-doctrine.html">
+      <span class="k">Insights · Geopolitics × Finance</span>
+      <h3>The Diversification Doctrine</h3>
+      <p>Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies pay the same price, only larger.</p>
+      <div class="meta">13 Oct 2026 · ~7 min read</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 05 HIRE ME ============ -->
+<section id="hire" class="hire-sec">
+  <div class="sec-head reveal">
+    <span class="sec-kicker">05 — Hire Me</span>
+  </div>
+  <div class="display hire-big reveal">Let&rsquo;s talk<span class="script">shall we?</span></div>
+  <p class="hire-copy reveal">I&rsquo;m available immediately for remote roles across Canada — full-stack, frontend, backend, .NET, IT systems. One email is all it takes. No forms, no portals, no 6-digit codes.</p>
+  <div class="hire-actions reveal">
+    <a class="mail-btn" href="mailto:bhrgavpatel04@gmail.com">Email me</a>
+    <a class="alt" href="resume.pdf">↓ Resume (PDF)</a>
+    <a class="alt" href="https://github.com/BhargavA09" target="_blank" rel="noopener">GitHub</a>
+    <a class="alt" href="https://linkedin.com/in/bhrgavpatel" target="_blank" rel="noopener">LinkedIn</a>
   </div>
 </section>
 
 <footer>
-  <div class="foot-inner">
-    <span>© 2026 Bhargav Patel · Windsor, Canada</span>
-    <span><a href="trek.html">Take the 3D trek →</a><a href="classic.html">Classic version →</a></span>
+  <div class="blackbar">
+    <span>© 2026 Bhargav Patel</span>
+    <span><a href="character.html">Character cut →</a> · <a href="classic.html">Classic version →</a> · <a href="trek.html">Take the 3D trek →</a></span>
+    <span>Windsor, Ontario — Canada</span>
   </div>
 </footer>
 
 <script>
-(function(){
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
-  var btn=document.getElementById('menuBtn'),links=document.getElementById('navLinks');
-  btn.addEventListener('click',function(){links.classList.toggle('open')});
-  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
-  var v=document.getElementById('heroVideo');
-  if(v){var p=v.play();if(p&&p.catch){p.catch(function(){})}}
-})();
+// theme toggle (remembers choice)
+const root = document.documentElement;
+const saved = localStorage.getItem('bp-theme');
+if (saved) root.setAttribute('data-theme', saved);
+document.getElementById('themeBtn').addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('bp-theme', next);
+});
+
+// reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// hero parallax: scattered words drift with the mouse, keeping their tilt
+const stage = document.getElementById('stage');
+const words = document.querySelectorAll('.word');
+const tilts = { 'w-ship':-7, 'w-together':5, 'w-hello':-4, 'w-lets':7, 'w-build':-6, 'w-talk':3 };
+stage.addEventListener('mousemove', e => {
+  const r = stage.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - 0.5;
+  const y = (e.clientY - r.top) / r.height - 0.5;
+  words.forEach(w => {
+    const d = parseFloat(w.dataset.depth || 10);
+    const tilt = Object.keys(tilts).find(k => w.classList.contains(k));
+    w.style.transform = `translate(${x * d}px, ${y * d}px) rotate(${tilts[tilt] || 0}deg)`;
+  });
+});
+stage.addEventListener('mouseleave', () => words.forEach(w => w.style.transform = ''));
+
+// the pull: tug the strings when the HIRE ME button is pressed
+const btn = document.getElementById('hireBtn');
+btn.addEventListener('pointerdown', () => {
+  stage.classList.remove('tug');
+  void stage.offsetWidth;
+  stage.classList.add('tug');
+});
 </script>
 </body>
 </html>
