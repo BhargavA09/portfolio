@@ -294,17 +294,15 @@ nav.main a.hire{color:#fff}
 #themeBtn:hover{background:#f3eee1;color:#12100d}
 .marquee{display:none}
 .word{animation:none}
-.stage svg.hand{animation:handPull 4.8s ease-in-out infinite}
-@keyframes handPull{0%,100%{transform:translateX(-26px)}50%{transform:translateX(16px)}}
-.stage svg.strings{transform-origin:16% 50%;animation:stringPull 4.8s ease-in-out infinite}
-@keyframes stringPull{0%,100%{transform:scaleX(.968) rotate(-.45deg)}50%{transform:scaleX(1.042) rotate(.45deg)}}
-.stage.tug svg.strings{animation:tug .45s ease}
-.stage.dragging svg.strings{animation:none}
-.hire-btn{animation:buttonPull 4.8s ease-in-out infinite;cursor:grab;touch-action:none}
-@keyframes buttonPull{
-  0%,100%{translate:0 0;box-shadow:0 0 0 3px var(--paper),0 0 0 5.5px var(--red),14px 16px 0 rgba(22,20,16,.16),0 0 0 rgba(227,50,36,0)}
-  50%{translate:28px 0;box-shadow:0 0 0 3px var(--paper),0 0 0 6.5px var(--red),20px 16px 0 rgba(22,20,16,.14),0 0 52px rgba(227,50,36,.72)}
-}
+/* Connected-strings pull engine: hand, strings and button are driven by ONE
+   JS loop (see script at end of body). No CSS keyframe animations on these
+   elements — the strings are redrawn every frame as real curves between the
+   hand's fingertips and the button's left edge. */
+.stage svg.hand{animation:none;will-change:transform}
+.stage svg.strings{animation:none;transform:none}
+.stage svg.strings path{fill:none;stroke:currentColor;stroke-width:1.6;opacity:.85}
+.hire-btn{animation:none;transition:none;cursor:grab;touch-action:none;will-change:transform}
+.stage.dragging .hire-btn{cursor:grabbing}
 .pull-note{left:60%;top:17%;max-width:230px;font-size:11px;line-height:1.7}
 .stage.dragging .hire-btn{animation:none}
 
@@ -482,13 +480,11 @@ nav.main a.hire{color:#fff}
   <h1 class="display"><span class="h-line">Pull me into</span> <span class="script">your team.</span></h1>
 
   <div class="stage" id="stage">
-    <svg class="strings" id="stringsSvg" viewBox="0 0 1200 430" preserveAspectRatio="none" aria-hidden="true">
-      <g stroke="currentColor" stroke-width="1.6" fill="none" opacity="0.85">
-        <path d="M330,120 C520,90 640,150 838,196"/>
-        <path d="M345,160 C540,140 660,180 842,206"/>
-        <path d="M340,205 C520,205 680,215 844,216"/>
-        <path d="M318,248 C500,262 660,238 840,226"/>
-      </g>
+    <svg class="strings" id="stringsSvg" aria-hidden="true">
+      <path class="str-line" d=""/>
+      <path class="str-line" d=""/>
+      <path class="str-line" d=""/>
+      <path class="str-line" d=""/>
     </svg>
 
     <svg class="hand" viewBox="0 0 360 260" aria-hidden="true">
@@ -818,44 +814,114 @@ stage.addEventListener('mousemove', e => {
 });
 stage.addEventListener('mouseleave', () => words.forEach(w => w.style.transform = ''));
 
-// the pull: tug the strings when the HIRE ME button is pressed
+// ============ connected-strings pull engine ============
+// One requestAnimationFrame loop drives the hand, the strings and the
+// HIRE ME button together, like the reel: the hand pulls LEFT, the strings
+// (redrawn every frame as curves from the fingertips to the button's left
+// edge) go taut and drag the button toward the hand on a spring, then the
+// pull releases and everything eases back. When slack, the strings sag —
+// the lowest one droops the most, as in the reel.
 const btn = document.getElementById('hireBtn');
 const stringsSvg = document.getElementById('stringsSvg');
-btn.addEventListener('pointerdown', () => {
-  stage.classList.remove('tug');
-  void stage.offsetWidth;
-  stage.classList.add('tug');
-  setTimeout(() => stage.classList.remove('tug'), 480);
-});
+const handSvg = stage.querySelector('svg.hand');
+const stringPaths = stringsSvg.querySelectorAll('.str-line');
+// fingertip anchors as fractions of the hand box (from the hand artwork)
+const FINGERS = [[.972, .323], [.983, .415], [.939, .523], [.839, .631]];
+// tie points down the button's left edge
+const TIES = [.30, .45, .60, .75];
+const SAGS = [12, 18, 30, 48];
+let base = null;
+function measure() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  stringsSvg.setAttribute('width', w);
+  stringsSvg.setAttribute('height', h);
+  stringsSvg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+  const hw = handSvg.offsetWidth, hh = handSvg.offsetHeight;
+  const bw = btn.offsetWidth, bh = btn.offsetHeight;
+  base = {
+    handX: handSvg.offsetLeft, handY: handSvg.offsetTop, hw, hh,
+    // the button's layout box is centred on its left/top by translate(-50%,-50%)
+    btnLeft: btn.offsetLeft - bw / 2, btnTop: btn.offsetTop - bh / 2, bw, bh
+  };
+}
+measure();
+window.addEventListener('resize', measure);
+window.addEventListener('load', measure);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
-// drag-to-pull: grab the button, stretch the strings, release past the
-// threshold and it snaps you down to the hiring section
+const smooth = x => { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+function pullCurve(t) {
+  if (t < .34) return smooth(t / .34);          // pull in
+  if (t < .56) return 1;                        // hold, fully taut
+  if (t < .92) return 1 - smooth((t - .56) / .36); // release
+  return 0;                                     // rest
+}
+let bx = 0, bv = 0, by = 0;                     // button spring state
 let drag = null, suppressClick = false;
+
+function drawPull(now, p, dragDX) {
+  if (!base) return;
+  const dragging = dragDX !== null;
+  const taut = dragging ? Math.min(1, Math.abs(dragDX) / 110) : p;
+  // hand: pulls left (toward itself), slight dip; gentle bob while idle
+  const hx = -48 * p + (dragging ? dragDX * .22 : 0);
+  const hy = 7 * p + Math.sin(now / 1500) * 2.2 * (1 - p);
+  handSvg.style.transform = 'translate(' + hx + 'px,' + hy + 'px)';
+  // button: spring toward the pulled position so it lags, then overshoots
+  const targetX = dragging ? dragDX : -34 * p;
+  bv += (targetX - bx) * .075;
+  bv *= .70;
+  bx += bv;
+  by += (((dragging ? 0 : 5 * p)) - by) * .06;
+  const rot = bx * .028;
+  btn.style.transform = 'translate(-50%,-50%) translate(' + bx + 'px,' + by + 'px) rotate(' + rot + 'deg)';
+  const glow = Math.max(p, taut, Math.min(1, Math.abs(bx) / 40));
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  btn.style.boxShadow = '0 0 0 3px var(--paper),0 0 0 ' + (5.5 + glow * 1.2) + 'px var(--red),' +
+    '14px 16px 0 ' + (dark ? 'rgba(0,0,0,.5)' : 'rgba(22,20,16,.16)') +
+    ',0 0 ' + (glow * 54) + 'px rgba(227,50,36,' + (glow * .72) + ')';
+  // strings: live curves from fingertips to the button's left edge
+  for (let i = 0; i < 4; i++) {
+    const sx = base.handX + hx + FINGERS[i][0] * base.hw;
+    const sy = base.handY + hy + FINGERS[i][1] * base.hh;
+    const ex = base.btnLeft + bx;
+    const ey = base.btnTop + by + TIES[i] * base.bh;
+    const sag = SAGS[i] * (1 - .88 * taut) + Math.sin(now / 800 + i * 1.3) * 2.5 * (1 - taut);
+    const cx = (sx + ex) / 2, cy = (sy + ey) / 2 + sag;
+    stringPaths[i].setAttribute('d', 'M' + sx.toFixed(1) + ',' + sy.toFixed(1) +
+      ' Q' + cx.toFixed(1) + ',' + cy.toFixed(1) + ' ' + ex.toFixed(1) + ',' + ey.toFixed(1));
+  }
+}
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduceMotion) {
+  drawPull(0, .4, null);
+} else {
+  const CYCLE = 5200;
+  (function loop(now) {
+    const t = (now % CYCLE) / CYCLE;
+    drawPull(now, pullCurve(t), drag ? drag.dx : null);
+    requestAnimationFrame(loop);
+  })(performance.now());
+}
+
+// drag-to-pull: grab the button and pull it toward the hand (or push it
+// away) — the strings stay attached and stretch/sag live; release past
+// the threshold and it snaps you down to the hiring section.
 btn.addEventListener('pointerdown', e => {
   drag = { x0: e.clientX, dx: 0 };
   btn.setPointerCapture(e.pointerId);
 });
 btn.addEventListener('pointermove', e => {
   if (!drag) return;
-  drag.dx = Math.max(-12, Math.min(170, e.clientX - drag.x0));
-  if (Math.abs(drag.dx) > 6) {
-    stage.classList.add('dragging');
-    btn.style.translate = drag.dx + 'px 0px';
-    stringsSvg.style.transformOrigin = '16% 50%';
-    stringsSvg.style.transform = 'scaleX(' + (1 + drag.dx / 2600) + ')';
-  }
+  drag.dx = Math.max(-170, Math.min(90, e.clientX - drag.x0));
+  if (Math.abs(drag.dx) > 6) stage.classList.add('dragging');
 });
 function endDrag() {
   if (!drag) return;
   const dx = drag.dx;
   drag = null;
   stage.classList.remove('dragging');
-  btn.style.transition = 'translate .45s cubic-bezier(.2,1.6,.4,1)';
-  stringsSvg.style.transition = 'transform .45s cubic-bezier(.2,1.6,.4,1)';
-  btn.style.translate = '';
-  stringsSvg.style.transform = '';
-  setTimeout(() => { btn.style.transition = ''; stringsSvg.style.transition = ''; }, 480);
-  if (dx > 90) {
+  if (dx < -95 || dx > 85) {
     suppressClick = true;
     document.getElementById('hire').scrollIntoView({ behavior: 'smooth' });
   } else if (Math.abs(dx) > 6) {
