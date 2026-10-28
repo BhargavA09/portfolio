@@ -12,6 +12,10 @@
 <meta property="og:url" content="https://bharg-patel.vercel.app/">
 <meta property="og:image" content="https://bharg-patel.vercel.app/assets/hero-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://bharg-patel.vercel.app/">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Bhargav Patel","jobTitle":"Full-Stack Software Engineer","url":"https://bharg-patel.vercel.app/","email":"mailto:bhrgavpatel04@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Windsor","addressRegion":"ON","addressCountry":"CA"},"alumniOf":{"@type":"CollegeOrUniversity","name":"University of Windsor"},"sameAs":["https://linkedin.com/in/bhrgavpatel","https://github.com/BhargavA09"],"knowsAbout":["React","Node.js","TypeScript",".NET","C#","SQL","WebSockets","Google Gemini"]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -125,6 +129,49 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
 .reveal.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
+/* ── POLISH ── */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--terra),#ffd9a8);z-index:60}
+#heroVideo{animation:kenburns 28s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+.hero-body>*{animation:rise .9s cubic-bezier(.2,.7,.25,1) both}
+.hero-body>*:nth-child(2){animation-delay:.12s}
+.hero-body>*:nth-child(3){animation-delay:.24s}
+.hero-body>*:nth-child(4){animation-delay:.36s}
+.hero-body>*:nth-child(5){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.stat,.skill-card,.t-card{transition:transform .25s ease,box-shadow .25s ease}
+.stat:hover,.skill-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(94,42,22,.13)}
+.t-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(94,42,22,.12)}
+.proj{transition:transform .25s ease,box-shadow .25s ease}
+.proj:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(94,42,22,.14)}
+.tags span{transition:background .2s,color .2s}
+.tags span:hover{background:var(--terra);color:var(--cream)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:4px}
+
+/* ── FEATURED STRIP ── */
+.qt-strip{background:#221206;color:var(--cream);padding:clamp(44px,6vw,64px) clamp(20px,4vw,54px);border-top:1px solid rgba(253,246,236,.08)}
+.qt-inner{max-width:1120px;margin:0 auto;display:flex;gap:36px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.qt-eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;color:#7ee2a8;margin-bottom:10px}
+.qt-title{font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);font-weight:600;line-height:1.2;max-width:520px}
+.qt-title em{font-style:italic;color:#ffd9a8}
+.qt-stats{display:flex;gap:clamp(20px,3.4vw,44px);flex-wrap:wrap}
+.qt-stat b{font-family:var(--serif);font-size:26px;font-weight:700;color:#ffd9a8;display:block}
+.qt-stat span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--cream-dim)}
+.qt-cta{display:flex;gap:10px;flex-wrap:wrap}
+.qt-cta .btn-primary{background:var(--terra);color:var(--cream)}
+.qt-cta .btn-ghost{border-color:rgba(253,246,236,.45);color:var(--cream)}
+.qt-cta .btn-ghost:hover{background:rgba(253,246,236,.1)}
+
+/* ── ARTICLES ── */
+.art-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:36px}
+.art-card{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:18px;padding:28px;box-shadow:0 8px 28px rgba(94,42,22,.07);display:flex;flex-direction:column;text-decoration:none;transition:transform .25s ease,box-shadow .25s ease}
+.art-card:hover{transform:translateY(-4px);box-shadow:0 16px 38px rgba(94,42,22,.13)}
+.art-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--terra);margin-bottom:12px}
+.art-card h3{font-family:var(--serif);font-size:25px;font-weight:600;color:var(--cocoa);line-height:1.2;margin-bottom:10px}
+.art-dek{font-size:14.5px;line-height:1.65;color:var(--cocoa-soft);flex:1}
+.art-meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--terra-deep);margin-top:18px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){#heroVideo,.hero-body>*{animation:none}}
+
 @media(max-width:860px){
   .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(300px,78vw);background:rgba(46,20,8,.97);backdrop-filter:blur(10px);flex-direction:column;justify-content:center;gap:26px;z-index:20;transform:translateX(100%);transition:transform .3s ease}
   .nav-links.open{transform:none}
@@ -138,6 +185,7 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
 </style>
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 
 <!-- ══════════ HERO ══════════ -->
 <header id="hero">
@@ -152,6 +200,7 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
       <a href="#about">ABOUT</a>
       <a href="#experience">EXPERIENCE</a>
       <a href="#projects">PROJECTS</a>
+      <a href="#writing">WRITING</a>
       <a href="#contact">CONTACT</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -173,6 +222,25 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
     <span class="scroll-cue">SCROLL</span>
   </div>
 </header>
+
+<!-- ══════════ FEATURED: QUANTTRADE ══════════ -->
+<div class="qt-strip">
+  <div class="qt-inner">
+    <div>
+      <p class="qt-eyebrow">● FEATURED · LIVE IN PRODUCTION</p>
+      <p class="qt-title">QuantTrade — my AI trading intelligence platform, <em>running live</em> right now.</p>
+    </div>
+    <div class="qt-stats">
+      <div class="qt-stat"><b>Gemini AI</b><span>PREDICTIVE ANALYTICS</span></div>
+      <div class="qt-stat"><b>Monte Carlo</b><span>SIMULATION ENGINE</span></div>
+      <div class="qt-stat"><b>Real-time</b><span>WEBSOCKET PIPELINES</span></div>
+    </div>
+    <div class="qt-cta">
+      <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Open the live app</a>
+      <a href="#projects" class="btn btn-ghost">All projects</a>
+    </div>
+  </div>
+</div>
 
 <!-- ══════════ ABOUT ══════════ -->
 <section class="block" id="about">
@@ -297,6 +365,29 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
   </div>
 </section>
 
+<!-- ══════════ WRITING ══════════ -->
+<section class="block" id="writing">
+  <div class="wrap">
+    <p class="sec-eyebrow reveal">// WRITING</p>
+    <h2 class="sec-title reveal">Notes on markets <span class="accent">&amp; systems.</span></h2>
+    <p class="sec-sub reveal">Occasional essays where geopolitics, markets, and engineering meet — the same forces my QuantLab platform is built to watch.</p>
+    <div class="art-grid">
+      <a class="art-card reveal" href="articles/the-diversification-doctrine.html">
+        <p class="art-kicker">INSIGHTS · GEOPOLITICS × FINANCE</p>
+        <h3>The Diversification Doctrine</h3>
+        <p class="art-dek">Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration, only larger.</p>
+        <p class="art-meta"><span>13 OCT 2026</span><span>~7 MIN READ →</span></p>
+      </a>
+      <a class="art-card reveal" href="articles/when-wars-move-markets.html">
+        <p class="art-kicker">INSIGHTS · GEOPOLITICS × FINANCE</p>
+        <h3>When Wars Move Markets</h3>
+        <p class="art-dek">How the 2026 US–Iran war, Red Sea attacks and a sanctions war on Russian energy travelled through the world's shipping chokepoints into oil and gas prices — and from there into inflation, interest rates and growth forecasts.</p>
+        <p class="art-meta"><span>12 OCT 2026</span><span>~8 MIN READ →</span></p>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════ CONTACT ══════════ -->
 <section class="block" id="contact">
   <div class="wrap">
@@ -326,6 +417,9 @@ footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,5
   var btn=document.getElementById('menuBtn'),links=document.getElementById('navLinks');
   btn.addEventListener('click',function(){links.classList.toggle('open')});
   links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open')})});
+  var bar=document.getElementById('progress'),ticking=false;
+  function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop/max)*100:0)+'%';ticking=false}
+  window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});upd();
   var v=document.getElementById('heroVideo');
   if(v){var p=v.play();if(p&&p.catch){p.catch(function(){})}}
 })();
