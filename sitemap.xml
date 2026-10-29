@@ -11,7 +11,17 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://bharg-patel.vercel.app/articles/the-ai-agent-economy.html</loc>
+    <loc>https://bharg-patel.vercel.app/hire.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://bharg-patel.vercel.app/quanttrade.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://bharg-patel.vercel.app/netscanpro.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -24,16 +34,6 @@
     <loc>https://bharg-patel.vercel.app/articles/when-wars-move-markets.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bharg-patel.vercel.app/case-studies/quantlab.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bharg-patel.vercel.app/now.html</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://bharg-patel.vercel.app/dashboard.html</loc>

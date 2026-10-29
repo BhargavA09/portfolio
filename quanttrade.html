@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuantTrade — Case Study · Bhargav Patel</title>
+<meta name="description" content="Case study: QuantLab / QuantTrade — an AI-driven trading intelligence platform built end to end by Bhargav Patel. React 19, TypeScript, Node.js, Google Gemini, WebSockets, Monte Carlo simulation. Live in production.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QuantTrade — Case Study · Bhargav Patel">
+<meta property="og:description" content="An AI trading intelligence platform architected end to end: real-time WebSocket pipelines, a Monte Carlo engine, and Gemini-powered analytics. Live in production.">
+<meta property="og:url" content="https://bharg-patel.vercel.app/quanttrade.html">
+<meta property="og:image" content="https://bharg-patel.vercel.app/og-image.png">
+<link rel="canonical" href="https://bharg-patel.vercel.app/quanttrade.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b45f36'/%3E%3Ctext x='14' y='44' font-family='Georgia,serif' font-size='34' font-weight='bold' fill='%23fdf6ec'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--terra:#b45f36;--terra-deep:#8a3f22;--terra-dark:#5e2a16;--cream:#fdf6ec;--cream-dim:rgba(253,246,236,.78);--cream-faint:rgba(253,246,236,.55);--paper:#f8f0e1;--cocoa:#2b1a12;--cocoa-soft:#5a4030;--serif:'Fraunces',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--sans);background:var(--paper);color:var(--cocoa)}
+::selection{background:var(--terra);color:var(--cream)}
+a:focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:4px}
+.topbar{background:var(--terra-dark);padding:18px clamp(20px,4vw,54px)}
+.topbar .in{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.wordmark{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--cream);text-decoration:none}
+.wordmark .dot{color:#ffd9a8}
+.topbar nav a{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--cream-dim);text-decoration:none;margin-left:20px}
+.topbar nav a:hover{color:var(--cream)}
+.band{background:linear-gradient(135deg,#12312b,#0d5c46);color:var(--cream);padding:clamp(54px,7vw,84px) clamp(20px,4vw,54px)}
+.wrap{max-width:1120px;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#7ee2a8;margin-bottom:14px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-.01em}
+.lede{font-size:clamp(16px,2vw,19px);line-height:1.65;color:var(--cream-dim);max-width:720px;margin-top:18px}
+.band-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none;padding:12px 22px;border-radius:12px;transition:transform .15s,box-shadow .15s}
+.btn-primary{background:var(--terra);color:var(--cream)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.btn-ghost{border:1.5px solid rgba(253,246,236,.45);color:var(--cream)}
+.btn-ghost:hover{background:rgba(253,246,236,.1)}
+section.block{padding:clamp(52px,7vw,84px) clamp(20px,4vw,54px)}
+.sec-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--terra);margin-bottom:14px}
+.sec-title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.4vw,46px);line-height:1.08;margin-bottom:18px}
+.sec-title .accent{font-style:italic;color:var(--terra-deep)}
+.body-text{font-size:16.5px;line-height:1.75;color:var(--cocoa-soft);max-width:760px}
+.body-text p{margin-bottom:16px}
+.body-text strong{color:var(--cocoa)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:8px}
+.fact{background:#fff;border:1px solid rgba(180,95,54,.25);border-radius:16px;padding:20px;box-shadow:0 6px 24px rgba(94,42,22,.07)}
+.fact b{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--terra);display:block;margin-bottom:8px}
+.fact span{font-size:15px;line-height:1.5;color:var(--cocoa)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:30px}
+.feat-card{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:18px;padding:26px;box-shadow:0 8px 28px rgba(94,42,22,.07)}
+.feat-card h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:9px}
+.feat-card p{font-size:14.5px;line-height:1.7;color:var(--cocoa-soft)}
+.arch{background:#221206;color:var(--cream);border-radius:18px;padding:28px;font-family:var(--mono);font-size:13.5px;line-height:1.9;overflow-x:auto;margin-top:26px;white-space:pre}
+.arch .hl{color:#ffd9a8}.arch .gr{color:#7ee2a8}
+.cta{background:linear-gradient(150deg,var(--terra-deep),var(--terra-dark));color:var(--cream);text-align:center;padding:clamp(52px,7vw,80px) clamp(20px,4vw,54px)}
+.cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.6vw,48px);margin-bottom:14px}
+.cta p{color:var(--cream-dim);font-size:16px;line-height:1.6;max-width:560px;margin:0 auto}
+.cta .band-btns{justify-content:center}
+.cta .btn-primary{background:var(--cream);color:var(--terra-dark)}
+footer{background:#3a1c0e;color:var(--cream-faint);padding:30px clamp(20px,4vw,54px);font-family:var(--mono);font-size:12px;letter-spacing:.06em}
+.foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+.foot-inner a{color:var(--cream-dim);text-decoration:none;margin-left:18px}
+.foot-inner a:hover{color:var(--cream)}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <a class="wordmark" href="index.html"><b>▪</b> Bhargav Patel<span class="dot">.</span></a>
+  <nav><a href="index.html#projects">← ALL PROJECTS</a><a href="hire.html">HIRE ME</a></nav>
+</div></div>
+
+<header class="band"><div class="wrap">
+  <p class="eyebrow">● CASE STUDY · LIVE IN PRODUCTION</p>
+  <h1>QuantLab / QuantTrade</h1>
+  <p class="lede">An AI-driven trading intelligence platform I architected end to end — database, API, and UI. It turns real-time market data into decision-ready views: predictive analytics, Monte Carlo risk simulation, and market-regime awareness in one terminal.</p>
+  <div class="band-btns">
+    <a class="btn btn-primary" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Open the live app</a>
+    <a class="btn btn-ghost" href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener">⌨ GitHub repo</a>
+  </div>
+</div></header>
+
+<section class="block"><div class="wrap">
+  <div class="facts">
+    <div class="fact"><b>STATUS</b><span>● Live in production — deployed on Vercel, monitored around the clock</span></div>
+    <div class="fact"><b>ROLE</b><span>Independent Full-Stack Software Engineer · 2023 — present</span></div>
+    <div class="fact"><b>STACK</b><span>React 19 · TypeScript · Node.js · Google Gemini 1.5 Pro · WebSockets · SQLite · Capacitor</span></div>
+    <div class="fact"><b>PLATFORMS</b><span>Web + Android (cross-platform build)</span></div>
+  </div>
+</div></section>
+
+<section class="block" style="padding-top:0"><div class="wrap">
+  <p class="sec-eyebrow">// THE PROBLEM</p>
+  <h2 class="sec-title">Markets produce more signals <span class="accent">than a person can watch.</span></h2>
+  <div class="body-text">
+    <p>Prices, risk, and news move at the same time, across dozens of instruments. A trader's bottleneck isn't data — it's <strong>synthesis</strong>: knowing what regime the market is in, what a position's risk actually looks like, and which signals deserve attention right now.</p>
+    <p>QuantTrade is built around that bottleneck. Instead of more charts, it concentrates on three questions: <strong>What's likely to happen?</strong> (predictive analytics), <strong>What could it cost me?</strong> (Monte Carlo risk simulation), and <strong>What kind of market is this?</strong> (regime detection) — all fed by one real-time pipeline.</p>
+  </div>
+
+  <div class="feat">
+    <div class="feat-card"><h3>Real-time data pipeline</h3><p>A multi-source streaming pipeline over WebSockets, with custom caching and memory-safe SQLite persistence — built so live dashboards stay responsive without hammering upstream sources or leaking memory over long sessions.</p></div>
+    <div class="feat-card"><h3>Monte Carlo simulation engine</h3><p>A TypeScript engine that runs thousands of stochastic paths per forecast and reports outcomes with dynamic confidence intervals — risk as a distribution, not a single guessed number.</p></div>
+    <div class="feat-card"><h3>Gemini-powered analytics</h3><p>Google Gemini 1.5 Pro integrated for real-time predictive analytics and risk modeling — LLM reasoning layered on top of structured market data, not instead of it.</p></div>
+    <div class="feat-card"><h3>Neural intelligence core</h3><p>A custom analysis core that runs autonomous cycles to identify market regimes and surface alpha opportunities, so the terminal watches the market even when the trader isn't staring at it.</p></div>
+    <div class="feat-card"><h3>Shipped cross-platform</h3><p>One codebase delivered as a web app and an Android app via Capacitor — the same terminal on a desk monitor and in a pocket.</p></div>
+    <div class="feat-card"><h3>Run like production, because it is</h3><p>Deployed with GitHub auto-deploy on Vercel and watched by an automated health check — the same discipline I bring to production systems at work.</p></div>
+  </div>
+</div></section>
+
+<section class="block" style="padding-top:0"><div class="wrap">
+  <p class="sec-eyebrow">// ARCHITECTURE</p>
+  <h2 class="sec-title">How it <span class="accent">fits together.</span></h2>
+  <div class="arch">Market sources ──► <span class="hl">WebSocket pipeline</span> ──► custom cache ──► <span class="hl">SQLite</span> (memory-safe persistence)
+                                                        │
+        ┌───────────────────────────────────────────────┼────────────────────────────┐
+        ▼                                               ▼                            ▼
+ <span class="gr">Monte Carlo engine</span>                      <span class="gr">Neural intelligence core</span>        <span class="gr">Gemini 1.5 Pro</span>
+ thousands of paths,                      regime detection,               predictive analytics,
+ dynamic confidence                       autonomous cycles               risk modeling
+        └───────────────────────────────────────────────┬────────────────────────────┘
+                                                        ▼
+                                    <span class="hl">React 19 + TypeScript terminal</span>  ──►  Web + Android (Capacitor)</div>
+  <div class="body-text" style="margin-top:24px">
+    <p><strong>Why WebSockets, not polling:</strong> market data is a stream; polling wastes requests and still arrives late. <strong>Why SQLite at the edge:</strong> durable local persistence that stays memory-safe over long-running sessions. <strong>Why TypeScript end to end:</strong> one language across UI, simulation engine, and services — fewer contract bugs between layers.</p>
+  </div>
+</div></section>
+
+<div class="cta"><div class="wrap">
+  <h2>Want this kind of building on your team?</h2>
+  <p>I'm available immediately for remote roles across Canada. The fastest way to evaluate me is to run the app — the second fastest is to read the code.</p>
+  <div class="band-btns">
+    <a class="btn btn-primary" href="hire.html">Hire me — the 30-second version</a>
+    <a class="btn btn-ghost" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">↗ Live app</a>
+  </div>
+</div></div>
+
+<footer><div class="foot-inner">
+  <span>© 2026 Bhargav Patel · Windsor, Canada</span>
+  <span><a href="index.html">Home →</a><a href="netscanpro.html">Netscanpro case study →</a></span>
+</div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

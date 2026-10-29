@@ -10,8 +10,11 @@
 <meta property="og:title" content="Bhargav Patel — Full-Stack Software Engineer">
 <meta property="og:description" content="Building full-stack applications and the systems that power them. React, Node.js, TypeScript, .NET/C#. Windsor, Canada — available immediately.">
 <meta property="og:url" content="https://bharg-patel.vercel.app/">
-<meta property="og:image" content="https://bharg-patel.vercel.app/assets/hero-poster.jpg">
+<meta property="og:image" content="https://bharg-patel.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bharg-patel.vercel.app/og-image.png">
 <link rel="canonical" href="https://bharg-patel.vercel.app/">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Bhargav Patel","jobTitle":"Full-Stack Software Engineer","url":"https://bharg-patel.vercel.app/","email":"mailto:bhrgavpatel04@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Windsor","addressRegion":"ON","addressCountry":"CA"},"alumniOf":{"@type":"CollegeOrUniversity","name":"University of Windsor"},"sameAs":["https://linkedin.com/in/bhrgavpatel","https://github.com/BhargavA09"],"knowsAbout":["React","Node.js","TypeScript",".NET","C#","SQL","WebSockets","Google Gemini"]}
@@ -182,6 +185,56 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
   .proj-visual{min-height:170px}
   #heroScrim{background:linear-gradient(100deg,rgba(46,20,8,.88) 0%,rgba(46,20,8,.62) 45%,rgba(46,20,8,.25) 75%,rgba(46,20,8,.1) 100%)}
 }
+
+/* ── HERO TERMINAL ── */
+.term{margin-top:30px;max-width:560px;background:rgba(26,12,5,.78);border:1px solid rgba(253,246,236,.28);border-radius:14px;backdrop-filter:blur(8px);overflow:hidden;box-shadow:0 18px 44px rgba(26,12,5,.35)}
+.term-head{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid rgba(253,246,236,.14)}
+.term-head i{width:10px;height:10px;border-radius:50%;background:rgba(253,246,236,.35);display:block}
+.term-head i:first-child{background:#e0654a}.term-head i:nth-child(2){background:#e8b34b}.term-head i:nth-child(3){background:#7ee2a8}
+.term-head em{font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--cream-faint);margin-left:6px}
+.term-out{padding:12px 16px 4px;font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--cream);max-height:168px;overflow-y:auto}
+.term-out p{margin-bottom:5px;word-break:break-word}
+.term-out b{color:#ffd9a8;font-weight:700}
+.term-out .t-dim{color:var(--cream-dim)}
+.term-out a{color:#ffd9a8}
+.term-form{display:flex;align-items:center;gap:9px;padding:9px 16px 13px}
+.t-prompt{font-family:var(--mono);font-size:13px;color:#7ee2a8;font-weight:700}
+.term-form input{flex:1;background:none;border:none;outline:none;color:var(--cream);font-family:var(--mono);font-size:12.5px;caret-color:#ffd9a8;min-width:0}
+.term-form input::placeholder{color:rgba(253,246,236,.38)}
+
+/* ── LIVE EMBED ── */
+.embed-sec{background:#221206;color:var(--cream);padding:clamp(56px,7vw,84px) clamp(20px,4vw,54px)}
+.sec-eyebrow.light{color:#ffd9a8}
+.embed-title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.4vw,46px);line-height:1.1;margin-bottom:14px}
+.embed-title em{font-style:italic;color:#ffd9a8}
+.embed-sub{color:var(--cream-dim);font-size:15.5px;line-height:1.6;max-width:680px;margin-bottom:28px}
+.sdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#c9c2b8;vertical-align:1px;margin:0 5px 0 10px}
+.sdot.ok{background:#7ee2a8;box-shadow:0 0 9px #7ee2a8;animation:pulse 2s infinite}
+.sdot.bad{background:#e8b34b;box-shadow:0 0 9px #e8b34b}
+.embed-shell{border:1px solid rgba(253,246,236,.18);border-radius:16px;overflow:hidden;background:#160b04;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.embed-bar{display:flex;align-items:center;gap:14px;padding:11px 16px;border-bottom:1px solid rgba(253,246,236,.12);flex-wrap:wrap}
+.eb-dots{display:flex;gap:7px}
+.eb-dots i{width:10px;height:10px;border-radius:50%;background:rgba(253,246,236,.3);display:block}
+.eb-dots i:first-child{background:#e0654a}.eb-dots i:nth-child(2){background:#e8b34b}.eb-dots i:nth-child(3){background:#7ee2a8}
+.eb-url{font-family:var(--mono);font-size:12px;color:var(--cream-dim);letter-spacing:.04em;flex:1;min-width:180px}
+.eb-open{font-family:var(--mono);font-size:12px;color:#ffd9a8;text-decoration:none;letter-spacing:.06em}
+.eb-open:hover{text-decoration:underline}
+.embed-shell iframe{width:100%;height:min(600px,72vh);border:0;display:block;background:#0b1526}
+.embed-note{padding:12px 16px;font-size:13.5px;color:var(--cream-dim);border-top:1px solid rgba(253,246,236,.12)}
+.embed-note a{color:#ffd9a8}
+
+/* ── SHIPPING LOG (GITHUB) ── */
+.gh-head{margin-top:56px}
+.gh-title{font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.6vw,38px);line-height:1.1;margin-bottom:10px}
+.gh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:24px}
+.gh-card{background:#fff;border:1px solid rgba(180,95,54,.22);border-radius:16px;padding:20px 22px;box-shadow:0 6px 24px rgba(94,42,22,.06);text-decoration:none;display:block;transition:transform .25s ease,box-shadow .25s ease}
+.gh-card:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(94,42,22,.13)}
+.gh-name{font-family:var(--mono);font-size:14.5px;font-weight:700;color:var(--terra-deep);margin-bottom:7px}
+.gh-desc{font-size:13.5px;line-height:1.55;color:var(--cocoa-soft);margin-bottom:12px;min-height:42px}
+.gh-meta{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--terra)}
+.gh-loading{font-family:var(--mono);font-size:12.5px;color:var(--cocoa-soft)}
+footer .sdot{margin:0 5px 0 0}
+@media(max-width:860px){.embed-shell iframe{height:440px}.term-out{max-height:140px}}
 </style>
 </head>
 <body>
@@ -201,6 +254,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
       <a href="#experience">EXPERIENCE</a>
       <a href="#projects">PROJECTS</a>
       <a href="#writing">WRITING</a>
+      <a href="hire.html">HIRE ME</a>
       <a href="#contact">CONTACT</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -214,6 +268,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
     <div class="hero-badges">
       <span class="pill"><span class="live-dot"></span>AVAILABLE FOR WORK</span>
       <span class="pill">3+ YEARS</span>
+    </div>
+    <div class="term" id="term">
+      <div class="term-head"><i></i><i></i><i></i><em>bhargav@portfolio — try a command</em></div>
+      <div class="term-out" id="termOut">
+        <p><b>$</b> whoami</p>
+        <p class="t-dim">Bhargav Patel — full-stack engineer, Windsor, ON. Type <b>help</b> and hit Enter.</p>
+      </div>
+      <form class="term-form" id="termForm">
+        <span class="t-prompt">$</span>
+        <input id="termIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="help · skills · projects · quanttrade · contact · resume" aria-label="Terminal command input">
+      </form>
     </div>
   </div>
 
@@ -241,6 +306,24 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
     </div>
   </div>
 </div>
+
+<!-- ══════════ LIVE EMBED: QUANTTRADE ══════════ -->
+<section class="embed-sec" id="live">
+  <div class="wrap">
+    <p class="sec-eyebrow light">// TRY IT — NO SIGN-UP</p>
+    <h2 class="embed-title">Don't take my word for it. <em>Run it.</em></h2>
+    <p class="embed-sub">This is QuantTrade itself, embedded straight from production — live dashboards and real-time data pipelines, not a screenshot.<span class="sdot" id="qtDot"></span><span id="qtStatus">checking status…</span></p>
+    <div class="embed-shell">
+      <div class="embed-bar">
+        <span class="eb-dots"><i></i><i></i><i></i></span>
+        <span class="eb-url">quant-trade-neon.vercel.app</span>
+        <a class="eb-open" href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">Open full app ↗</a>
+      </div>
+      <iframe id="qtFrame" src="https://quant-trade-neon.vercel.app" title="QuantTrade — live production app" loading="lazy"></iframe>
+      <p class="embed-note" id="qtNote" hidden>If the live preview doesn't render in your browser, the app itself is still up — <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener">open it in a new tab ↗</a></p>
+    </div>
+  </div>
+</section>
 
 <!-- ══════════ ABOUT ══════════ -->
 <section class="block" id="about">
@@ -344,6 +427,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
         <div class="tags"><span>React 19</span><span>TypeScript</span><span>Node.js</span><span>Google Gemini 1.5 Pro</span><span>WebSockets</span><span>SQLite</span><span>Capacitor</span></div>
         <div class="proj-links">
           <a href="https://quant-trade-neon.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Live App</a>
+          <a href="quanttrade.html" class="btn btn-ghost">Case study →</a>
           <a href="https://github.com/BhargavA09/QuantTrade" target="_blank" rel="noopener" class="btn btn-ghost">⌨ GitHub Repo</a>
         </div>
       </div>
@@ -358,10 +442,20 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
         <div class="tags"><span>Vite</span><span>React</span><span>Tailwind CSS</span><span>Data Visualization</span></div>
         <div class="proj-links">
           <a href="https://netscanpro.vercel.app" target="_blank" rel="noopener" class="btn btn-primary">↗ Live App</a>
+          <a href="netscanpro.html" class="btn btn-ghost">Case study →</a>
           <a href="https://github.com/BhargavA09/Netscanpro" target="_blank" rel="noopener" class="btn btn-ghost">⌨ GitHub Repo</a>
         </div>
       </div>
     </article>
+
+    <div class="gh-head reveal">
+      <p class="sec-eyebrow">// SHIPPING LOG</p>
+      <h3 class="gh-title">Fresh off the keyboard</h3>
+      <p class="sec-sub">Pulled live from GitHub, in this browser, just now — the repos I've pushed to most recently.</p>
+    </div>
+    <div class="gh-grid" id="ghGrid">
+      <p class="gh-loading">Loading recent activity from GitHub…</p>
+    </div>
   </div>
 </section>
 
@@ -406,7 +500,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
 <footer>
   <div class="foot-inner">
     <span>© 2026 Bhargav Patel · Windsor, Canada</span>
-    <span><a href="trek.html">Take the 3D trek →</a><a href="classic.html">Classic version →</a></span>
+    <span><span class="sdot" id="qtDot2"></span><span id="qtStatus2">QuantTrade status: checking…</span></span>
+    <span><a href="hire.html">For recruiters →</a><a href="trek.html">Take the 3D trek →</a><a href="classic.html">Classic version →</a></span>
   </div>
 </footer>
 
@@ -422,6 +517,75 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--terra);outline-offs
   window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(upd)}},{passive:true});upd();
   var v=document.getElementById('heroVideo');
   if(v){var p=v.play();if(p&&p.catch){p.catch(function(){})}}
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+(function(){
+  /* ── QuantTrade live status ── */
+  var QT='https://quant-trade-neon.vercel.app';
+  function setStatus(ok){
+    [['qtDot','qtStatus'],['qtDot2','qtStatus2']].forEach(function(pair){
+      var dot=document.getElementById(pair[0]),txt=document.getElementById(pair[1]);
+      if(dot){dot.classList.add(ok?'ok':'bad')}
+      if(txt){txt.textContent = pair[0]==='qtDot' ? (ok?'QuantTrade is live right now':'QuantTrade did not answer from this browser') : ('QuantTrade status: '+(ok?'live':'unreachable from here'));}
+    });
+  }
+  var done=false;
+  var timer=setTimeout(function(){if(!done){done=true;setStatus(false)}},7000);
+  fetch(QT,{mode:'no-cors',cache:'no-store'}).then(function(){if(!done){done=true;clearTimeout(timer);setStatus(true)}}).catch(function(){if(!done){done=true;clearTimeout(timer);setStatus(false)}});
+  var frame=document.getElementById('qtFrame'),note=document.getElementById('qtNote'),frameLoaded=false;
+  if(frame){frame.addEventListener('load',function(){frameLoaded=true});setTimeout(function(){if(!frameLoaded&&note){note.hidden=false}},8000);}
+
+  /* ── GitHub shipping log ── */
+  var grid=document.getElementById('ghGrid');
+  function rel(t){var s=(Date.now()-new Date(t).getTime())/1000;if(s<3600)return Math.max(1,Math.floor(s/60))+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';var d=Math.floor(s/86400);return d+(d===1?' day ago':' days ago')}
+  if(grid){
+    fetch('https://api.github.com/users/BhargavA09/repos?sort=pushed&per_page=3').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(repos){
+      grid.innerHTML='';
+      repos.forEach(function(repo){
+        var a=document.createElement('a');a.className='gh-card reveal in';a.href=repo.html_url;a.target='_blank';a.rel='noopener';
+        var n=document.createElement('div');n.className='gh-name';n.textContent=repo.name;
+        var d=document.createElement('p');d.className='gh-desc';d.textContent=repo.description||'—';
+        var m=document.createElement('p');m.className='gh-meta';m.textContent=((repo.language||'CODE')+' · PUSHED '+rel(repo.pushed_at)).toUpperCase();
+        a.appendChild(n);a.appendChild(d);a.appendChild(m);grid.appendChild(a);
+      });
+    }).catch(function(){
+      grid.innerHTML='';
+      var p=document.createElement('p');p.className='gh-loading';p.textContent='GitHub did not answer just now — the work itself is at github.com/BhargavA09';
+      grid.appendChild(p);
+    });
+  }
+
+  /* ── Hero terminal ── */
+  var form=document.getElementById('termForm'),input=document.getElementById('termIn'),out=document.getElementById('termOut');
+  if(form&&input&&out){
+    var CMDS={
+      help:'Commands: whoami · skills · experience · projects · quanttrade · writing · contact · resume · clear',
+      whoami:'Bhargav Patel — full-stack software engineer, Windsor, Ontario. M.Eng, University of Windsor. Available immediately, remote across Canada.',
+      skills:'React 19 · TypeScript · Node.js · .NET/C# · SQL Server · WebSockets · Docker · Azure/AWS · Google Gemini',
+      experience:'3+ years: QuantLab (independent, 2023—now) · IT Systems Manager, McDonald\u2019s Windsor (2023—now) · Edukite Learning · Techie Computer. Full timeline: scroll to #experience',
+      projects:'QuantTrade — AI trading intelligence platform, live in production (type: quanttrade). Netscanpro — threat-intelligence dashboard, also live. Case studies are linked from #projects.',
+      quanttrade:'QuantTrade: real-time WebSocket data pipelines, a Monte Carlo simulation engine (thousands of stochastic paths), and Gemini-powered analytics. It is embedded live further down this page — or open quant-trade-neon.vercel.app',
+      writing:'Essays where markets, geopolitics and engineering meet — see #writing: "The Diversification Doctrine" and "When Wars Move Markets".',
+      contact:'Email: bhrgavpatel04@gmail.com · LinkedIn: linkedin.com/in/bhrgavpatel · Recruiters: see the HIRE ME page (hire.html).',
+      about:'Engineer first, operator always. I keep production systems at 99.9% uptime by day and build AI platforms by night.'
+    };
+    function line(text,dim){
+      var p=document.createElement('p');if(dim)p.className='t-dim';p.textContent=text;out.appendChild(p);out.scrollTop=out.scrollHeight;
+    }
+    form.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var raw=input.value.trim();if(!raw)return;
+      var cmd=raw.toLowerCase();
+      var p=document.createElement('p');var b=document.createElement('b');b.textContent='$';p.appendChild(b);p.appendChild(document.createTextNode(' '+raw));out.appendChild(p);
+      input.value='';
+      if(cmd==='clear'){out.innerHTML='';return}
+      if(cmd==='resume'){line('Opening résumé (resume.pdf)…',true);window.open('resume.pdf','_blank');out.scrollTop=out.scrollHeight;return}
+      if(CMDS[cmd]){line(CMDS[cmd],true)}
+      else{line('No such command: "'+raw+'" — try "help".',true)}
+    });
+  }
 })();
 </script>
 </body>
