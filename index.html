@@ -243,7 +243,7 @@ footer .sdot{margin:0 5px 0 0}
 <!-- ══════════ HERO ══════════ -->
 <header id="hero">
   <video id="heroVideo" autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-hidden="true">
-    <source src="assets/hero-character.mp4" type="video/mp4">
+    <source data-src="assets/hero-character.mp4" type="video/mp4">
   </video>
   <div id="heroScrim" aria-hidden="true"></div>
 
@@ -609,5 +609,5 @@ footer .sdot{margin:0 5px 0 0}
   }
 })();
 </script>
-</body>
+<script>window.addEventListener('load',function(){var v=document.getElementById('heroVideo');if(!v)return;var s=v.querySelector('source[data-src]');if(s){s.src=s.getAttribute('data-src');s.removeAttribute('data-src');}v.load();var p=v.play();if(p&&p.catch){p.catch(function(){});}});</script></body>
 </html>
