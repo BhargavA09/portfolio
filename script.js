@@ -276,10 +276,10 @@ document.querySelectorAll('.modal-case').forEach(c => {
   const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
   const CMDS = {
     help: () => 'available commands: <span class="t-green">whoami</span> <span class="t-green">skills</span> <span class="t-green">projects</span> <span class="t-green">experience</span> <span class="t-green">contact</span> <span class="t-green">hire</span> <span class="t-green">clear</span> <span class="t-green">exit</span>',
-    whoami: () => '<span class="t-cyan">Bhargav Patel</span> — Full-Stack Software Engineer\nWindsor, Ontario, Canada · M.Eng, University of Windsor\n3+ years across React, Node.js, TypeScript, .NET/C#, Python, SQL',
+    whoami: () => '<span class="t-cyan">Bhargav Patel</span> — Full-Stack Software Engineer\nLeamington, Ontario, Canada · M.Eng, University of Windsor\n3+ years across React, Node.js, TypeScript, .NET/C#, Python, SQL',
     skills: () => 'languages:  C#, TypeScript, JavaScript, Python, SQL\nbackend:    ASP.NET Core, Node.js, Express, REST, microservices, WebSockets\nfrontend:   React 19, Tailwind CSS, Vite\ncloud:      Azure, AWS, Docker, GitHub Actions, Vercel\nai:         Google Gemini, RAG, prompt engineering',
     projects: () => '<span class="t-cyan">QuantLab</span> — AI trading intelligence platform · live: quant-trade-neon.vercel.app\n<span class="t-cyan">Netscanpro</span> — threat-intel dashboard · live: netscanpro.vercel.app\ntype a project name? try <span class="t-green">projects</span> again on the page — click a card for the case study.',
-    experience: () => '2023–now   Independent Full-Stack Engineer — QuantLab platform\n2023–now   IT Systems Manager & Operations Lead — McDonald\u2019s, Windsor (99.9% uptime)\n2020–2021   Full-Stack Software Engineer — Edukite Learning\n2019–2020   Full-Stack Software Engineer — Techie Computer',
+    experience: () => '2023–now   Independent Full-Stack Engineer — QuantLab platform\n2023–now   Department Manager (IT Systems & Operations) — Bulls Market Inc, Windsor (99.9% uptime)\n2020–2021   Full-Stack Software Engineer — Edukite Learning\n2019–2020   Full-Stack Software Engineer — Techie Computer',
     contact: () => 'email:    bhrgavpatel04@gmail.com\nphone:    +1 (647) 857-9456\nlinkedin: linkedin.com/in/bhrgavpatel\ngithub:   github.com/BhargavA09',
     hire: () => '<span class="t-green">Status: available immediately.</span>\nRemote across Canada, or on-site / hybrid anywhere in Ontario.\nScroll to the contact section or type <span class="t-green">contact</span>.'
   };
