@@ -29,7 +29,7 @@
     },
     mcdonalds: {
       period: "May 2023—Present",
-      text: "IT Systems Manager & Operations Lead at McDonald's Windsor. He owns POS/database integrations and SQL automation, keeping 99.9% uptime across 1000+ daily transactions."
+      text: "Department Manager (IT Systems & Operations) at Bulls Market Inc in Windsor. He owns POS/database integrations and SQL automation, keeping 99.9% uptime across 1000+ daily transactions."
     },
     edukite: {
       period: "Nov 2020—Nov 2021",
@@ -40,7 +40,7 @@
       text: "At Techie Computer he built 12+ full-stack e-commerce apps that drove $500K+ in client revenue."
     },
     education: "M.Eng in Electrical & Computer Engineering from the University of Windsor (2022—2023), and a B.Eng in Computer Engineering from Gujarat Technological University.",
-    location: "Bhargav is based in Windsor, ON. He is open to remote roles across Canada and is available immediately.",
+    location: "Bhargav is based in Leamington, ON. He is open to remote roles across Canada and is available immediately.",
     email: "bhrgavpatel04@gmail.com",
     phone: "+1 (647) 857-9456",
     linkedin: "https://linkedin.com/in/bhrgavpatel",
@@ -114,13 +114,13 @@
       case "quantlab":
         return "<strong>QuantLab</strong> (" + KB.quantlab.period + "): " + KB.quantlab.text + ' It\'s live at <a href="' + KB.quantlab.live + '" target="_blank" rel="noopener">' + KB.quantlab.label + "</a>.";
       case "mcdonalds":
-        return "<strong>McDonald's Windsor</strong> (" + KB.mcdonalds.period + "): " + KB.mcdonalds.text;
+        return "<strong>Bulls Market Inc in Windsor</strong> (" + KB.mcdonalds.period + "): " + KB.mcdonalds.text;
       case "edukite":
         return "<strong>Edukite Learning</strong> (" + KB.edukite.period + "): " + KB.edukite.text;
       case "techie":
         return "<strong>Techie Computer</strong> (" + KB.techie.period + "): " + KB.techie.text;
       case "experience":
-        return "Quick tour: <strong>QuantLab</strong> (2023—Present) — AI trading platform, architected end to end; <strong>McDonald's Windsor</strong> (2023—Present) — IT Systems Manager & Operations Lead; <strong>Edukite Learning</strong> (2020—2021) — web developer & UI tester; <strong>Techie Computer</strong> (2019—2020) — 12+ e-commerce apps. Want detail on any of them?";
+        return "Quick tour: <strong>QuantLab</strong> (2023—Present) — AI trading platform, architected end to end; <strong>Bulls Market Inc in Windsor</strong> (2023—Present) — Department Manager (IT Systems & Operations); <strong>Edukite Learning</strong> (2020—2021) — web developer & UI tester; <strong>Techie Computer</strong> (2019—2020) — 12+ e-commerce apps. Want detail on any of them?";
       case "education":
         return "Education: " + KB.education;
       case "location":
