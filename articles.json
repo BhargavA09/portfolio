@@ -1,7 +1,16 @@
 [
   {
+    "date": "2026-10-31",
+    "dek": "QuantTrade already had prices, a Monte Carlo engine, and an LLM. What it didn’t have was the company’s own words, filed under oath. On 31 October 2026 I wired in SEC EDGAR — here’s why, what it took, and what it changed.",
+    "kicker": "ENGINEERING NOTES · QUANTTRADE",
+    "readTime": "~4 min read",
+    "slug": "writing-sec-edgar",
+    "title": "Ground Truth: Bringing SEC EDGAR Into QuantTrade",
+    "url": "writing-sec-edgar.html"
+  },
+  {
     "date": "14 Oct 2026",
-    "dek": "AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. Here is what that changes about who does what, who gets paid, and who carries the risk.",
+    "dek": "AI has crossed from answering questions to doing work — using tools, keeping memory, and iterating in planning loops. Here is what that changes about who does what, who gets paid, and who carries risk.",
     "kicker": "INSIGHTS · AI × ECONOMICS",
     "readTime": "~7 min read",
     "slug": "the-ai-agent-economy",
@@ -10,7 +19,7 @@
   },
   {
     "date": "13 Oct 2026",
-    "dek": "Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration, only larger.",
+    "dek": "Why spreading investments across geographies and sectors protects personal wealth — and why nations that concentrate their economies in one commodity or one customer pay the same price for concentration.",
     "kicker": "INSIGHTS · GEOPOLITICS × FINANCE",
     "readTime": "~7 min read",
     "slug": "the-diversification-doctrine",
@@ -19,7 +28,7 @@
   },
   {
     "date": "12 Oct 2026",
-    "dek": "How the 2026 US–Iran war, Red Sea attacks and a sanctions war on Russian energy travelled through the world's shipping chokepoints into oil and gas prices — and from there into inflation, interest rates and growth forecasts.",
+    "dek": "How the 2026 US–Iran war, Red Sea attacks and a sanctions war on Russian energy travelled through the world’s shipping chokepoints into oil and gas prices — and from there into inflation, interest rates and everyday costs.",
     "kicker": "INSIGHTS · GEOPOLITICS × FINANCE",
     "readTime": "~8 min read",
     "slug": "when-wars-move-markets",
